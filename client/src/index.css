@@ -31,5 +31,21 @@ code {
 
 .wsuLogo {
   width: 20%;
-  height: auto;
+}
+
+.leaflet-container {
+  height: 100vh;
+  width: 35vw;
+  position: fixed;
+  right: 0;
+  top: 4.8rem;
+}
+
+.homepageContainer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.homepage {
+  min-height: 100vh;
 }
