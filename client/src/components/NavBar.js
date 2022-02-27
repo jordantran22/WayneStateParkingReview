@@ -1,34 +1,31 @@
 import React from 'react';
-import wsu_logo from '../images/wsuLogo.png';
+// import wsu_logo from '../images/wsuLogo.png';
+import SearchBar from './SearchBar';
 
 const NavBar = () => {
-  return (
-    <div>
-
+    return (
         <div>
-            
-            <ul className="navbar">
-                {/* <li>
-                    <img className="wsuLogo" src={wsu_logo} alt="logo"/>
-                </li> */}
 
-                <li className="navbarTab">
-                    Home
-                </li>
+            <div>
 
-                <li className="navbarTab">
-                    Parking Structures
-                </li>
+                <ul className="navbar">
+                    <li className="nav-item ff-condensed fw-bold">
+                        <a href="index" class="site-logo">WSU Parking</a>
+                    </li>
 
-                <li className="navbarTab">
-                    Reviews
-                </li>
-            </ul>
+                    <li className="nav-item">
+                        <SearchBar />
+                    </li>
+
+                    <li className="nav-item ff-condensed fw-bold">
+                        Sign In
+                    </li>
+                </ul>
+            </div>
+
+
         </div>
-
-
-    </div>
-  )
+    )
 };
 
 export default NavBar;
