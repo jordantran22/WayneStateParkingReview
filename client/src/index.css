@@ -176,7 +176,10 @@ button:focus, input:focus {
 /* page specific */
 }
 
+/* 
+commented this out for now
+
 .homepage {
   display: grid;
   grid-template-columns: 20% 1.25fr 1fr;
-}
+} */
