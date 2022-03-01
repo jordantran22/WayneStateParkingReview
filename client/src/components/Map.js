@@ -15,6 +15,41 @@ const Map = () => {
                         Parking Structure 1
                     </Popup>
                 </Marker>
+                <Marker position={[42.356515,-83.073742]}>
+                    <Popup>
+                        Parking Structure 2
+                    </Popup>
+                </Marker>
+                <Marker position={[42.357561,-83.063282]}>
+                    <Popup>
+                        Parking Structure 3
+                    </Popup>
+                </Marker>
+                <Marker position={[42.355912,-83.055128]}>
+                    <Popup>
+                        Parking Structure 4
+                    </Popup>
+                </Marker>
+                <Marker position={[42.358132,-83.074188]}>
+                    <Popup>
+                        Parking Structure 5
+                    </Popup>
+                </Marker>
+                <Marker position={[42.356903,-83.066474]}>
+                    <Popup>
+                        Parking Structure 6
+                    </Popup>
+                </Marker>
+                <Marker position={[42.349030,-83.057054]}>
+                    <Popup>
+                        Parking Structure 7
+                    </Popup>
+                </Marker>
+                <Marker position={[42.353747,-83.063791]}>
+                    <Popup>
+                        Parking Structure 8
+                    </Popup>
+                </Marker>
             </MapContainer>
         </div>
     )

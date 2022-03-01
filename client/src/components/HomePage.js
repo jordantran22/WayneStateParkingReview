@@ -12,9 +12,9 @@ const HomePage = () => {
         <div className="homepageContainer">
 
           <div className="parkingStructuresContainer">
+          <h1>Parking Structures!</h1>
             {
               parkingStructuresData.map((structure) => {
-                //console.log(structure);
                 return(
                   <ParkingStructureTab structure={structure}/>
                 )

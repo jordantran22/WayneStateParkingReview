@@ -135,7 +135,7 @@ button:focus, input:focus {
 /* map */
 .leaflet-container {
   height: 100vh;
-  width: 35vw;
+  width: 40vw;
   position: fixed;
   right: 0;
   top: 4.8rem;
@@ -143,6 +143,7 @@ button:focus, input:focus {
 
 .parkingStructuresContainer {
   margin-top: 5rem;
+  margin-left: 2rem;
 }
 
 .parkingStructureTabContainer {
