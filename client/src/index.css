@@ -10,10 +10,12 @@
 
   --ff-regular: 'Roboto', sans-serif;
   --ff-condensed: 'Roboto Condensed', sans-serif;
+
+  --navbar-height: 67px;
 }
 
 body {
-  
+
   /* font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -22,6 +24,12 @@ body {
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior-x: none;
   overflow:auto;
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: inherit;
 }
 
 code {
@@ -29,11 +37,23 @@ code {
     monospace;
 }
 
+a {
+  color: var(--clr-WSU-dark-green);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+}
+
+a:hover {
+  color: var(--clr-WSU-light-green)
+}
+
 button {
+  cursor: pointer;
   border: none;
   margin: 0;
   text-decoration: none;
-  cursor: pointer;
+  font: inherit;
   -webkit-appearance: none;
   -moz-appearance: none;
 }
@@ -61,7 +81,35 @@ button:focus, input:focus {
   min-height: 100vh;
 }
 
+.content-container {
+  box-sizing: border-box;
+  width: 60%;
+  padding: 30px 38px 0 38px;
+  height: 100%;
+}
+
+/* primary button */
+.primaryButton {
+  background-color: var(--clr-WSU-dark-green);
+  border-radius: 2px;
+  color: white;
+  font-size: .95rem;
+  height: 37px;
+  max-width: 184px;
+  width: 100%;
+  text-align: center;
+}
+
+.primaryButton:hover {
+  background-color: var(--clr-WSU-light-green);
+}
+
 /* navbar */
+.navbar-spacer {
+  display: block;
+  width: 100%;
+  height: var(--navbar-height);
+}
 .navbar {
   align-items: center;
   box-sizing: border-box;
@@ -71,10 +119,12 @@ button:focus, input:focus {
   list-style-type: none;
   left: 0;
   margin: 0;
-  padding: .75rem 2.1875rem;
+  padding: 0 40px;
+  height: var(--navbar-height);
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .navbar button:hover {
@@ -133,15 +183,56 @@ button:focus, input:focus {
 
 /* map */
 .leaflet-container {
-  height: 100vh;
-  width: 35vw;
+  height: 100%;
+  width: 50%;
   position: fixed;
   right: 0;
-  top: 4.8rem;
+  top: var(--navbar-height);
 }
 
-.parkingStructuresContainer {
-  margin-top: 5rem;
+/* Parking Structure Info Card */
+.parkingStructureDetailCard {
+  display: flex;
+  flex-direction: row;
+  gap: 29px;
+  margin: 0 0 17px 0;
+  width: 100%;
+}
+
+.parkingStructureInfoPage {
+  min-height: 100vh;
+}
+
+.structure-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.structure-details > h1 {
+  margin: 0;
+}
+
+.structure-details > a > img {
+  display: block;
+  margin: 11px 0;
+  max-width: 350px;
+  max-height: 193px;
+  overflow: hidden;
+  width: 100%;
+  height: auto;
+}
+
+.review-count {
+  align-items: center;
+  color: var(--clr-dark-gray);
+  display: flex;
+}
+
+.structure-hours {
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  line-height: 2rem;
 }
 
 .parkingStructureTabContainer {
@@ -153,6 +244,12 @@ button:focus, input:focus {
   margin-top: 1rem;
   display: flex;
 }
+
+.parkingStructureTabContainer:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgb(87, 87, 87);
+}
+
 
 .parkingStructureTabInfo {
   text-align: left;
@@ -180,7 +277,7 @@ button:focus, input:focus {
   margin-bottom: 0.5rem;
 }
 
-/* 
+/*
 commented this out for now
 
 .homepage {
