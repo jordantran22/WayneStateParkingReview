@@ -176,6 +176,10 @@ button:focus, input:focus {
 /* page specific */
 }
 
+.parkingStructureTabDescription {
+  margin-bottom: 0.5rem;
+}
+
 /* 
 commented this out for now
 

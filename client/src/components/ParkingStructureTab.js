@@ -16,7 +16,7 @@ const ParkingStructureTab = ({structure}) => {
                 <div>{structure.address}</div>
             </div>
         
-            <div>{structure.description}</div>
+            <div className="parkingStructureTabDescription">{structure.description}</div>
             <div><span className="greenSpan">Open: </span><strong>{structure.operationHours}</strong></div>
         
         </div>
