@@ -77,6 +77,10 @@ button:focus, input:focus {
   width: 100%;
 }
 
+.navbar button:hover {
+  background-color: var(--clr-WSU-light-gold);
+}
+
 .nav-item {
   color: white;
   font-size: 1.125rem;
@@ -134,4 +138,10 @@ button:focus, input:focus {
   position: fixed;
   right: 0;
   top: 4.8rem;
+}
+
+/* page specific */
+.homepage {
+  display: grid;
+  grid-template-columns: 20% 1.25fr 1fr;
 }
