@@ -3,7 +3,6 @@ import NavBar from './NavBar';
 import Map from './Map';
 import { parkingStructuresData } from '../data/parkingStructuresData';
 import ParkingStructureTab from './ParkingStructureTab';
-import { useHistory } from "react-router-dom";
 
 const HomePage = () => {
   return (
@@ -15,7 +14,7 @@ const HomePage = () => {
           <div className="parkingStructuresContainer">
             {
               parkingStructuresData.map((structure) => {
-                console.log(structure);
+                //console.log(structure);
                 return(
                   <ParkingStructureTab structure={structure}/>
                 )

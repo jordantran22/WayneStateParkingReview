@@ -75,6 +75,7 @@ button:focus, input:focus {
   position: fixed;
   top: 0;
   width: 100%;
+  z-index: 1;
 }
 
 .navbar button:hover {
@@ -153,6 +154,12 @@ button:focus, input:focus {
   margin-top: 1rem;
   display: flex;
 }
+
+.parkingStructureTabContainer:hover {
+  cursor: pointer;
+  box-shadow: 0 5px 15px rgb(87, 87, 87);
+}
+
 
 .parkingStructureTabInfo {
   text-align: left;

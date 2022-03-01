@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactStars from 'react-stars';
-import { useNavigate } from 'react-router';
+import { useNavigate } from 'react-router'
 
 const ParkingStructureTab = ({structure}) => {
     let navigate = useNavigate();
 
     const navigateToParkingStructurePage = () => {
-        navigate('/ParkingStructurePage');
+        // navigate('/ParkingStructurePage', {state:{id:1,name:'sabaoon'}});
+         navigate('/ParkingStructurePage', {state:structure});
     }
-    
+
     return (
     <div className="parkingStructureTabContainer" onClick={() => navigateToParkingStructurePage()}>
         <img src={structure.image} />
