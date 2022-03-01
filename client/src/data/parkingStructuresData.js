@@ -16,7 +16,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$8.50",
         cash: "N/A",
-        image: "https://parking.wayne.edu/images/structure_1_in_text.jdw.111813.jpg"
+        image: "https://parking.wayne.edu/images/structure_1_in_text.jdw.111813.jpg",
+        coordinates: [42.3591, -83.0665]
     }, 
     {
         number: "2",
@@ -35,7 +36,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$8.50",
         cash: "N/A",
-        image: "https://parking.wayne.edu/images/structure_2_in_text.jdw.111813.jpg"
+        image: "https://parking.wayne.edu/images/structure_2_in_text.jdw.111813.jpg",
+        coordinates: [42.356515,-83.073742]
     },
     {
         number: "3",
@@ -54,7 +56,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$8.50",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure3.jpg"
+        image: "https://parking.wayne.edu/info/structure3.jpg",
+        coordinates: [42.357561,-83.063282]
     },
     {
         number: "4",
@@ -73,7 +76,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "N/A",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure4.jpg"
+        image: "https://parking.wayne.edu/info/structure4.jpg",
+        coordinates: [42.355912,-83.055128]
     },
     {
         number: "5",
@@ -92,7 +96,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 maximum",
         cash: "N/A",
-        image: "https://parking.wayne.edu/images/structure_5_in_text.jdw.111813.jpg"
+        image: "https://parking.wayne.edu/images/structure_5_in_text.jdw.111813.jpg",
+        coordinates: [42.358132,-83.074188]
     },
     {
         number: "6",
@@ -111,7 +116,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "Staff/student section- $9.50 Credit Card as space allows. Visitor's section- $2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 max. V",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure6.jpg"
+        image: "https://parking.wayne.edu/info/structure6.jpg",
+        coordinates: [42.356903,-83.066474]
     }, 
     {
         number: "7",
@@ -130,7 +136,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$2.00 every 20 minutes, $12 maximum. Special Event Rates may apply",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure7.jpg"
+        image: "https://parking.wayne.edu/info/structure7.jpg",
+        coordinates: [42.349030,-83.057054]
     },
     {
         number: "8",
@@ -149,7 +156,8 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 maximum.",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure7.jpg"
+        image: "https://parking.wayne.edu/info/structure7.jpg",
+        coordinates: [42.353747,-83.063791]
     }
 
 
