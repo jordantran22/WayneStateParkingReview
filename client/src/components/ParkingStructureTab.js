@@ -6,6 +6,7 @@ const ParkingStructureTab = ({structure}) => {
     let navigate = useNavigate();
 
     const navigateToParkingStructurePage = () => {
+        // navigate('/ParkingStructurePage', {state:{id:1,name:'sabaoon'}});
          navigate('/ParkingStructurePage', {state:structure});
     }
 
