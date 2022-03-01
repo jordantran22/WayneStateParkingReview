@@ -135,3 +135,38 @@ button:focus, input:focus {
   right: 0;
   top: 4.8rem;
 }
+
+.parkingStructuresContainer {
+  margin-top: 5rem;
+}
+
+.parkingStructureTabContainer {
+  width: 50vw;
+  height: auto;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 5px 15px rgb(209, 207, 207);
+  margin-top: 1rem;
+  display: flex;
+}
+
+.parkingStructureTabInfo {
+  text-align: left;
+  margin-left: 2rem;
+}
+
+.parkingStructureTitle {
+  font-size: x-large;
+  font-weight: bolder;
+}
+
+.greenSpan {
+  color: green;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+.parkingStructureTabLocationInfo {
+  margin-top: 0.25rem;
+  margin-bottom: 0.25rem;
+}
