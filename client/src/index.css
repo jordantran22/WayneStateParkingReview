@@ -77,6 +77,10 @@ button:focus, input:focus {
   width: 100%;
 }
 
+.navbar button:hover {
+  background-color: var(--clr-WSU-light-gold);
+}
+
 .nav-item {
   color: white;
   font-size: 1.125rem;
@@ -169,4 +173,10 @@ button:focus, input:focus {
 .parkingStructureTabLocationInfo {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
+/* page specific */
+}
+
+.homepage {
+  display: grid;
+  grid-template-columns: 20% 1.25fr 1fr;
 }
