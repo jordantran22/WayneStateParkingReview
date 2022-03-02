@@ -15,7 +15,6 @@
 }
 
 body {
-
   /* font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif; */
@@ -33,8 +32,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 a {
@@ -63,7 +61,31 @@ button:focus, input:focus {
   z-index: 999;
 }
 
-/* utilities */
+/* --------------------- */
+/* Layout Containers     */
+/* --------------------- */
+/*#region*/
+.content-container {
+  box-sizing: border-box;
+  width: 60vw;
+  padding: 30px 38px 0 38px;
+  height: 100%;
+}
+
+/* map */
+.leaflet-container {
+  height: 100%;
+  width: 40vw;
+  position: fixed;
+  right: 0;
+  top: var(--navbar-height);
+}
+/*#endregion*/
+
+/* --------------------- */
+/* Utilities             */
+/* --------------------- */
+/*#region*/
 .ff-condensed {
   font-family: var(--ff-condensed);
 }
@@ -71,25 +93,14 @@ button:focus, input:focus {
 .fw-bold {
   font-weight: bold;
 }
+/*#endregion*/
 
-.homepageContainer {
-  display: flex;
-  justify-content: space-between;
-}
-
-.homepage {
-  min-height: 100vh;
-}
-
-.content-container {
-  box-sizing: border-box;
-  width: 60%;
-  padding: 30px 38px 0 38px;
-  height: 100%;
-}
-
+/* --------------------- */
+/* Componenets           */
+/* --------------------- */
+/*#region*/
 /* primary button */
-.primaryButton {
+.primary-btn {
   background-color: var(--clr-WSU-dark-green);
   border-radius: 2px;
   color: white;
@@ -100,16 +111,18 @@ button:focus, input:focus {
   text-align: center;
 }
 
-.primaryButton:hover {
+.primary-btn:hover {
   background-color: var(--clr-WSU-light-green);
 }
 
 /* navbar */
-.navbar-spacer {
+/*#region*/
+.navbar__spacer {
   display: block;
   width: 100%;
   height: var(--navbar-height);
 }
+
 .navbar {
   align-items: center;
   box-sizing: border-box;
@@ -131,7 +144,7 @@ button:focus, input:focus {
   background-color: var(--clr-WSU-light-gold);
 }
 
-.nav-item {
+.navbar__item {
   color: white;
   font-size: 1.125rem;
 }
@@ -145,12 +158,15 @@ button:focus, input:focus {
 .site-logo:hover {
   color: var(--clr-WSU-light-gold);
 }
+/*#endregion*/
 
 /* searchbar */
+/*#region*/
 ::placeholder, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
   color: var(--clr-light-gray);
 }
-.search-bar {
+
+.searchbar {
   display: block;
   max-width: 336px;
   display: flex;
@@ -158,12 +174,12 @@ button:focus, input:focus {
   width: 336px;
 }
 
-.search-box {
+.searchbar__box {
   width: 100%;
   position: relative;
 }
 
-.search-box > input {
+.searchbar__box > input {
   border: 1px solid var(--clr-light-gray);
   border-radius: 2px 0px 0px 2px;
   box-sizing: border-box;
@@ -173,25 +189,18 @@ button:focus, input:focus {
   width: 100%;
 }
 
-.search-btn {
+.searchbar__btn {
   aspect-ratio: 1 / 1;
   align-items: center;
   background-color: var(--clr-WSU-dark-gold);
   display: flex;
   justify-content: center;
 }
+/*#endregion*/
 
-/* map */
-.leaflet-container {
-  height: 100vh;
-  width: 40vw;
-  position: fixed;
-  right: 0;
-  top: var(--navbar-height);
-}
-
-/* Parking Structure Info Card */
-.parkingStructureDetailCard {
+/* Parking Structure Detail Card */
+/*#region*/
+.detail-card {
   display: flex;
   flex-direction: row;
   gap: 29px;
@@ -199,20 +208,16 @@ button:focus, input:focus {
   width: 100%;
 }
 
-.parkingStructureInfoPage {
-  min-height: 100vh;
-}
-
-.structure-details {
+.detail-card__info {
   display: flex;
   flex-direction: column;
 }
 
-.structure-details > h1 {
+.detail-card__info > h1 {
   margin: 0;
 }
 
-.structure-details > a > img {
+.detail-card__info > a > img {
   display: block;
   margin: 11px 0;
   max-width: 350px;
@@ -222,25 +227,23 @@ button:focus, input:focus {
   height: auto;
 }
 
-.review-count {
+.detail-card__review-count {
   align-items: center;
   color: var(--clr-dark-gray);
   display: flex;
 }
 
-.structure-hours {
+.detail-card__hours {
   justify-content: center;
   display: flex;
   flex-direction: column;
   line-height: 2rem;
 }
+/*#endregion*/
 
-.parkingStructuresContainer {
-  margin-top: 5rem;
-  margin-left: 2rem;
-}
-
-.parkingStructureTabContainer {
+/* Parking Structure Quick View Card */
+/*#region*/
+.quick-view-card {
   width: 50vw;
   height: auto;
   padding: 2rem;
@@ -250,18 +253,17 @@ button:focus, input:focus {
   display: flex;
 }
 
-.parkingStructureTabContainer:hover {
+.quick-view-card:hover {
   cursor: pointer;
   box-shadow: 0 5px 15px rgb(87, 87, 87);
 }
 
-
-.parkingStructureTabInfo {
+.quick-view-card__info {
   text-align: left;
   margin-left: 2rem;
 }
 
-.parkingStructureTitle {
+.quick-view-card__title {
   font-size: x-large;
   font-weight: bolder;
 }
@@ -272,25 +274,34 @@ button:focus, input:focus {
   margin-top: 1rem;
 }
 
-.parkingStructureTabLocationInfo {
+.quick-view-card__address {
   margin-top: 0.25rem;
   margin-bottom: 0.25rem;
-/* page specific */
 }
 
-.parkingStructureTabDescription {
+.quick-view-card__description {
   margin-bottom: 0.5rem;
 }
+/*#endregion*/
 
-/*
-commented this out for now
+/* Modal Text Input */
+.modal-text-input{
+  width: 20vw;
+  padding: 10px 20px;
+  margin: 1rem 1rem;
+  border: 1px solid var(--clr-WSU-dark-green);
+  border-radius: 4px;
+}
 
-.homepage {
-  display: grid;
-  grid-template-columns: 20% 1.25fr 1fr;
-} */
+/* Close Modal Button */
+.close-modal-btn {
+  text-align: right;
+  font-size: larger;
+  font-weight: bolder;
+}
 
-.loginPopupContainer {
+/* Login Modal */
+.login-modal-overlay {
   display: block;
   position: fixed;
   left: 0;
@@ -303,7 +314,7 @@ commented this out for now
   background-color: rgba(0, 0, 0, 0.4);
 }
 
-.loginPopupForm {
+.login-modal {
   background-color: #fefefe;
   margin: auto;
   padding: 20px;
@@ -317,44 +328,4 @@ commented this out for now
   height: 15vh;
   width: auto;
 }
-
-.inputForLogin{
-  width: 20vw;
-  padding: 10px 20px;
-  margin: 1rem 1rem;
-  border: 1px solid var(--clr-WSU-dark-green);
-  border-radius: 4px;
-}
-
-.loginButton {
-  color: white;
-  background-color: #10594E;
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: large;
-  font-weight: bold;
-  margin-bottom: 1rem;
-}
-.loginButton:hover {
-  color: var(--clr-WSU-dark-gold)
-}
-
-.signupButton {
-  color: var(--clr-WSU-dark-green);
-  background-color: var(--clr-WSU-dark-gold);
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: large;
-  font-weight: bold;
-  margin: 1rem;
-}
-
-.signupButton:hover {
-  color: white;
-}
-
-.closeX {
-  text-align: right;
-  font-size: larger;
-  font-weight: bolder;
-}
+/*#endregion*/

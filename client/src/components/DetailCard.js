@@ -1,13 +1,12 @@
 import React from 'react';
 import ReactStars from 'react-stars';
-import { useNavigate } from 'react-router';
 
-const ParkingStructureDetailCard = ({ parkingStructureInfo }) => {
+const DetailCard = ({ parkingStructureInfo }) => {
     return (
-        <div className="parkingStructureDetailCard">
-            <div class="structure-details">
+        <div className="detail-card">
+            <div class="detail-card__info">
                 <h1>{parkingStructureInfo.name}</h1>
-                <div className='review-count'>
+                <div className='detail-card__review-count'>
                     <ReactStars count={5} edit={false} value={5} size={40} />
                     <span>58 reviews</span> {/* static placeholder */}
                 </div>
@@ -18,7 +17,7 @@ const ParkingStructureDetailCard = ({ parkingStructureInfo }) => {
                     {parkingStructureInfo.address}
                 </a>
             </div>
-            <div class="structure-hours">
+            <div class="detail-card__hours">
                 <span>Mon: </span>
                 <span>Tue: </span>
                 <span>Wed: </span>
@@ -31,4 +30,4 @@ const ParkingStructureDetailCard = ({ parkingStructureInfo }) => {
     )
 }
 
-export default ParkingStructureDetailCard
+export default DetailCard

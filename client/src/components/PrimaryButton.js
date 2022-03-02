@@ -2,7 +2,7 @@ import React from 'react';
 
 const PrimaryButton = ({text}=String, {func}=Function) => {
     return (
-        <button className='primaryButton' onClick={func}>
+        <button className='primary-btn' onClick={func}>
             {text}
         </button>
     );

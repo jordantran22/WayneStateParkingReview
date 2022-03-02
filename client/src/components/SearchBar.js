@@ -2,11 +2,11 @@ import React from 'react';
 
 const SearchBar = () => {
     return (
-        <div class="search-bar">
-            <div class="search-box">
+        <div class="searchbar">
+            <div class="searchbar__box">
                 <input id="search" maxlength="50" type="text" placeholder="Search for parking"/>
             </div>
-            <button class="search-btn">
+            <button class="searchbar__btn">
                 <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <mask id="path-1-outside-1_6_324" maskUnits="userSpaceOnUse" x="-2.41421" y="-3.31371" width="29.6985" height="29.6985" fill="black">
                         <rect fill="white" x="-2.41421" y="-3.31371" width="29.6985" height="29.6985" />

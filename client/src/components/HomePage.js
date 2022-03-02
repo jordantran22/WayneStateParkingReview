@@ -2,29 +2,25 @@ import React from 'react';
 import NavBar from './NavBar';
 import Map from './Map';
 import { parkingStructuresData } from '../data/parkingStructuresData';
-import ParkingStructureTab from './ParkingStructureTab';
+import QuickViewCard from './QuickViewCard';
 
 const HomePage = () => {
   return (
-    <div className="homepage">
-        <NavBar />
-    
-        <div className="homepageContainer">
+    <div>
+      <NavBar />
 
-          <div className="parkingStructuresContainer">
+      <div class="content-container">
           <h1>Parking Structures!</h1>
-            {
-              parkingStructuresData.map((structure) => {
-                return(
-                  <ParkingStructureTab structure={structure}/>
-                )
-              })
-            }
-          </div>
+          {
+            parkingStructuresData.map((structure) => {
+              return (
+                <QuickViewCard structure={structure} />
+              )
+            })
+          }
 
-
-          <Map />
-        </div>
+      </div>
+      <Map />
     </div>
   )
 };
