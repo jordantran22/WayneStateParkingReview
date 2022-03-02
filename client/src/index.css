@@ -322,6 +322,13 @@ h2 {
   -webkit-line-clamp: 3;
 }
 
+.quick-view-card__hours {
+  height: calc(1.125rem * 1.2 * 1);
+  line-height: 1.2;
+  max-width: 100%;
+  -webkit-line-clamp: 1;
+}
+
 .greenSpan {
   color: #028D53;
   font-weight: bold;
