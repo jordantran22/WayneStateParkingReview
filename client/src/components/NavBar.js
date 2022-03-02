@@ -15,24 +15,21 @@ const NavBar = () => {
     const [signInClicked, setSignInClicked] = useState(false);
 
     return (
-        <div>
-            <div>
-                <ul className="navbar">
+        <div className='navbar__spacer'>
+            <ul className="navbar">
 
-                    <li className="navbar__item ff-condensed fw-bold">
-                        <a href="javascript:void(0);" onClick={() => navigateToHomePage()} class="site-logo">WSU Parking</a>
-                    </li>
+                <li className="navbar__item ff-condensed fw-bold">
+                    <a href="javascript:void(0);" onClick={() => navigateToHomePage()} class="site-logo">WSU Parking</a>
+                </li>
 
-                    <li className="navbar__item">
-                        <SearchBar />
-                    </li>
+                <li className="navbar__item">
+                    <SearchBar />
+                </li>
 
-                    <li className="navbar__item ff-condensed fw-bold" onClick={() => setSignInClicked(true)}>
-                        Sign In
-                    </li>
-                </ul>
-            </div>
-            <div className='navbar__spacer'></div>
+                <li className="navbar__item ff-condensed fw-bold" onClick={() => setSignInClicked(true)}>
+                    Sign In
+                </li>
+            </ul>
 
             {
                 signInClicked &&
@@ -56,16 +53,15 @@ const NavBar = () => {
                                 <input className="modal-text-input" type="password" placeholder='Enter Password'></input>
                             </div>
 
-                            <PrimaryButton text={"Login"} func={()=>{}} />
+                            <PrimaryButton text={"Login"} func={() => { }} />
 
                             <div>Don't have an account? </div>
-                            <PrimaryButton text={"Sign Up"} func={()=>{}} />
+                            <PrimaryButton text={"Sign Up"} func={() => { }} />
                         </div>
                     </div>
                 </div>
             }
-
-
+            {/* <div className='navbar__spacer'></div> */}
         </div>
     )
 };

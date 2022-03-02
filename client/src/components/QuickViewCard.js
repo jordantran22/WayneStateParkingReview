@@ -12,21 +12,15 @@ const QuickViewCard = ({ structure }) => {
     return (
         <div className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
             <img src={structure.image} />
-
             <div className="quick-view-card__info">
-                <div className="quick-view-card__title">Parking Structure {structure.number}</div>
-                <ReactStars count={5} edit={false} value={5} size={40} />
-
-                <div className="quick-view-card__address">
-                    <strong>{structure.name}</strong>
-                    <div>{structure.address}</div>
+                <h2>Parking Structure {structure.number}</h2>
+                <div className='quick-view-card__subhead nowrap-ellipsis'>
+                    {structure.name}<br />{structure.address}
                 </div>
-
-                <div className="quick-view-card__description">{structure.description}</div>
-                <div><span className="greenSpan">Open: </span><strong>{structure.operationHours}</strong></div>
-
+                <ReactStars className={"rating"} color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={4.5} />
+                <div className="quick-view-card__description nowrap-ellipsis">{structure.description}</div>
+                <div className='quick-view-card__hours'><span className="greenSpan">Open: </span>{structure.operationHours}</div>
             </div>
-
         </div>
     )
 }
