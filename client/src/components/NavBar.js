@@ -1,9 +1,10 @@
 import React from 'react';
-// import wsu_logo from '../images/wsuLogo.png';
+import wsu_logo from '../images/wsu_logo.png';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router'
 import { useState } from 'react';
 import PrimaryButton from './PrimaryButton';
+import ModalTextInput from './ModalTextInput';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -26,8 +27,8 @@ const NavBar = () => {
                     <SearchBar />
                 </li>
 
-                <li className="navbar__item ff-condensed fw-bold" onClick={() => setSignInClicked(true)}>
-                    Sign In
+                <li className="navbar__item ff-condensed fw-bold">
+                    <button onClick={() => setSignInClicked(true)}>Sign In</button>
                 </li>
             </ul>
 
@@ -35,29 +36,17 @@ const NavBar = () => {
                 signInClicked &&
                 <div className="login-modal-overlay">
                     <div className="login-modal">
-                        <div className="close-modal-btn" onClick={() => setSignInClicked(false)}>
+                        <button className="close-modal-btn" onClick={() => setSignInClicked(false)}>
                             X
-                        </div>
+                        </button>
                         <div>
-                            <img className="wsulogo" src="https://media2.metrotimes.com/metrotimes/imager/u/original/6344372/x4pckygq_400x400.jpg" />
+                            <img src={wsu_logo} alt='wsu logo' />
                         </div>
-                        <div>
-                            <h2>WSU Parking Review!</h2>
-                            <div>Enter Email Address</div>
-                            <div>
-                                <input className="modal-text-input" type="text" placeholder='Enter Email Address'></input>
-                            </div>
+                        <ModalTextInput text="Username or email" name="username" />
+                        <ModalTextInput text="Password" name="password" />
+                        <PrimaryButton text={"Login"} func={() => { }} />
 
-                            <div>Enter Password</div>
-                            <div>
-                                <input className="modal-text-input" type="password" placeholder='Enter Password'></input>
-                            </div>
-
-                            <PrimaryButton text={"Login"} func={() => { }} />
-
-                            <div>Don't have an account? </div>
-                            <PrimaryButton text={"Sign Up"} func={() => { }} />
-                        </div>
+                        <div>Don't have an account? <a href="#">Sign Up</a></div>
                     </div>
                 </div>
             }

@@ -17,7 +17,10 @@ const QuickViewCard = ({ structure }) => {
                 <div className='quick-view-card__subhead nowrap-ellipsis'>
                     {structure.name}<br />{structure.address}
                 </div>
-                <ReactStars className={"rating"} color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={4.5} />
+                <div className='rating'>
+                    <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={4.5} />
+                    <span className='rating__count'>58</span>
+                </div>
                 <div className="quick-view-card__description nowrap-ellipsis">{structure.description}</div>
                 <div className='quick-view-card__hours nowrap-ellipsis'><span className="greenSpan">Open: </span>{structure.operationHours}</div>
             </div>

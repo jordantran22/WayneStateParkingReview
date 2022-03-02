@@ -58,7 +58,7 @@ button {
 }
 
 button:focus, input:focus {
-  outline: 2px solid #000;
+  /* outline: 2px solid #000; */
   z-index: 999;
 }
 
@@ -177,13 +177,19 @@ h2 {
   z-index: 3;
 }
 
-.navbar button:hover {
-  background-color: var(--clr-WSU-light-gold);
-}
-
 .navbar__item {
   color: white;
   font-size: 1.125rem;
+}
+
+.navbar__item > button {
+  background: none;
+  color: white;
+  font: inherit;
+}
+
+.navbar__item > button:hover {
+  color: var(--clr-WSU-light-gold);
 }
 
 .site-logo {
@@ -232,6 +238,10 @@ h2 {
   background-color: var(--clr-WSU-dark-gold);
   display: flex;
   justify-content: center;
+}
+
+.searchbar__btn:hover {
+  background-color: var(--clr-WSU-light-gold);
 }
 /*#endregion*/
 
@@ -341,51 +351,117 @@ h2 {
 /*#endregion*/
 
 /* Modal Text Input */
-.modal-text-input{
-  width: 20vw;
-  padding: 10px 20px;
-  margin: 1rem 1rem;
-  border: 1px solid var(--clr-WSU-dark-green);
-  border-radius: 4px;
+/*#region*/
+.modal-text-input {
+  position: relative;
+  max-width: 184px;
 }
+
+.modal-text-input > input {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: .95rem;
+  height: 45px;
+  padding: 1rem 8px 0;
+  width: 100%;
+}
+
+.modal-text-input > input:focus {
+  outline: none;
+  border: 1px solid var(--clr-WSU-dark-green);
+}
+
+.modal-text-input > input:focus + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > input:valid:not(:focus) + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > label {
+  color: var(--clr-dark-gray);
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 300ms ease-out;
+}
+/*#endregion*/
 
 /* Close Modal Button */
 .close-modal-btn {
-  text-align: right;
-  font-size: larger;
+  background: none;
+  padding: 5px 10px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
   font-weight: bolder;
+  font-size: 18pt;
+}
+
+.close-modal-btn:hover {
+  color: var(--clr-dark-gray);
 }
 
 /* Login Modal */
+/*region*/
 .login-modal-overlay {
-  display: block;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9999;
-  width: 100%;
+  align-items: center;
+  background-color: rgba(255, 255, 255, .86);
+  display: flex;
   height: 100%;
-  padding-top: 100px;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.4);
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
 }
 
 .login-modal {
   background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border-radius: 4px;
-  max-width: 40vw;
-  height: 60vh;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 21px 56px 28px;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  max-height: min-content;
   text-align: center;
 }
 
-.wsulogo {
-  height: 15vh;
-  width: auto;
+.login-modal > div:last-child {
+  color: var(--clr-dark-gray);
+  font-size: .8rem;
+  margin-top: 10px;
 }
 
+.login-modal > div:last-child > a {
+  font-size: .8rem;
+}
+/*endregion*/
+
+/* Stars and secondary text */
 .rating {
+  align-items: center;
+  color: var(--clr-dark-gray);
+  display: flex;
+  gap: 5px;
   z-index: 1;
   line-height: 30px;
 }
