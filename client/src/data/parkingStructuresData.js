@@ -156,7 +156,7 @@ export const parkingStructuresData = [
         },
         creditCardRate: "$2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 maximum.",
         cash: "N/A",
-        image: "https://parking.wayne.edu/info/structure7.jpg",
+        image: "http://maps.wayne.edu/images/location/96/parking-structure-8.jpg",
         coordinates: [42.353747,-83.063791]
     }
 

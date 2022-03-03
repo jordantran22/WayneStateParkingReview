@@ -14,6 +14,17 @@ const NavBar = () => {
     }
 
     const [signInClicked, setSignInClicked] = useState(false);
+    const [signUpClicked, setSignUpClicked] = useState(false);
+
+    const activateSignUpModal = () => {
+        setSignInClicked(false);
+        setSignUpClicked(true);
+    }
+
+    const activateSignInModal = () => {
+        setSignUpClicked(false);
+        setSignInClicked(true);
+    }
 
     return (
         <div className='navbar__spacer'>
@@ -46,7 +57,29 @@ const NavBar = () => {
                         <ModalTextInput text="Password" name="password" />
                         <PrimaryButton text={"Login"} func={() => { }} />
 
-                        <div>Don't have an account? <a href="#">Sign Up</a></div>
+                        <div>Don't have an account? <a onClick={() => activateSignUpModal()}>Sign Up</a></div>
+                    </div>
+                </div>
+            }
+
+{
+                signUpClicked &&
+                <div className="login-modal-overlay">
+                    <div className="login-modal">
+                        <button className="close-modal-btn" onClick={() => setSignUpClicked(false)}>
+                            X
+                        </button>
+                        <div>
+                            <img src={wsu_logo} alt='wsu logo' />
+                        </div>
+
+                        <h2>Sign Up!</h2>
+                        <ModalTextInput text="Enter Email" name="username" />
+                        <ModalTextInput text="Enter Password" name="password" />
+                        <ModalTextInput text="Confirm Password" name="password" />
+                        <PrimaryButton text={"Sign Up"} func={() => { }} />
+
+                        <div>Already have an account? </div> <a onClick={() => activateSignInModal()}>Sign In!</a>
                     </div>
                 </div>
             }
