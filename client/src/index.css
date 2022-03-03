@@ -48,6 +48,14 @@ a:hover {
   color: var(--clr-WSU-light-green)
 }
 
+a > img {
+  transition: inherit;
+}
+
+a > img:hover {
+  opacity: .8;
+}
+
 button {
   cursor: pointer;
   border: none;
@@ -101,7 +109,17 @@ h2 {
   top: var(--navbar-height);
 }
 
-@media screen and (max-width: 960px) {
+@media screen and (max-width: 1100px) {
+  .content-container {
+    width: 70%;
+  }
+
+  .leaflet-container {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 950px) {
   .content-container {
     width: 100%;
   }
@@ -124,13 +142,16 @@ h2 {
   font-weight: bold;
 }
 
-/* REQUIRES: width, height, line-height, and -webkit-line-clap to be defined */
+/* REQUIRES: --font-size, --line-height, and --num-lines, and max-width to be defined */
 .nowrap-ellipsis {
   display: block; /* Fallback for non-webkit */
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-overflow: ellipsis;
+  height: calc(var(--font-size) * var(--line-height) * var(--num-lines)); /* Fallback for non-webkit */
+  line-height: var(--line-height);
+  -webkit-line-clamp: var(--num-lines);
 }
 /*#endregion*/
 
@@ -263,10 +284,11 @@ h2 {
 }
 
 .detail-card__info > h1 {
-  margin: 0;
+  margin: 0 0 11px;
 }
 
 .detail-card__info > a > img {
+  border-radius: 5px;
   display: block;
   margin: 11px 0;
   max-width: 350px;
@@ -276,17 +298,20 @@ h2 {
   height: auto;
 }
 
-.detail-card__review-count {
-  align-items: center;
-  color: var(--clr-dark-gray);
-  display: flex;
+.detail-card__hours {
+  height: 15rem;
 }
 
-.detail-card__hours {
-  justify-content: center;
-  display: flex;
-  flex-direction: column;
-  line-height: 2rem;
+.detail-card__hours th {
+  font-weight: normal;
+}
+
+.detail-card__hours > tr > td:first-of-type {
+  padding: 0 10px;
+}
+
+.detail-card__hours .current-day {
+  font-weight: bold;
 }
 /*#endregion*/
 
@@ -318,13 +343,12 @@ h2 {
 }
 
 .quick-view-card__subhead {
+  --line-height: 1.2;
+  --num-lines: 2;
+  --font-size: 1.125rem;
   color: var(--clr-dark-gray);
-  display: block; /* Fallback for non-webkit */
   margin: 0 0 3px;
   max-width: 100%;
-  height: calc(1.125rem * 1.2 * 2); /* Fallback for non-webkit */
-  line-height: 1.2;
-  -webkit-line-clamp: 2;
 }
 
 .quick-view-card__info {
@@ -332,22 +356,22 @@ h2 {
 }
 
 .quick-view-card__description {
+  --line-height: 1.2;
+  --num-lines: 3;
+  --font-size: 1.125rem;
   color: var(--clr-dark-gray);
   margin: 0.75rem 0;
   max-width: 100%;
-  height: calc(1.125rem * 1.2 * 3); /* Fallback for non-webkit */
-  line-height: 1.2;
-  -webkit-line-clamp: 3;
 }
 
 .quick-view-card__hours {
-  height: calc(1.125rem * 1.2 * 1);
-  line-height: 1.2;
+  --line-height: 1.2;
+  --num-lines: 1;
+  --font-size: 1.125rem;
   max-width: 100%;
-  -webkit-line-clamp: 1;
 }
 
-.greenSpan {
+.green-span {
   color: #028D53;
   font-weight: bold;
 }
