@@ -41,7 +41,7 @@ a {
   text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
-  transition: 500ms;
+  transition: 300ms;
 }
 
 a:hover {
@@ -53,7 +53,7 @@ button {
   border: none;
   margin: 0;
   text-decoration: none;
-  transition: 500ms;
+  transition: 300ms;
   font: inherit;
   -webkit-appearance: none;
   -moz-appearance: none;
