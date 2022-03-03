@@ -4,6 +4,8 @@ import Navbar from './NavBar';
 import { useLocation } from 'react-router-dom'
 import PrimaryButton from './PrimaryButton';
 import Map from './Map';
+import PricingTable from './PricingTable';
+import ReviewCard from './ReviewCard';
 
 const StructureDetailsPage = () => {
   const location = useLocation();
@@ -16,7 +18,9 @@ const StructureDetailsPage = () => {
       <Navbar />
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} />
+        <PricingTable parkingStructureInfo={parkingStructureInfo} />
         <PrimaryButton text={"Write Review"} func={() => { }} />
+        <ReviewCard />
       </div>
       <Map />
     </div>

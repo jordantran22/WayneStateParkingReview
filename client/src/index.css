@@ -377,6 +377,61 @@ h2 {
 }
 /*#endregion*/
 
+/* Pricing Table */
+.pricing-table {
+  margin: 40px 0;
+}
+.pricing-table > caption {
+  text-align: left;
+}
+
+.pricing-table > tbody th {
+  text-align: right;
+}
+
+.pricing-table td {
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Review Card */
+.review-card {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 12px;
+  margin-top: 1rem;
+  padding: 20px;
+  width: 100%;
+}
+
+.review-card h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.review-card__reviewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.review-card__review {
+  color: var(--clr-dark-gray)
+}
+
+.placeholder-profile-picture {
+  background-color: green;
+  display: block;
+  height: 82px;
+  width: 82px;
+  border-radius: 50%;
+}
+
 /* Modal Text Input */
 /*#region*/
 .modal-text-input {
@@ -488,6 +543,7 @@ h2 {
   align-items: center;
   color: var(--clr-dark-gray);
   display: flex;
+  font-size: 1rem;
   gap: 5px;
   z-index: 1;
   line-height: 30px;
