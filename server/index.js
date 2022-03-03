@@ -13,6 +13,7 @@ const cors = require('cors');
 
 const bcrypt = require('bcrypt');
 const e = require('express');
+const { response } = require('express');
 const saltRounds = 10;
 
 // need to add origin for hosted front-end react 
@@ -146,6 +147,7 @@ app.post('/login', (req, res) => {
 app.post('/logout', (req, res) => {
     if(req.session.user) {
         req.session.destroy();
+        res.send({loggedIn: false});
     }
 })
 

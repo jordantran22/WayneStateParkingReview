@@ -23,7 +23,6 @@ const HomePage = () => {
     }
 }
 
-
 useEffect(()=> {
   getSessionLoginStatus();
 },[])

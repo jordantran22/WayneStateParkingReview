@@ -26,7 +26,10 @@ const NavBar = ({loggedInStatus}) => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-     const [loggedIn, setLoggedIn] = useState(false);
+     //const [loggedIn, setLoggedIn] = useState(loggedInStatus);
+    //  console.log(loggedInStatus)
+    //  console.log(loggedIn)
+    const [status, setStatus] = useState(loggedInStatus);
     Axios.defaults.withCredentials = true;
 
     const activateSignUpModal = () => {
@@ -94,7 +97,8 @@ const NavBar = ({loggedInStatus}) => {
         const data = await res.json();
         console.log(data);
         if(data.loggedIn === true) {
-            setLoggedIn(true);
+           // setLoggedIn(true);
+           setStatus(true);
         }
     }
 
@@ -113,13 +117,32 @@ const NavBar = ({loggedInStatus}) => {
         }
     }
 
+    const logoutButtonClicked = async () => {
+        const userInformation = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+            credentials : "include"
+        }
+
+        const res = await fetch('http://localhost:5000/logout', userInformation);
+        const data = await res.json();
+        console.log(data);
+        if(data.loggedIn === false) {
+        //    setLoggedIn(false);
+            setStatus(false);
+        }
+    }
+
     useEffect(()=> {
        // getSessionLoginStatus();
 
         // Axios.get("http://localhost:5000/login").then((response) => {
         //     console.log(response);
         // })
-    },[])
+        if(loggedInStatus) {
+            setStatus(true);
+        }
+    },[loggedInStatus])
 
 
 
@@ -136,7 +159,7 @@ const NavBar = ({loggedInStatus}) => {
                 </li>
 
                 <li className="navbar__item ff-condensed fw-bold">
-                   {!loggedInStatus ? <button onClick={() => setSignInClicked(true)}>Sign In</button> : <button>Log out</button>} 
+                   {(status) ? <button onClick={() => logoutButtonClicked()}>Log out</button>: <button onClick={() => setSignInClicked(true)}>Sign In</button>} 
                 </li>
             </ul>
 
