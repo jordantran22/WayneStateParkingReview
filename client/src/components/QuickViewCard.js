@@ -2,11 +2,14 @@ import React from 'react';
 import ReactStars from 'react-stars';
 import { useNavigate } from 'react-router'
 
-const QuickViewCard = ({ structure }) => {
+const QuickViewCard = ({ structure, loggedInStatus }) => {
     let navigate = useNavigate();
 
     const navigateToStructureDetailsPage = () => {
-        navigate('/StructureDetailsPage', { state: structure });
+        navigate('/StructureDetailsPage', { state: {
+            structure: structure,
+            loggedInStatus: loggedInStatus
+        }});
     }
 
     return (

@@ -131,7 +131,7 @@ app.post('/login', (req, res) => {
                         req.session.user = result;
                         console.log(req.session);
                         req.session.save();
-                        res.send({result})
+                        res.send({loggedIn: true})
                     } else {
                         res.send({err: "Wrong Email or Password!"})
                     }
@@ -142,6 +142,12 @@ app.post('/login', (req, res) => {
         }
     )
 });
+
+app.post('/logout', (req, res) => {
+    if(req.session.user) {
+        req.session.destroy();
+    }
+})
 
 app.get('/login', (req, res) => {
    // console.log(req.session.isAuth)

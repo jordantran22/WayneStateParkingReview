@@ -8,12 +8,14 @@ import Map from './Map';
 const StructureDetailsPage = () => {
   const location = useLocation();
   console.log(location.state);
-  const parkingStructureInfo = location.state;
+  const parkingStructureInfo = location.state.structure;
+  const loggedInStatus = location.state.loggedInStatus;
+  console.log(location)
   console.log(parkingStructureInfo);
 
   return (
     <div>
-      <Navbar />
+      <Navbar loggedInStatus={loggedInStatus} />
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} />
         <PrimaryButton text={"Write Review"} func={() => { }} />

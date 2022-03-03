@@ -7,7 +7,7 @@ import PrimaryButton from './PrimaryButton';
 import ModalTextInput from './ModalTextInput';
 import Axios from 'axios';
 
-const NavBar = () => {
+const NavBar = ({loggedInStatus}) => {
     const navigate = useNavigate();
 
     const navigateToHomePage = () => {
@@ -25,6 +25,8 @@ const NavBar = () => {
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+     const [loggedIn, setLoggedIn] = useState(false);
     Axios.defaults.withCredentials = true;
 
     const activateSignUpModal = () => {
@@ -91,6 +93,9 @@ const NavBar = () => {
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         console.log(data);
+        if(data.loggedIn === true) {
+            setLoggedIn(true);
+        }
     }
 
     const getSessionLoginStatus = async () => {
@@ -103,10 +108,13 @@ const NavBar = () => {
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         console.log(data);
+        if(data.loggedIn === true) {
+           // setLoggedInStatus(true);
+        }
     }
 
     useEffect(()=> {
-        getSessionLoginStatus();
+       // getSessionLoginStatus();
 
         // Axios.get("http://localhost:5000/login").then((response) => {
         //     console.log(response);
@@ -128,7 +136,7 @@ const NavBar = () => {
                 </li>
 
                 <li className="navbar__item ff-condensed fw-bold">
-                    <button onClick={() => setSignInClicked(true)}>Sign In</button>
+                   {!loggedInStatus ? <button onClick={() => setSignInClicked(true)}>Sign In</button> : <button>Log out</button>} 
                 </li>
             </ul>
 
