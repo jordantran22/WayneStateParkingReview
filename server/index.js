@@ -1,16 +1,58 @@
 const express = require('express');
 const mysql = require('mysql');
 
+const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
+//const session = require("express-session");
+const session = require("express-session");
+
 const app = express();
 const cors = require('cors');
+
 //const DbService = require('./dbService');
 
 const bcrypt = require('bcrypt');
+const e = require('express');
 const saltRounds = 10;
 
-app.use(cors());
+// need to add origin for hosted front-end react 
+app.use(cors({
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({extended: false}));
+// app.use(cookieParser());
+// app.use(bodyParser.urlencoded({extended: true}));
+
+app.use(session({
+    key: "userId",
+    secret: "wsu",
+    resave: false,
+    saveUninitialized: false,
+    secure: false,
+    cookie: {
+        expires: 1000 * 60 * 60 * 24,
+    },
+}));
+
+// app.use(session({
+//     key: "userId",
+//     secret: "wsu",
+//     resave: false,
+//     saveUninitialized: true,
+//     cookie: {
+//         httpOnly: true,
+//         secure: false,
+//         maxAge: 60000 * 60 * 24
+//     }
+// }));
+// app.set('trust proxy', 1) // trust first proxy
+
+// res.header("Access-Control-Allow-Origin", "http://127.0.0.1:9000");
+
 
 const PORT = process.env.PORT || 5000;
 
@@ -24,6 +66,7 @@ const db = mysql.createPool({
 
 app.get('/', (req, res) => {
     console.log("hello");
+    console.log(req.session)
 });
 
 app.post('/register', (req, res) => {
@@ -74,7 +117,7 @@ app.post('/login', (req, res) => {
     const password = req.body.password;
 
     db.query(
-        "SELECT email, password FROM users WHERE email = ?;",
+        "SELECT * FROM users WHERE email = ?;",
         [email],
         (err, result) => {
             if(err) {
@@ -84,6 +127,10 @@ app.post('/login', (req, res) => {
             if(result.length > 0) {
                 bcrypt.compare(password, result[0].password, (error, response) => {
                     if(response) {
+                       // req.session.isAuth = true;
+                        req.session.user = result;
+                        console.log(req.session);
+                        req.session.save();
                         res.send({result})
                     } else {
                         res.send({err: "Wrong Email or Password!"})
@@ -94,6 +141,16 @@ app.post('/login', (req, res) => {
             }
         }
     )
+});
+
+app.get('/login', (req, res) => {
+   // console.log(req.session.isAuth)
+   console.log(req.session)
+    if(req.session.user) {
+        res.send({loggedIn: true, user: req.session.user})
+    } else {
+        res.send({loggedIn: false});
+    }
 })
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

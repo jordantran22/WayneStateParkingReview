@@ -2,9 +2,10 @@ import React from 'react';
 import wsu_logo from '../images/wsu_logo.png';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import PrimaryButton from './PrimaryButton';
 import ModalTextInput from './ModalTextInput';
+import Axios from 'axios';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -24,6 +25,7 @@ const NavBar = () => {
 
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+    Axios.defaults.withCredentials = true;
 
     const activateSignUpModal = () => {
         setSignInClicked(false);
@@ -82,13 +84,34 @@ const NavBar = () => {
             body: JSON.stringify({
                 email: loginEmail,
                 password: loginPassword
-            })
+            }),
+            credentials : "include"
         }
 
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         console.log(data);
     }
+
+    const getSessionLoginStatus = async () => {
+        const userInformation = {
+            method: 'GET',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+            credentials : "include"
+        }
+
+        const res = await fetch('http://localhost:5000/login', userInformation);
+        const data = await res.json();
+        console.log(data);
+    }
+
+    useEffect(()=> {
+        getSessionLoginStatus();
+
+        // Axios.get("http://localhost:5000/login").then((response) => {
+        //     console.log(response);
+        // })
+    },[])
 
 
 
