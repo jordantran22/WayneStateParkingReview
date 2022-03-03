@@ -428,8 +428,20 @@ h2 {
   background-color: green;
   display: block;
   height: 82px;
+  position: relative;
   width: 82px;
   border-radius: 50%;
+}
+
+.placeholder-profile-picture::after {
+  color: white;
+  font-size: 30pt;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: 'M';
 }
 
 /* Modal Text Input */
@@ -543,7 +555,7 @@ h2 {
   align-items: center;
   color: var(--clr-dark-gray);
   display: flex;
-  font-size: 1rem;
+  font-size: .95rem;
   gap: 5px;
   z-index: 1;
   line-height: 30px;
