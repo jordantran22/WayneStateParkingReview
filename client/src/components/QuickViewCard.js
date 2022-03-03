@@ -10,7 +10,7 @@ const QuickViewCard = ({ structure }) => {
     }
 
     return (
-        <div className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
+        <button className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
             <img src={structure.image} />
             <div className="quick-view-card__info">
                 <h2>Parking Structure {structure.number}</h2>
@@ -24,7 +24,7 @@ const QuickViewCard = ({ structure }) => {
                 <div className="quick-view-card__description nowrap-ellipsis">{structure.description}</div>
                 <div className='quick-view-card__hours nowrap-ellipsis'><span className="greenSpan">Open: </span>{structure.operationHours}</div>
             </div>
-        </div>
+        </button>
     )
 }
 

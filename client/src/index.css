@@ -41,6 +41,7 @@ a {
   text-decoration: none;
   font-weight: bold;
   font-size: 1rem;
+  transition: 500ms;
 }
 
 a:hover {
@@ -52,6 +53,7 @@ button {
   border: none;
   margin: 0;
   text-decoration: none;
+  transition: 500ms;
   font: inherit;
   -webkit-appearance: none;
   -moz-appearance: none;
@@ -292,6 +294,7 @@ h2 {
 /*#region*/
 .quick-view-card {
   box-sizing: border-box;
+  background-color: white;
   border: 1px solid var(--clr-light-gray);
   border-radius: 5px;
   display: flex;
