@@ -51,6 +51,7 @@ const Map = () => {
                     </Popup>
                 </Marker>
             </MapContainer>
+            <div className='map-container'></div>
         </div>
     )
 }

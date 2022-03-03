@@ -15,15 +15,15 @@
 }
 
 body {
-
   /* font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif; */
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif; */
   font-family: var(--ff-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overscroll-behavior-x: none;
-  overflow:auto;
+  overflow-x: hidden;
+  overflow-y: scroll;
   margin: 0;
   min-height: 100vh;
 }
@@ -33,8 +33,7 @@ body {
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
 a {
@@ -59,11 +58,62 @@ button {
 }
 
 button:focus, input:focus {
-  outline: 2px solid #000;
+  /* outline: 2px solid #000; */
   z-index: 999;
 }
 
-/* utilities */
+h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin: 0 0 .25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 .25rem;
+}
+
+/* --------------------- */
+/* Layout Containers     */
+/* --------------------- */
+/*#region*/
+.content-container {
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, .6);
+  width: 60%;
+  padding: 30px;
+  position: absolute;
+  left: 0;
+  top: var(--navbar-height);
+  z-index: 2;
+}
+
+/* map */
+.leaflet-container {
+  height: 100%;
+  width: 40%;
+  position: fixed;
+  right: 0;
+  top: var(--navbar-height);
+}
+
+@media screen and (max-width: 960px) {
+  .content-container {
+    width: 100%;
+  }
+
+  .leaflet-container {
+    display: none;
+  }
+}
+/*#endregion*/
+
+/* --------------------- */
+/* Utilities             */
+/* --------------------- */
+/*#region*/
 .ff-condensed {
   font-family: var(--ff-condensed);
 }
@@ -72,24 +122,22 @@ button:focus, input:focus {
   font-weight: bold;
 }
 
-.homepageContainer {
-  display: flex;
-  justify-content: space-between;
+/* REQUIRES: width, height, line-height, and -webkit-line-clap to be defined */
+.nowrap-ellipsis {
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
+/*#endregion*/
 
-.homepage {
-  min-height: 100vh;
-}
-
-.content-container {
-  box-sizing: border-box;
-  width: 60%;
-  padding: 30px 38px 0 38px;
-  height: 100%;
-}
-
+/* --------------------- */
+/* Componenets           */
+/* --------------------- */
+/*#region*/
 /* primary button */
-.primaryButton {
+.primary-btn {
   background-color: var(--clr-WSU-dark-green);
   border-radius: 2px;
   color: white;
@@ -100,16 +148,18 @@ button:focus, input:focus {
   text-align: center;
 }
 
-.primaryButton:hover {
+.primary-btn:hover {
   background-color: var(--clr-WSU-light-green);
 }
 
 /* navbar */
-.navbar-spacer {
+/*#region*/
+.navbar__spacer {
   display: block;
   width: 100%;
   height: var(--navbar-height);
 }
+
 .navbar {
   align-items: center;
   box-sizing: border-box;
@@ -124,16 +174,22 @@ button:focus, input:focus {
   position: fixed;
   top: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 3;
 }
 
-.navbar button:hover {
-  background-color: var(--clr-WSU-light-gold);
-}
-
-.nav-item {
+.navbar__item {
   color: white;
   font-size: 1.125rem;
+}
+
+.navbar__item > button {
+  background: none;
+  color: white;
+  font: inherit;
+}
+
+.navbar__item > button:hover {
+  color: var(--clr-WSU-light-gold);
 }
 
 .site-logo {
@@ -145,12 +201,15 @@ button:focus, input:focus {
 .site-logo:hover {
   color: var(--clr-WSU-light-gold);
 }
+/*#endregion*/
 
 /* searchbar */
+/*#region*/
 ::placeholder, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
   color: var(--clr-light-gray);
 }
-.search-bar {
+
+.searchbar {
   display: block;
   max-width: 336px;
   display: flex;
@@ -158,12 +217,12 @@ button:focus, input:focus {
   width: 336px;
 }
 
-.search-box {
+.searchbar__box {
   width: 100%;
   position: relative;
 }
 
-.search-box > input {
+.searchbar__box > input {
   border: 1px solid var(--clr-light-gray);
   border-radius: 2px 0px 0px 2px;
   box-sizing: border-box;
@@ -173,7 +232,7 @@ button:focus, input:focus {
   width: 100%;
 }
 
-.search-btn {
+.searchbar__btn {
   aspect-ratio: 1 / 1;
   align-items: center;
   background-color: var(--clr-WSU-dark-gold);
@@ -181,17 +240,14 @@ button:focus, input:focus {
   justify-content: center;
 }
 
-/* map */
-.leaflet-container {
-  height: 100vh;
-  width: 40vw;
-  position: fixed;
-  right: 0;
-  top: var(--navbar-height);
+.searchbar__btn:hover {
+  background-color: var(--clr-WSU-light-gold);
 }
+/*#endregion*/
 
-/* Parking Structure Info Card */
-.parkingStructureDetailCard {
+/* Parking Structure Detail Card */
+/*#region*/
+.detail-card {
   display: flex;
   flex-direction: row;
   gap: 29px;
@@ -199,20 +255,16 @@ button:focus, input:focus {
   width: 100%;
 }
 
-.parkingStructureInfoPage {
-  min-height: 100vh;
-}
-
-.structure-details {
+.detail-card__info {
   display: flex;
   flex-direction: column;
 }
 
-.structure-details > h1 {
+.detail-card__info > h1 {
   margin: 0;
 }
 
-.structure-details > a > img {
+.detail-card__info > a > img {
   display: block;
   margin: 11px 0;
   max-width: 350px;
@@ -222,139 +274,195 @@ button:focus, input:focus {
   height: auto;
 }
 
-.review-count {
+.detail-card__review-count {
   align-items: center;
   color: var(--clr-dark-gray);
   display: flex;
 }
 
-.structure-hours {
+.detail-card__hours {
   justify-content: center;
   display: flex;
   flex-direction: column;
   line-height: 2rem;
 }
+/*#endregion*/
 
-.parkingStructuresContainer {
-  margin-top: 5rem;
-  margin-left: 2rem;
-}
-
-.parkingStructureTabContainer {
-  width: 50vw;
-  height: auto;
-  padding: 2rem;
-  border-radius: 10px;
-  box-shadow: 0 5px 15px rgb(209, 207, 207);
-  margin-top: 1rem;
+/* Parking Structure Quick View Card */
+/*#region*/
+.quick-view-card {
+  box-sizing: border-box;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
   display: flex;
+  font-size: 1.125rem;
+  gap: 20px;
+  max-width: fit-content;
+  margin-top: 1rem;
+  padding: 20px;
+  width: 100%;
 }
 
-.parkingStructureTabContainer:hover {
+.quick-view-card:hover {
   cursor: pointer;
-  box-shadow: 0 5px 15px rgb(87, 87, 87);
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, .4);
 }
 
+.quick-view-card > img {
+  aspect-ratio: 1 / 1;
+  object-fit: fill;
+  max-height: 220px;
+}
 
-.parkingStructureTabInfo {
+.quick-view-card__subhead {
+  color: var(--clr-dark-gray);
+  display: block; /* Fallback for non-webkit */
+  margin: 0 0 3px;
+  max-width: 100%;
+  height: calc(1.125rem * 1.2 * 2); /* Fallback for non-webkit */
+  line-height: 1.2;
+  -webkit-line-clamp: 2;
+}
+
+.quick-view-card__info {
   text-align: left;
-  margin-left: 2rem;
 }
 
-.parkingStructureTitle {
-  font-size: x-large;
-  font-weight: bolder;
+.quick-view-card__description {
+  color: var(--clr-dark-gray);
+  margin: 0.75rem 0;
+  max-width: 100%;
+  height: calc(1.125rem * 1.2 * 3); /* Fallback for non-webkit */
+  line-height: 1.2;
+  -webkit-line-clamp: 3;
+}
+
+.quick-view-card__hours {
+  height: calc(1.125rem * 1.2 * 1);
+  line-height: 1.2;
+  max-width: 100%;
+  -webkit-line-clamp: 1;
 }
 
 .greenSpan {
-  color: green;
+  color: #028D53;
   font-weight: bold;
-  margin-top: 1rem;
+}
+/*#endregion*/
+
+/* Modal Text Input */
+/*#region*/
+.modal-text-input {
+  position: relative;
+  max-width: 184px;
 }
 
-.parkingStructureTabLocationInfo {
-  margin-top: 0.25rem;
-  margin-bottom: 0.25rem;
-/* page specific */
-}
-
-.parkingStructureTabDescription {
-  margin-bottom: 0.5rem;
-}
-
-/*
-commented this out for now
-
-.homepage {
-  display: grid;
-  grid-template-columns: 20% 1.25fr 1fr;
-} */
-
-.loginPopupContainer {
-  display: block;
-  position: fixed;
-  left: 0;
-  top: 0;
-  z-index: 9999;
+.modal-text-input > input {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: .95rem;
+  height: 45px;
+  padding: 1rem 8px 0;
   width: 100%;
-  height: 100%;
-  padding-top: 100px;
-  background-color: black;
-  background-color: rgba(0, 0, 0, 0.4);
 }
 
-.loginPopupForm {
+.modal-text-input > input:focus {
+  outline: none;
+  border: 1px solid var(--clr-WSU-dark-green);
+}
+
+.modal-text-input > input:focus + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > input:valid:not(:focus) + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > label {
+  color: var(--clr-dark-gray);
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 300ms ease-out;
+}
+/*#endregion*/
+
+/* Close Modal Button */
+.close-modal-btn {
+  background: none;
+  padding: 5px 10px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-weight: bolder;
+  font-size: 18pt;
+}
+
+.close-modal-btn:hover {
+  color: var(--clr-dark-gray);
+}
+
+/* Login Modal */
+/*region*/
+.login-modal-overlay {
+  align-items: center;
+  background-color: rgba(255, 255, 255, .86);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.login-modal {
   background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border-radius: 4px;
-  max-width: 40vw;
-  height: 60vh;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 21px 56px 28px;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  max-height: min-content;
   text-align: center;
 }
 
-.wsulogo {
-  height: 15vh;
-  width: auto;
+.login-modal > div:last-child {
+  color: var(--clr-dark-gray);
+  font-size: .8rem;
+  margin-top: 10px;
 }
 
-.inputForLogin{
-  width: 20vw;
-  padding: 10px 20px;
-  margin: 1rem 1rem;
-  border: 1px solid var(--clr-WSU-dark-green);
-  border-radius: 4px;
+.login-modal > div:last-child > a {
+  font-size: .8rem;
 }
+/*endregion*/
 
-.loginButton {
-  color: white;
-  background-color: #10594E;
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: large;
-  font-weight: bold;
-  margin-bottom: 1rem;
+/* Stars and secondary text */
+.rating {
+  align-items: center;
+  color: var(--clr-dark-gray);
+  display: flex;
+  gap: 5px;
+  z-index: 1;
+  line-height: 30px;
 }
-.loginButton:hover {
-  color: var(--clr-WSU-dark-gold)
-}
-
-.signupButton {
-  color: var(--clr-WSU-dark-green);
-  background-color: var(--clr-WSU-dark-gold);
-  border-radius: 10px;
-  padding: 0.75rem;
-  font-size: large;
-  font-weight: bold;
-  margin: 1rem;
-}
-
-.signupButton:hover {
-  color: white;
-}
-
-.closeX {
-  text-align: right;
-  font-size: larger;
-  font-weight: bolder;
-}
+/*#endregion*/

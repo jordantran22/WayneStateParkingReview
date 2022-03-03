@@ -1,21 +1,21 @@
 import React from 'react'
-import ParkingStructureDetailCard from './ParkingStructureDetailCard';
+import DetailCard from './DetailCard';
 import Navbar from './NavBar';
 import { useLocation } from 'react-router-dom'
 import PrimaryButton from './PrimaryButton';
 import Map from './Map';
 
-const ParkingStructurePage = () => {
+const StructureDetailsPage = () => {
   const location = useLocation();
   console.log(location.state);
   const parkingStructureInfo = location.state;
   console.log(parkingStructureInfo);
 
   return (
-    <div className="parkingStructureInfoPage">
+    <div>
       <Navbar />
       <div className='content-container'>
-        <ParkingStructureDetailCard parkingStructureInfo={parkingStructureInfo} />
+        <DetailCard parkingStructureInfo={parkingStructureInfo} />
         <PrimaryButton text={"Write Review"} func={() => { }} />
       </div>
       <Map />
@@ -23,4 +23,4 @@ const ParkingStructurePage = () => {
   )
 }
 
-export default ParkingStructurePage
+export default StructureDetailsPage
