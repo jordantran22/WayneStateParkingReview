@@ -65,6 +65,7 @@ const NavBar = () => {
 
         const res = await fetch('http://localhost:5000/register', userInformation);
         const data = await res.json();
+        console.log(data);
         if(data.status === true) {
             setSignUpClicked(false);
             setSignInClicked(true);
