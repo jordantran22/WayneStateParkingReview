@@ -22,6 +22,9 @@ const NavBar = () => {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [error, setError] = useState(false);
 
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
     const activateSignUpModal = () => {
         setSignInClicked(false);
         setSignUpClicked(true);
@@ -72,6 +75,21 @@ const NavBar = () => {
         }
     }
 
+    const signIn = async () => {
+        const userInformation = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+            body: JSON.stringify({
+                email: loginEmail,
+                password: loginPassword
+            })
+        }
+
+        const res = await fetch('http://localhost:5000/login', userInformation);
+        const data = await res.json();
+        console.log(data);
+    }
+
 
 
     return (
@@ -101,9 +119,24 @@ const NavBar = () => {
                         <div>
                             <img src={wsu_logo} alt='wsu logo' />
                         </div>
-                        <ModalTextInput text="Username or email" name="username" />
+
+                        <div className='modal-text-input'>
+                            <input type="text" id="email" name="email" value={loginEmail} onChange={((e) => setLoginEmail(e.target.value))} required />
+                            <label for="username">Enter Email</label>
+                        </div>
+
+                        <div className='modal-text-input'>
+                            <input type="password" id="password" name="password" value={loginPassword} onChange={((e) => setLoginPassword(e.target.value))} required />
+                            <label for="password">Enter Password</label>
+                        </div>
+
+                        <button className='primary-btn' onClick={() => signIn()}>
+                            Sign In
+                        </button>
+
+                        {/* <ModalTextInput text="Username or email" name="username" />
                         <ModalTextInput text="Password" name="password" />
-                        <PrimaryButton text={"Login"} func={() => { }} />
+                        <PrimaryButton text={"Login"} func={() => { }} /> */}
 
                         <div>Don't have an account? <a onClick={() => activateSignUpModal()}>Sign Up</a></div>
                     </div>
