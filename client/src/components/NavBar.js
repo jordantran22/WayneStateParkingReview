@@ -99,7 +99,10 @@ const NavBar = ({loggedInStatus}) => {
         if(data.loggedIn === true) {
            // setLoggedIn(true);
            setStatus(true);
+           setSignInClicked(false);
         }
+
+      //  window.location.reload();
     }
 
     const getSessionLoginStatus = async () => {
@@ -114,6 +117,9 @@ const NavBar = ({loggedInStatus}) => {
         console.log(data);
         if(data.loggedIn === true) {
            // setLoggedInStatus(true);
+           setStatus(true);
+        } else {
+            setStatus(false);
         }
     }
 
@@ -131,6 +137,8 @@ const NavBar = ({loggedInStatus}) => {
         //    setLoggedIn(false);
             setStatus(false);
         }
+
+      //  window.location.reload();
     }
 
     useEffect(()=> {

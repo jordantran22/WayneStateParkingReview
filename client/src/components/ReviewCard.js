@@ -2,7 +2,7 @@ import React from 'react';
 import ReactStars from 'react-stars';
 
 const QuickViewCard = ({review}) => {
-    console.log(review);
+ //   console.log(review);
     return (
         <div className="review-card">
             {/* <img src={structure.image} /> */}
