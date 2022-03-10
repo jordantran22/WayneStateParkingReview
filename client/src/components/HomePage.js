@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 
 const HomePage = () => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
+  const [structureRatings, setStructureRatings] = useState([]);
+  const [structure1, setStructure1] = useState();
 
   const getSessionLoginStatus = async () => {
     const userInformation = {
@@ -27,12 +29,11 @@ const getStructureRatings = async () => {
     const requestInfo = {
       method: 'GET',
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      credentials : "include"
   }
 
   const res = await fetch('http://localhost:5000/ratings', requestInfo);
   const data = await res.json();
-  console.log(data.data);
+  localStorage.setItem("ratings", JSON.stringify(data));
 }
 
 useEffect(()=> {
@@ -42,7 +43,6 @@ useEffect(()=> {
   } catch (e) {
     console.log(e);
   }
-  
 },[])
 
 
@@ -55,7 +55,7 @@ useEffect(()=> {
           {
             parkingStructuresData.map((structure) => {
               return (
-                <QuickViewCard structure={structure} loggedInStatus={loggedInStatus} />
+                <QuickViewCard structure={structure} loggedInStatus={loggedInStatus}/>
               )
             })
           }

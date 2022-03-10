@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactStars from 'react-stars';
 import { useNavigate } from 'react-router'
+import { useEffect, useState } from 'react';
 
-const QuickViewCard = ({ structure, loggedInStatus }) => {
+const QuickViewCard = ({ structure, loggedInStatus}) => {
     let navigate = useNavigate();
+    const [structureRate, setStructureRate] = useState(0);
+    const [totalReviews, setTotalReviews] = useState(0);
 
     const navigateToStructureDetailsPage = () => {
         navigate('/StructureDetailsPage', { state: {
@@ -11,6 +14,32 @@ const QuickViewCard = ({ structure, loggedInStatus }) => {
             loggedInStatus: loggedInStatus
         }});
     }
+
+    const getStructureRating = () => {
+        const structureRatings = localStorage.getItem("ratings");
+        const JSONArrayRatings = JSON.parse(structureRatings);
+        //console.log(JSON.parse(structureRatings));
+
+        JSONArrayRatings.map((structureRating) => {
+            if(structure.number == structureRating.parking_structure_id) {
+                setStructureRate(structureRating.rating);
+                console.log(structureRating.total_reviews);
+                setTotalReviews(structureRating.total_reviews);
+                return;
+            }
+        })
+    }
+
+    useEffect(() => {
+        try {
+            getStructureRating();
+        } catch (e) {
+            console.log(e);
+        }
+    
+    },[structureRate]);
+
+
 
     return (
         <div className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
@@ -21,8 +50,8 @@ const QuickViewCard = ({ structure, loggedInStatus }) => {
                     {structure.name}<br />{structure.address}
                 </div>
                 <div className='rating'>
-                    <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={4.5} />
-                    <span className='rating__count'>58</span>
+                    <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={structureRate} />
+                    <span className='rating__count'>{totalReviews}</span>
                 </div>
                 <div className="quick-view-card__description nowrap-ellipsis">{structure.description}</div>
                 <div className='quick-view-card__hours nowrap-ellipsis'><span className="greenSpan">Open: </span>{structure.operationHours}</div>
