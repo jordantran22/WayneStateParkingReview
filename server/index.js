@@ -187,4 +187,18 @@ app.get('/ratings', (req, res) => {
     );
  });
 
+ app.get('/reviews', (req, res) => {
+    var structure = req.query.structure;
+    db.query(
+        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE reviews.parking_structure_id = ?;", 
+        [structure], (err, result) => {
+            if(err) {
+                console.log(err);
+            } else {
+                res.json(result);
+            }
+        }
+    );
+ });
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
