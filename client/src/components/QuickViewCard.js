@@ -11,7 +11,9 @@ const QuickViewCard = ({ structure, loggedInStatus}) => {
     const navigateToStructureDetailsPage = () => {
         navigate('/StructureDetailsPage', { state: {
             structure: structure,
-            loggedInStatus: loggedInStatus
+            loggedInStatus: loggedInStatus,
+            structureRate: structureRate,
+            totalReviews: totalReviews
         }});
     }
 
@@ -19,11 +21,10 @@ const QuickViewCard = ({ structure, loggedInStatus}) => {
         const structureRatings = localStorage.getItem("ratings");
         const JSONArrayRatings = JSON.parse(structureRatings);
         //console.log(JSON.parse(structureRatings));
-
+        
         JSONArrayRatings.map((structureRating) => {
             if(structure.number == structureRating.parking_structure_id) {
                 setStructureRate(structureRating.rating);
-                console.log(structureRating.total_reviews);
                 setTotalReviews(structureRating.total_reviews);
                 return;
             }

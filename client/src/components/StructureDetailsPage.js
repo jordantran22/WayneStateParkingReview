@@ -10,6 +10,8 @@ const StructureDetailsPage = () => {
   console.log(location.state);
   const parkingStructureInfo = location.state.structure;
   const loggedInStatus = location.state.loggedInStatus;
+  const totalReviews = location.state.totalReviews;
+  const structureRate = location.state.structureRate;
   console.log(location)
   console.log(parkingStructureInfo);
 
@@ -17,7 +19,7 @@ const StructureDetailsPage = () => {
     <div>
       <Navbar loggedInStatus={loggedInStatus} />
       <div className='content-container'>
-        <DetailCard parkingStructureInfo={parkingStructureInfo} />
+        <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate}/>
         <PrimaryButton text={"Write Review"} func={() => { }} />
       </div>
       <Map />
