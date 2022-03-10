@@ -161,4 +161,30 @@ app.get('/login', (req, res) => {
     }
 })
 
+// app.get('/ratings', (req, res) => {
+//     db.query(
+//         "SELECT parking_structure_id, AVG(review_rating) AS rating FROM reviews GROUP BY parking_structure_id;", 
+//         (err, result) => {
+//             if(err) {
+//                 console.log(err);
+//             } else {
+//                 res.send({data: result});
+//             }
+//         }
+//     );
+// }
+
+app.get('/ratings', (req, res) => {
+    db.query(
+        "SELECT parking_structure_id, AVG(review_rating) AS rating FROM reviews GROUP BY parking_structure_id;", 
+        (err, result) => {
+            if(err) {
+                console.log(err);
+            } else {
+                res.send({data: result});
+            }
+        }
+    );
+ });
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

@@ -23,8 +23,26 @@ const HomePage = () => {
     }
 }
 
+const getStructureRatings = async () => {
+    const requestInfo = {
+      method: 'GET',
+      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+      credentials : "include"
+  }
+
+  const res = await fetch('http://localhost:5000/ratings', requestInfo);
+  const data = await res.json();
+  console.log(data.data);
+}
+
 useEffect(()=> {
-  getSessionLoginStatus();
+  try {
+    getSessionLoginStatus();
+    getStructureRatings();
+  } catch (e) {
+    console.log(e);
+  }
+  
 },[])
 
 
