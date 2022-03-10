@@ -115,7 +115,12 @@ const StructureDetailsPage = () => {
   }
 
   useEffect(() => {
+    try {
       getReviews();
+    } catch (e) {
+      console.log(e);
+    }
+
     //  getSessionLoginStatus();
   },[]);
   

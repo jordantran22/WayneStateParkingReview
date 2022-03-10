@@ -5,7 +5,6 @@ import { useNavigate } from 'react-router'
 import { useState, useEffect } from 'react';
 import PrimaryButton from './PrimaryButton';
 import ModalTextInput from './ModalTextInput';
-import Axios from 'axios';
 
 const NavBar = ({loggedInStatus}) => {
     const navigate = useNavigate();
@@ -26,11 +25,7 @@ const NavBar = ({loggedInStatus}) => {
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
-     //const [loggedIn, setLoggedIn] = useState(loggedInStatus);
-    //  console.log(loggedInStatus)
-    //  console.log(loggedIn)
     const [status, setStatus] = useState(loggedInStatus);
-    Axios.defaults.withCredentials = true;
 
     const activateSignUpModal = () => {
         setSignInClicked(false);
@@ -97,12 +92,9 @@ const NavBar = ({loggedInStatus}) => {
         const data = await res.json();
         console.log(data);
         if(data.loggedIn === true) {
-           // setLoggedIn(true);
            setStatus(true);
            setSignInClicked(false);
         }
-
-      //  window.location.reload();
     }
 
     const getSessionLoginStatus = async () => {
@@ -116,7 +108,6 @@ const NavBar = ({loggedInStatus}) => {
         const data = await res.json();
         console.log(data);
         if(data.loggedIn === true) {
-           // setLoggedInStatus(true);
            setStatus(true);
         } else {
             setStatus(false);
@@ -134,23 +125,17 @@ const NavBar = ({loggedInStatus}) => {
         const data = await res.json();
         console.log(data);
         if(data.loggedIn === false) {
-        //    setLoggedIn(false);
             setStatus(false);
         }
-
-      //  window.location.reload();
     }
 
     useEffect(()=> {
-       // getSessionLoginStatus();
-
-        // Axios.get("http://localhost:5000/login").then((response) => {
-        //     console.log(response);
-        // })
-        if(loggedInStatus) {
-            setStatus(true);
-        }
-    },[loggedInStatus])
+        try {
+            getSessionLoginStatus();
+        } catch (e) {
+            console.log(e);
+        } 
+    },[])
 
 
 

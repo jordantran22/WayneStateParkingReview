@@ -22,6 +22,8 @@ const HomePage = () => {
     console.log(data);
     if(data.loggedIn === true) {
         setLoggedInStatus(true);
+    } else {
+      setLoggedInStatus(false);
     }
 }
 
