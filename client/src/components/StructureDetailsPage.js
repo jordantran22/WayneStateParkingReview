@@ -10,14 +10,18 @@ import ReviewCard from './ReviewCard';
 const StructureDetailsPage = () => {
   const location = useLocation();
   console.log(location.state);
-  const parkingStructureInfo = location.state;
+  const parkingStructureInfo = location.state.structure;
+  const loggedInStatus = location.state.loggedInStatus;
+  const totalReviews = location.state.totalReviews;
+  const structureRate = location.state.structureRate;
+  console.log(location)
   console.log(parkingStructureInfo);
 
   return (
     <div>
-      <Navbar />
+      <Navbar loggedInStatus={loggedInStatus} />
       <div className='content-container'>
-        <DetailCard parkingStructureInfo={parkingStructureInfo} />
+        <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate}/>
         <PricingTable parkingStructureInfo={parkingStructureInfo} />
         <PrimaryButton text={"Write Review"} func={() => { }} />
         <ReviewCard />
