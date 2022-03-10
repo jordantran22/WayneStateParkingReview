@@ -14,8 +14,10 @@ const StructureDetailsPage = () => {
  // console.log(location.state);
   const parkingStructureInfo = location.state.structure;
   const loggedInStatus = location.state.loggedInStatus;
-  const totalReviews = location.state.totalReviews;
-  const structureRate = location.state.structureRate;
+  //const totalReviews = location.state.totalReviews;
+  //const structureRate = location.state.structureRate;
+  const [structureRate, setStructureRate] = useState(location.state.structureRate);
+  const [totalReviews, setTotalReviews] = useState(location.state.totalReviews);
  // console.log(location)
  // console.log(parkingStructureInfo);
 
@@ -94,7 +96,22 @@ const StructureDetailsPage = () => {
 
       setReviews(reviews => [...reviews, data.review])
       setWriteReviewPopup(false);
-    }
+      var reviewCounter = totalReviews + 1;
+      setTotalReviews(reviewCounter);
+
+      if(reviews.length > 0 ) {
+        console.log(reviews.length);
+        var averageRating = 0;
+        reviews.map((review) => {
+          averageRating += review.review_rating;
+        })
+  
+        setStructureRate(averageRating / reviews.length);
+        console.log(averageRating / reviews.length);
+      } else {
+        setStructureRate(data.review.review_rating);
+      }
+    } 
   }
 
   useEffect(() => {
