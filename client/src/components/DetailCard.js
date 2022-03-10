@@ -42,12 +42,6 @@ const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
                     <ReactStars count={5} edit={false} value={structureRate} size={40} />
                     <span>{totalReviews} reviews</span> {/* static placeholder */}
                 </div>
-                <a href="https://goo.gl/maps/MCUmvVbq1EpstMFc7" target="_blank">
-                    <img src={parkingStructureInfo.image} />
-                </a>
-                <a href="https://goo.gl/maps/MCUmvVbq1EpstMFc7" target="_blank">
-                    {parkingStructureInfo.address}
-                </a>
             </div>
             <div className="detail-card">
                 <div class="detail-card__info">
