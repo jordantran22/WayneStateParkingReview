@@ -132,7 +132,7 @@ app.post('/login', (req, res) => {
                         req.session.user = result;
                         console.log(req.session);
                         req.session.save();
-                        res.send({loggedIn: true})
+                        res.send({loggedIn: true, user: req.session.user[0].email})
                     } else {
                         res.send({err: "Wrong Email or Password!"})
                     }
@@ -155,24 +155,12 @@ app.get('/login', (req, res) => {
    // console.log(req.session.isAuth)
    console.log(req.session)
     if(req.session.user) {
-        res.send({loggedIn: true, user: req.session.user})
+        console.log(req.session.user[0].email);
+        res.send({loggedIn: true, user: req.session.user[0].email})
     } else {
         res.send({loggedIn: false});
     }
 })
-
-// app.get('/ratings', (req, res) => {
-//     db.query(
-//         "SELECT parking_structure_id, AVG(review_rating) AS rating FROM reviews GROUP BY parking_structure_id;", 
-//         (err, result) => {
-//             if(err) {
-//                 console.log(err);
-//             } else {
-//                 res.send({data: result});
-//             }
-//         }
-//     );
-// }
 
 app.get('/ratings', (req, res) => {
     db.query(
@@ -200,5 +188,48 @@ app.get('/ratings', (req, res) => {
         }
     );
  });
+
+ app.post('/review/submit', (req, res) => {
+     console.log("endpoint reached");
+     var parkingStructureId = req.body.parkingStructure;
+     var email = req.body.email;
+     console.log(req.body);
+     console.log(email);
+     var rating = req.body.rating;
+     var textReview = req.body.textReview;
+     db.query(
+         "SELECT user_id, first_name, last_name FROM users WHERE email = ?;",
+         [email], (err, result) => {
+             if(err) {
+                 console.log(err);
+             } else {
+                 if(result.length > 0) {
+                     var userId = result[0].user_id;
+                     var firstName = result[0].first_name;
+                     var lastName = result[0].last_name;
+                     console.log(userId);
+                     db.query(
+                         "INSERT INTO reviews (user_id, parking_structure_id, review_text, review_rating, review_date) VALUES (?,?,?,?, NOW());",
+                         [userId, parkingStructureId, textReview, rating], (err, response) => {
+                            if(err) {
+                                console.log(err);
+                            } else {
+                                res.send({result: "success", review: {
+                                    first_name: firstName,
+                                    last_name: lastName,
+                                    review_text: textReview,
+                                    review_rating: rating,
+                                    review_date: Date.now()
+                                }});
+                            }
+                         });
+                 }
+             }
+         }
+    );
+});
+
+ 
+
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

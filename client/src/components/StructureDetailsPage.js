@@ -24,6 +24,8 @@ const StructureDetailsPage = () => {
   const [reviews, setReviews] = useState([]);
   const [writeReviewPopup, setWriteReviewPopup] = useState(false);
   const [rating, setRating] = useState();
+  const [textReview, setTextReview] = useState("");
+  const [userEmail, setUserEmail] = useState("");
 
   const getReviews = async () => {
       const requestInfo = {
@@ -34,15 +36,11 @@ const StructureDetailsPage = () => {
       const res = await fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
       const data = await res.json();
       setReviews(data);
+      console.log(data);
   }
 
     const reviewButtonClicked = () => {
          getSessionLoginStatus();
-        // if(loggedIn) {
-        //     setWriteReviewPopup(true);
-        // } else {
-        //   alert("You must be logged in!");
-        // }
     }
 
 
@@ -57,6 +55,9 @@ const StructureDetailsPage = () => {
       const data = await res.json();
       console.log(data);
       if(data.loggedIn === true) {
+        setUserEmail(data.user);
+       // console.log(data.user);
+        console.log(userEmail);
         setLoggedIn(true);
         setWriteReviewPopup(true);
       } else {
@@ -68,6 +69,32 @@ const StructureDetailsPage = () => {
   const ratingChanged = (newRating) => {
     setRating(newRating);
     console.log(rating);
+  }
+
+  const submitReview = async () => {
+      const userInformation = {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+        body: JSON.stringify({
+            parkingStructure: parkingStructureInfo.number,
+            email: userEmail,
+            rating: rating,
+            textReview: textReview
+        }),
+    }
+    const res = await fetch('http://localhost:5000/review/submit', userInformation);
+    const data = await res.json();
+    console.log(data);
+
+    if(data.result === "success") {
+      console.log(data.review);
+      var date = new Date(data.review.review_date);
+      var dateFormated = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
+      data.review.review_date = dateFormated;
+
+      setReviews(reviews => [...reviews, data.review])
+      setWriteReviewPopup(false);
+    }
   }
 
   useEffect(() => {
@@ -82,7 +109,6 @@ const StructureDetailsPage = () => {
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate}/>
         <PricingTable parkingStructureInfo={parkingStructureInfo} />
-        {/* <PrimaryButton text={"Write Review"} func={() => { }} /> */}
 
         <button className='primary-btn' onClick={() => reviewButtonClicked()}>
             Write Review!
@@ -99,7 +125,9 @@ const StructureDetailsPage = () => {
                        <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating}/></h2>
 
                        <h2>Write Your Review!</h2>
-                       <textarea></textarea>
+                       <textarea onChange={(e) => setTextReview(e.target.value)}></textarea>
+
+                       <button onClick={() => submitReview()}>Submit!</button>
                     </div>
                 </div>
         }
