@@ -7,15 +7,13 @@ const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
     useEffect(() => {
 
     }, [structureRate]);
-    
+
     return (
-        <div className="detail-card">
-            <div class="detail-card__info">
-                <h1>{parkingStructureInfo.name}</h1>
-                <div className='detail-card__review-count'>
-                    <ReactStars count={5} edit={false} value={structureRate} size={40} />
-                    <span>{totalReviews} reviews</span> {/* static placeholder */}
-                </div>
+        <div>
+            <h1>{parkingStructureInfo.name}</h1>
+            <div className='rating'>
+                <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={structureRate} />
+                <span>{totalReviews} reviews</span>
             </div>
             <div className="detail-card">
                 <div class="detail-card__info">
@@ -66,7 +64,6 @@ const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
                 </table>
             </div>
         </div>
-
     )
 }
 
