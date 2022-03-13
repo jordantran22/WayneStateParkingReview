@@ -1,5 +1,6 @@
 export const parkingStructuresData = [
     {
+        id: "stucture-1",
         number: "1",
         name: "Palmer Structure",
         address: "450 W. Palmer, Detroit, MI, 48202",
@@ -20,6 +21,7 @@ export const parkingStructuresData = [
         coordinates: [42.3591, -83.0665]
     }, 
     {
+        id: "stucture-2",
         number: "2",
         name: "Manoogian Structure",
         address: "5150 Lodge Service Dr, Detroit, MI, 48202",
@@ -40,6 +42,7 @@ export const parkingStructuresData = [
         coordinates: [42.356515,-83.073742]
     },
     {
+        id: "stucture-3",
         number: "3",
         name: "Rackham Structure",
         address: "45 E. Warren, Detroit, MI, 48202",
@@ -60,6 +63,7 @@ export const parkingStructuresData = [
         coordinates: [42.357561,-83.063282]
     },
     {
+        id: "stucture-4",
         number: "4",
         name: "Medical School Structure",
         address: "555 E. Canfield, Detroit, MI, 48202",
@@ -80,6 +84,7 @@ export const parkingStructuresData = [
         coordinates: [42.355912,-83.055128]
     },
     {
+        id: "stucture-5",
         number: "5",
         name: "Anthony Wayne Dr. Structure, Detroit, MI, 48202",
         address: "5501 Anthony Wayne Dr",
@@ -100,6 +105,7 @@ export const parkingStructuresData = [
         coordinates: [42.358132,-83.074188]
     },
     {
+        id: "stucture-6",
         number: "6",
         name: "Welcome Center Garage",
         address: "61 Putnam, Detroit, MI, 48202",
@@ -120,6 +126,7 @@ export const parkingStructuresData = [
         coordinates: [42.356903,-83.066474]
     }, 
     {
+        id: "stucture-7",
         number: "7",
         name: "Midtown Garage",
         address: "3717 John R, Detroit, MI, 48202",
@@ -140,6 +147,7 @@ export const parkingStructuresData = [
         coordinates: [42.349030,-83.057054]
     },
     {
+        id: "stucture-8",
         number: "8",
         name: "University Towers/South Village",
         address: "91 West Forest, Detroit, MI, 48202",
