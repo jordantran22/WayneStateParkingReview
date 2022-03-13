@@ -132,10 +132,7 @@ const StructureDetailsPage = () => {
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate}/>
         <PricingTable parkingStructureInfo={parkingStructureInfo} />
 
-        <button className='primary-btn' onClick={() => reviewButtonClicked()}>
-            Write Review!
-        </button>
-
+        <PrimaryButton text='Write Review' func={reviewButtonClicked} />
         {
           writeReviewPopup &&
           <div className="login-modal-overlay">

@@ -176,14 +176,7 @@ const NavBar = ({loggedInStatus}) => {
                             <input type="password" id="password" name="password" value={loginPassword} onChange={((e) => setLoginPassword(e.target.value))} required />
                             <label for="password">Enter Password</label>
                         </div>
-
-                        <button className='primary-btn' onClick={() => signIn()}>
-                            Sign In
-                        </button>
-
-                        {/* <ModalTextInput text="Username or email" name="username" />
-                        <ModalTextInput text="Password" name="password" />
-                        <PrimaryButton text={"Login"} func={() => { }} /> */}
+                        <PrimaryButton text="Sign In" func={signIn} />
 
                         <div>Don't have an account? <a onClick={() => activateSignUpModal()}>Sign Up</a></div>
                     </div>
