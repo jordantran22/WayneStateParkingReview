@@ -3,7 +3,7 @@ import DetailCard from './DetailCard';
 import Navbar from './NavBar';
 import { useLocation } from 'react-router-dom'
 import PrimaryButton from './PrimaryButton';
-import Map from './Map';
+import LeafletMap from './LeafletMap';
 import PricingTable from './PricingTable';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
@@ -162,7 +162,7 @@ const StructureDetailsPage = () => {
           })
         }
       </div>
-      <Map />
+      <LeafletMap />
     </div>
   )
 }

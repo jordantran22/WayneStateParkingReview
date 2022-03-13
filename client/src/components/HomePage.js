@@ -1,6 +1,6 @@
 import React from 'react';
 import NavBar from './NavBar';
-import Map from './Map';
+import LeafletMap from './LeafletMap';
 import { parkingStructuresData } from '../data/parkingStructuresData';
 import QuickViewCard from './QuickViewCard';
 import { useEffect, useState } from 'react';
@@ -63,7 +63,7 @@ useEffect(()=> {
           }
 
       </div>
-      <Map />
+      <LeafletMap />
     </div>
   )
 };

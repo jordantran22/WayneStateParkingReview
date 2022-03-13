@@ -1,8 +1,8 @@
 import React from 'react'
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, Popup, useMap, useMapEvents } from 'react-leaflet'
 
-const Map = () => {
 
+const LeafletMap = () => {
     return (
         <div>
             <MapContainer center={[42.3591, -83.0665]} zoom={14} scrollWheelZoom={false}>
@@ -11,12 +11,7 @@ const Map = () => {
                     url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
                 />
                 <Marker position={[42.361439, -83.069901]}>
-                    <Popup onOpen={() => {
-                        let structure = document.getElementById("Palmer Structure")
-                        if (structure) {
-                            structure.scrollIntoView({ behavior: 'smooth' });
-                        }
-                    }}>
+                    <Popup>
                         Parking Structure 1
                     </Popup>
                 </Marker>
@@ -61,4 +56,4 @@ const Map = () => {
     )
 }
 
-export default Map
+export default LeafletMap
