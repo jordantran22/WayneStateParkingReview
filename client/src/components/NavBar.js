@@ -144,7 +144,7 @@ const NavBar = ({loggedInStatus}) => {
             <ul className="navbar">
 
                 <li className="navbar__item ff-condensed fw-bold">
-                    <a href="javascript:void(0);" onClick={() => navigateToHomePage()} class="site-logo">WSU Parking</a>
+                    <a href="javascript:void(0);" onClick={() => navigateToHomePage()} className="site-logo">WSU Parking</a>
                 </li>
 
                 <li className="navbar__item">

@@ -329,6 +329,7 @@ h2 {
   max-width: fit-content;
   margin-top: 1rem;
   padding: 20px;
+  scroll-margin-top: calc(var(--navbar-height) + 20px);
   width: 100%;
 }
 
