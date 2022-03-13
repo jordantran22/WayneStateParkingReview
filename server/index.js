@@ -178,7 +178,7 @@ app.get('/ratings', (req, res) => {
  app.get('/reviews', (req, res) => {
     var structure = req.query.structure;
     db.query(
-        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, DATE_FORMAT(review_date, '%m-%d-%Y') as review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE reviews.parking_structure_id = ?;", 
+        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, DATE_FORMAT(review_date, '%m-%d-%Y') as review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE reviews.parking_structure_id = ?;", 
         [structure], (err, result) => {
             if(err) {
                 console.log(err);
