@@ -1,12 +1,11 @@
 import React from 'react';
-import wsu_logo from '../images/wsu_logo.png';
 import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router'
 import { useState, useEffect } from 'react';
-import PrimaryButton from './PrimaryButton';
-import ModalTextInput from './ModalTextInput';
+import SignInModal from './SignInModal';
+import SignUpModal from './SignUpModal';
 
-const NavBar = ({loggedInStatus}) => {
+const NavBar = ({ loggedInStatus }) => {
     const navigate = useNavigate();
 
     const navigateToHomePage = () => {
@@ -15,85 +14,26 @@ const NavBar = ({loggedInStatus}) => {
 
     const [signInClicked, setSignInClicked] = useState(false);
     const [signUpClicked, setSignUpClicked] = useState(false);
-    const [email, setEmail] = useState("");
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
-    const [password, setPassword] = useState("");
-    const [confirmPassword, setConfirmPassword] = useState("");
-    const [error, setError] = useState(false);
-
-    const [loginEmail, setLoginEmail] = useState("");
-    const [loginPassword, setLoginPassword] = useState("");
-
     const [status, setStatus] = useState(loggedInStatus);
 
-    const activateSignUpModal = () => {
-        setSignInClicked(false);
-        setSignUpClicked(true);
-    }
-
-    const activateSignInModal = () => {
-        setSignUpClicked(false);
-        setSignInClicked(true);
-    }
-
-    const onSignUpButtonClicked = () => {
-        console.log(email);
-        console.log(firstName);
-        console.log(lastName);
-        console.log(password);
-        console.log(confirmPassword);
-
-        signUpInputValidation();
-    }
-
-    const signUpInputValidation = () => {
-        if (email === "" || firstName  === "" || lastName  === ""  || password  === "" || confirmPassword === "" ) {
-            setError(true);
-        } else {
-            setError(false);
-            signUpApiRequest();
-        }
-    }
-
-    const signUpApiRequest = async () => {
+    const signIn = async credentials => {
         const userInformation = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
             body: JSON.stringify({
-                email: email,
-                firstName: firstName,
-                lastName: lastName,
-                password: password
-            })
-           }
-
-        const res = await fetch('http://localhost:5000/register', userInformation);
-        const data = await res.json();
-        console.log(data);
-        if(data.status === true) {
-            setSignUpClicked(false);
-            setSignInClicked(true);
-        }
-    }
-
-    const signIn = async () => {
-        const userInformation = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            body: JSON.stringify({
-                email: loginEmail,
-                password: loginPassword
+                email: credentials.email,
+                password: credentials.password
             }),
-            credentials : "include"
+            credentials: "include"
         }
 
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         console.log(data);
-        if(data.loggedIn === true) {
-           setStatus(true);
-           setSignInClicked(false);
+        if (data.loggedIn === true) {
+            setStatus(true);
+            if (signInClicked) setSignInClicked(false);
+            else if (signUpClicked) setSignUpClicked(false);
         }
     }
 
@@ -101,14 +41,14 @@ const NavBar = ({loggedInStatus}) => {
         const userInformation = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            credentials : "include"
+            credentials: "include"
         }
 
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         console.log(data);
-        if(data.loggedIn === true) {
-           setStatus(true);
+        if (data.loggedIn === true) {
+            setStatus(true);
         } else {
             setStatus(false);
         }
@@ -118,26 +58,24 @@ const NavBar = ({loggedInStatus}) => {
         const userInformation = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            credentials : "include"
+            credentials: "include"
         }
 
         const res = await fetch('http://localhost:5000/logout', userInformation);
         const data = await res.json();
         console.log(data);
-        if(data.loggedIn === false) {
+        if (data.loggedIn === false) {
             setStatus(false);
         }
     }
 
-    useEffect(()=> {
+    useEffect(() => {
         try {
             getSessionLoginStatus();
         } catch (e) {
             console.log(e);
-        } 
-    },[])
-
-
+        }
+    }, [])
 
     return (
         <div className='navbar__spacer'>
@@ -152,90 +90,17 @@ const NavBar = ({loggedInStatus}) => {
                 </li>
 
                 <li className="navbar__item ff-condensed fw-bold">
-                   {(status) ? <button onClick={() => logoutButtonClicked()}>Log out</button>: <button onClick={() => setSignInClicked(true)}>Sign In</button>} 
+                    {(status) ? <button onClick={() => logoutButtonClicked()}>Log out</button> : <button onClick={() => setSignInClicked(true)}>Sign In</button>}
                 </li>
             </ul>
 
             {
-                signInClicked &&
-                <div className="login-modal-overlay">
-                    <div className="login-modal">
-                        <button className="close-modal-btn" onClick={() => setSignInClicked(false)}>
-                            X
-                        </button>
-                        <div>
-                            <img src={wsu_logo} alt='wsu logo' />
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="text" id="email" name="email" value={loginEmail} onChange={((e) => setLoginEmail(e.target.value))} required />
-                            <label for="username">Enter Email</label>
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="password" id="password" name="password" value={loginPassword} onChange={((e) => setLoginPassword(e.target.value))} required />
-                            <label for="password">Enter Password</label>
-                        </div>
-                        <PrimaryButton text="Sign In" func={signIn} />
-
-                        <div>Don't have an account? <a onClick={() => activateSignUpModal()}>Sign Up</a></div>
-                    </div>
-                </div>
+                signInClicked && <SignInModal startSession={signIn} changeSignInClicked={setSignInClicked} changeSignUpClicked={setSignUpClicked} />
             }
-
             {
-                signUpClicked &&
-                <div className="login-modal-overlay">
-                    <div className="login-modal">
-                        <button className="close-modal-btn" onClick={() => setSignUpClicked(false)}>
-                            X
-                        </button>
-                        <div>
-                            <img src={wsu_logo} alt='wsu logo' />
-                        </div>
-
-                        <h2>Sign Up!</h2>
-
-                        {error && <div><strong>Something is missing!</strong></div>}
-                        <div className='modal-text-input'>
-                            <input type="text" id="email" name="email" value={email} onChange={((e) => setEmail(e.target.value))} required />
-                            <label for="username">Enter Email</label>
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="text" id="firstname" name="firstname" value={firstName} onChange={((e) => setFirstName(e.target.value))} required />
-                            <label for="firstname">Enter First Name</label>
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="text" id="lastname" name="lastname" value={lastName} onChange={((e) => setLastName(e.target.value))} required />
-                            <label for="lastname">Enter Last Name</label>
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="text" id="password" name="password" value={password} onChange={((e) => setPassword(e.target.value))} required />
-                            <label for="password">Enter Password</label>
-                        </div>
-
-                        <div className='modal-text-input'>
-                            <input type="text" id="confirmpassword" name="confirmpassword" value={confirmPassword} onChange={((e) => setConfirmPassword(e.target.value))} required />
-                            <label for="confirmpassword">Re-enter Password</label>
-                        </div>
-
-
-
-                        {/* <ModalTextInput text="Enter Email" name="username" />
-                        <ModalTextInput text="Enter First Name" name="firstname" />
-                        <ModalTextInput text="Enter Last Name" name="lastname" />
-                        <ModalTextInput text="Enter Password" name="password" />
-                        <ModalTextInput text="Confirm Password" name="confirmpassword" /> */}
-                        <PrimaryButton text={"Sign Up"} onSignUpButtonClicked={onSignUpButtonClicked} />
-
-                        <div>Already have an account? </div> <a onClick={() => activateSignInModal()}>Sign In!</a>
-                    </div>
-                </div>
+                signUpClicked && <SignUpModal startSession={signIn} changeSignUpClicked={setSignUpClicked} />
             }
-            {/* <div className='navbar__spacer'></div> */}
+
         </div>
     )
 };
