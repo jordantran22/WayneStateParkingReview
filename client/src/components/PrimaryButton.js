@@ -1,8 +1,8 @@
 import React from 'react';
 
-const PrimaryButton = ({text, func}) => {
+const PrimaryButton = ({text, func=null}) => {
     return (
-        <button className='primary-btn' onClick={() => func()}>
+        <button className='primary-btn' onClick={func ? () => func() : null}>
             {text}
         </button>
     );

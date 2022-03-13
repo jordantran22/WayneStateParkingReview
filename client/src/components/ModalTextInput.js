@@ -1,10 +1,10 @@
 import React from 'react';
 
-const ModalTextInput = ({text}=String, {name}=String) => {
+const ModalTextInput = ({ type, text, name, value, func }) => {
     return (
         <div className='modal-text-input'>
-            <input type={"text"} id={name} name={name} required />
-            <label for={name}>{text}</label>
+            <input type={type} name={name} value={value} onChange={func} required />
+            <label htmlFor={name}>{text}</label>
         </div>
     );
 }
