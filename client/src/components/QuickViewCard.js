@@ -3,27 +3,29 @@ import ReactStars from 'react-stars';
 import { useNavigate } from 'react-router'
 import { useEffect, useState } from 'react';
 
-const QuickViewCard = ({ structure, loggedInStatus}) => {
+const QuickViewCard = ({ structure, loggedInStatus }) => {
     let navigate = useNavigate();
     const [structureRate, setStructureRate] = useState(0);
     const [totalReviews, setTotalReviews] = useState(0);
 
     const navigateToStructureDetailsPage = () => {
-        navigate('/StructureDetailsPage', { state: {
-            structure: structure,
-            loggedInStatus: loggedInStatus,
-            structureRate: structureRate,
-            totalReviews: totalReviews
-        }});
+        navigate('/StructureDetailsPage', {
+            state: {
+                structure: structure,
+                loggedInStatus: loggedInStatus,
+                structureRate: structureRate,
+                totalReviews: totalReviews
+            }
+        });
     }
 
     const getStructureRating = () => {
         const structureRatings = localStorage.getItem("ratings");
         const JSONArrayRatings = JSON.parse(structureRatings);
         //console.log(JSON.parse(structureRatings));
-        
+
         JSONArrayRatings.map((structureRating) => {
-            if(structure.number == structureRating.parking_structure_id) {
+            if (structure.number == structureRating.parking_structure_id) {
                 setStructureRate(structureRating.rating);
                 setTotalReviews(structureRating.total_reviews);
                 return;
@@ -37,13 +39,10 @@ const QuickViewCard = ({ structure, loggedInStatus}) => {
         } catch (e) {
             console.log(e);
         }
-    
-    },[structureRate]);
-
-
+    }, [structureRate]);
 
     return (
-        <button className="quick-view-card" id={structure.id} onClick={() => navigateToStructureDetailsPage()}>
+        <button className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
             <img src={structure.image} />
             <div className="quick-view-card__info">
                 <h2>Parking Structure {structure.number}</h2>
