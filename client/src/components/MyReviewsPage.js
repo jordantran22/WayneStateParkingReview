@@ -50,7 +50,12 @@ const MyReviewsPage = () => {
                 {
                     reviews.map((review) => {
                         return (
-                            <ReviewCard key={review.review_id} review={review} />
+                            <div>
+                                <h2>
+                                   { review.structure_name }
+                                </h2>
+                                <ReviewCard key={review.review_id} review={review} />
+                            </div>
                         )
                     })
                 }

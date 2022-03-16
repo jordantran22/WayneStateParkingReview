@@ -234,7 +234,7 @@ app.post('/review/submit', (req, res) => {
 app.get('/myreviews', (req, res) => {
     var userId = req.query.userId;
     db.query(
-        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, DATE_FORMAT(review_date, '%m-%d-%Y') as review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ?;",
+        "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? ) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
         [userId], (err, result) => {
             if (err) {
                 console.log(err);
