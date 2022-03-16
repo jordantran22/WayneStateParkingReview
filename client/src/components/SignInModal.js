@@ -30,7 +30,7 @@ const SignInModal = ({ changeSignInClicked, changeSignUpClicked, startSession })
                 <ModalTextInput type="password" text="Enter Password" name="password" value={credentials.password} func={e => setCredentials({ ...credentials, password: e.target.value })} />
                 <PrimaryButton text="Sign In" />
 
-                <div>Don't have an account? <a onClick={activateSignUpModal}>Sign Up</a></div>
+                <div>Don't have an account? <button id="sign-up-btn" onClick={activateSignUpModal}>Sign Up</button></div>
             </form>
         </div>
     );

@@ -1,7 +1,7 @@
-import logo from './logo.svg';
 import './App.css';
 import HomePage from './components/HomePage';
 import StructureDetailsPage from './components/StructureDetailsPage';
+import MyReviewsPage from './components/MyReviewsPage';
 import { render } from "react-dom";
 import {
   BrowserRouter,
@@ -16,6 +16,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/StructureDetailsPage" element={<StructureDetailsPage />}></Route>
+          <Route path="/MyReviewsPage" element={<MyReviewsPage />}></Route>
         </Routes>
       </BrowserRouter>,
       document.getElementById("root")

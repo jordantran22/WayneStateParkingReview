@@ -215,9 +215,17 @@ h2 {
   color: var(--clr-WSU-light-gold);
 }
 
+.navbar > div {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
 .site-logo {
+  background: none;
   color: var(--clr-WSU-dark-gold);
   font-size: 2.25rem;
+  font-weight: bold;
   text-decoration: none;
 }
 
@@ -292,22 +300,23 @@ h2 {
   border-radius: 5px;
   display: block;
   margin: 11px 0;
-  max-width: 350px;
-  max-height: 193px;
+  width: 350px;
+  height: 193px;
+  object-fit: fill;
   overflow: hidden;
-  width: 100%;
-  height: auto;
+  /* width: 100%; */
+  /* height: auto; */
 }
 
 .detail-card__hours {
   height: 15rem;
 }
 
-.detail-card__hours th {
+.detail-card__hours > tbody > th {
   font-weight: normal;
 }
 
-.detail-card__hours > tr > td:first-of-type {
+.detail-card__hours > tbody > tr > td:first-of-type {
   padding: 0 10px;
 }
 
@@ -549,6 +558,16 @@ h2 {
 
 .login-modal > div:last-child > a {
   font-size: .8rem;
+}
+
+#sign-up-btn {
+  color: var(--clr-WSU-dark-green);
+  background: none;
+  font-weight: bold;
+}
+
+#sign-up-btn:hover {
+  color: var(--clr-WSU-light-green);
 }
 /*endregion*/
 

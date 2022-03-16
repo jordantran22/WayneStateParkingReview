@@ -6,10 +6,16 @@ import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
 
 const NavBar = ({ loggedInStatus }) => {
-    const navigate = useNavigate();
+    let navigate = useNavigate();
 
     const navigateToHomePage = () => {
         navigate('/');
+    }
+
+    const navigateToMyReviewsPage = () => {
+        navigate('/MyReviewsPage', {state: {
+
+        }});
     }
 
     const [signInClicked, setSignInClicked] = useState(false);
@@ -29,7 +35,6 @@ const NavBar = ({ loggedInStatus }) => {
 
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
-        console.log(data);
         if (data.loggedIn === true) {
             setStatus(true);
             if (signInClicked) setSignInClicked(false);
@@ -81,17 +86,22 @@ const NavBar = ({ loggedInStatus }) => {
         <div className='navbar__spacer'>
             <ul className="navbar">
 
-                <li className="navbar__item ff-condensed fw-bold">
-                    <a href="javascript:void(0);" onClick={() => navigateToHomePage()} className="site-logo">WSU Parking</a>
+                <li>
+                    <button onClick={() => navigateToHomePage()} className="site-logo">WSU Parking</button>
                 </li>
 
                 <li className="navbar__item">
                     <SearchBar />
                 </li>
+                <div>
+                    <li className="navbar__item ff-condensed fw-bold" style={status ? { display: 'initial' } : { display: 'none' }} >
+                        <button onClick={() => navigateToMyReviewsPage()}>My Reviews</button>
+                    </li>
 
-                <li className="navbar__item ff-condensed fw-bold">
-                    {(status) ? <button onClick={() => logoutButtonClicked()}>Log out</button> : <button onClick={() => setSignInClicked(true)}>Sign In</button>}
-                </li>
+                    <li className="navbar__item ff-condensed fw-bold">
+                        {(status) ? <button onClick={() => logoutButtonClicked()}>Sign Out</button> : <button onClick={() => setSignInClicked(true)}>Sign In</button>}
+                    </li>
+                </div>
             </ul>
 
             {
@@ -101,7 +111,7 @@ const NavBar = ({ loggedInStatus }) => {
                 signUpClicked && <SignUpModal startSession={signIn} changeSignUpClicked={setSignUpClicked} />
             }
 
-        </div>
+        </div >
     )
 };
 
