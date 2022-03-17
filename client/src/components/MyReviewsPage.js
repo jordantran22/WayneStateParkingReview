@@ -4,11 +4,9 @@ import { useLocation } from 'react-router-dom'
 import LeafletMap from './LeafletMap';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
-import ReactStars from 'react-stars';
 
 const MyReviewsPage = () => {
     const location = useLocation();
-    const [userId, setUserId] = useState();
     const [reviews, setReviews] = useState([]);
     const loggedInStatus = location.state.loggedInStatus;
 
@@ -35,6 +33,23 @@ const MyReviewsPage = () => {
         }
     }
 
+    const editReview = () => {
+
+    }
+
+    const deleteReview = async (review_id) => {
+        const reviewInformation = {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+          body: JSON.stringify({
+            reviewId: review_id
+          }),
+        }
+        const res = await fetch('http://localhost:5000/review/delete', reviewInformation);
+        const data = await res.json();
+        console.log(data);
+    }
+
     useEffect(() => {
         try {
             getMyReviews();
@@ -50,11 +65,15 @@ const MyReviewsPage = () => {
                 {
                     reviews.map((review) => {
                         return (
-                            <div>
+                            <div className='my-review-card'>
                                 <h2>
-                                   { review.structure_name }
+                                    {review.structure_name}
                                 </h2>
                                 <ReviewCard key={review.review_id} review={review} />
+                                <div>
+                                    <button onClick={() => editReview(review)}>Edit</button>
+                                    <button onClick={() => deleteReview(review.review_id)}>Delete</button>
+                                </div>
                             </div>
                         )
                     })

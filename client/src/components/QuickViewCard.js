@@ -42,7 +42,7 @@ const QuickViewCard = ({ structure, loggedInStatus }) => {
     }, [structureRate]);
 
     return (
-        <button className="quick-view-card" onClick={() => navigateToStructureDetailsPage()}>
+        <button className="quick-view-card hoverable-card" onClick={() => navigateToStructureDetailsPage()}>
             <img src={structure.image} />
             <div className="quick-view-card__info">
                 <h2>Parking Structure {structure.number}</h2>

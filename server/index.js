@@ -164,7 +164,7 @@ app.get('/login', (req, res) => {
 
 app.get('/ratings', (req, res) => {
     db.query(
-        "SELECT parking_structure_id, AVG(review_rating) AS rating, COUNT(parking_structure_id) AS total_reviews FROM reviews GROUP BY parking_structure_id;",
+        "SELECT is_deleted, parking_structure_id, AVG(review_rating) AS rating, COUNT(parking_structure_id) AS total_reviews FROM reviews WHERE is_deleted = false GROUP BY parking_structure_id;",
         (err, result) => {
             if (err) {
                 console.log(err);
@@ -178,7 +178,7 @@ app.get('/ratings', (req, res) => {
 app.get('/reviews', (req, res) => {
     var structure = req.query.structure;
     db.query(
-        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, DATE_FORMAT(review_date, '%m-%d-%Y') as review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE reviews.parking_structure_id = ?;",
+        "SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, DATE_FORMAT(review_date, '%m-%d-%Y') as review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE reviews.parking_structure_id = ? AND reviews.is_deleted = false;",
         [structure], (err, result) => {
             if (err) {
                 console.log(err);
@@ -209,7 +209,7 @@ app.post('/review/submit', (req, res) => {
                     var lastName = result[0].last_name;
                     console.log(userId);
                     db.query(
-                        "INSERT INTO reviews (user_id, parking_structure_id, review_text, review_rating, review_date) VALUES (?,?,?,?, NOW());",
+                        "INSERT INTO reviews (user_id, parking_structure_id, review_text, review_rating, review_date, is_deleted) VALUES (?,?,?,?, NOW(), false);",
                         [userId, parkingStructureId, textReview, rating], (err, response) => {
                             if (err) {
                                 console.log(err);
@@ -231,10 +231,28 @@ app.post('/review/submit', (req, res) => {
     );
 });
 
+app.post('/review/delete', (req, res) => {
+    console.log("endpoint reached");
+    var reviewId = req.body.reviewId;
+    db.query(
+        "UPDATE reviews SET is_deleted = true WHERE review_id = ?",
+        [reviewId], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                console.log(result);
+                res.send({
+                    result: "success"
+                });
+            }
+        }
+    );
+});
+
 app.get('/myreviews', (req, res) => {
     var userId = req.query.userId;
     db.query(
-        "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? ) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
+        "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? AND reviews.is_deleted = false) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
         [userId], (err, result) => {
             if (err) {
                 console.log(err);
