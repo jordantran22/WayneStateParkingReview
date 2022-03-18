@@ -48,6 +48,10 @@ const MyReviewsPage = () => {
         const res = await fetch('http://localhost:5000/review/delete', reviewInformation);
         const data = await res.json();
         console.log(data);
+
+        if(data.result === "success") {
+            setReviews(reviews.filter((review) => review.review_id !== review_id));
+        }
     }
 
     useEffect(() => {
