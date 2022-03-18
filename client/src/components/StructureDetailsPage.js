@@ -150,7 +150,7 @@ const StructureDetailsPage = () => {
               <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} /></h2>
 
               <h2>Write Your Review!</h2>
-              <textarea onChange={(e) => setTextReview(e.target.value)}></textarea>
+              <textarea onChange={(e) => setTextReview(e.target.value)} maxlength="250"></textarea>
 
               <button onClick={() => submitReview()}>Submit!</button>
             </div>
