@@ -263,4 +263,23 @@ app.get('/myreviews', (req, res) => {
     );
 });
 
+app.post('/review/edit', (req, res) => {
+    var reviewId = req.body.reviewId;
+    var reviewRating = req.body.reviewRating;
+    var reviewText = req.body.reviewText;
+    db.query(
+        "UPDATE reviews SET review_text = ?, review_rating = ? WHERE review_id = ?",
+        [reviewText, reviewRating,  reviewId], (err, result) => {
+            if (err) {
+                console.log(err);
+            } else {
+                res.send({
+                    result: "success"
+                });
+            }
+        }
+    );
+
+})
+
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

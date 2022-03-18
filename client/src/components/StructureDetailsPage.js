@@ -89,7 +89,7 @@ const StructureDetailsPage = () => {
     console.log(data);
 
     if (data.result === "success") {
-      console.log(data.review);
+      // console.log(data.review);
       var date = new Date(data.review.review_date);
       var dateFormated = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
       data.review.review_date = dateFormated;

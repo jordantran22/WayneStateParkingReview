@@ -4,10 +4,16 @@ import { useLocation } from 'react-router-dom'
 import LeafletMap from './LeafletMap';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
+import ReactStars from 'react-stars';
 
 const MyReviewsPage = () => {
     const location = useLocation();
     const [reviews, setReviews] = useState([]);
+    const [editReviewPoup, setEditReviewPopup] = useState(false);
+    const [rating, setRating] = useState();
+    const [textReview, setTextReview] = useState("");
+    const [editReviewSelected, setEditReviewSelected] = useState({});
+    
     const loggedInStatus = location.state.loggedInStatus;
 
     const getMyReviews = async () => {
@@ -33,8 +39,9 @@ const MyReviewsPage = () => {
         }
     }
 
-    const editReview = () => {
-
+    const selectReviewToEdit = (review) => {
+        setEditReviewSelected(review);
+        setEditReviewPopup(true);
     }
 
     const deleteReview = async (review_id) => {
@@ -51,8 +58,40 @@ const MyReviewsPage = () => {
 
         if(data.result === "success") {
             setReviews(reviews.filter((review) => review.review_id !== review_id));
-        }
+        } 
     }
+
+    const editReview = async () => {
+        editReviewSelected.review_rating = rating;
+        editReviewSelected.review_text = textReview;
+
+        const reviewInformation = {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+            body: JSON.stringify({
+              reviewId: editReviewSelected.review_id,
+              reviewRating: editReviewSelected.review_rating,
+              reviewText: editReviewSelected.review_text
+            }),
+          }
+          const res = await fetch('http://localhost:5000/review/edit', reviewInformation);
+          const data = await res.json();
+
+          if(data.result === "success") {
+              setEditReviewPopup(false);
+              editReviewSelected.review_text = textReview;
+              editReviewSelected.review_rating = rating;
+              setEditReviewSelected({});
+              setRating();
+              setTextReview("");
+          } else {
+              alert("Something went wrong!")
+          }
+    }
+
+    const ratingChanged = (newRating) => {
+        setRating(newRating);
+      }
 
     useEffect(() => {
         try {
@@ -75,7 +114,7 @@ const MyReviewsPage = () => {
                                 </h2>
                                 <ReviewCard key={review.review_id} review={review} />
                                 <div>
-                                    <button onClick={() => editReview(review)}>Edit</button>
+                                    <button onClick={() => selectReviewToEdit(review)}>Edit</button>
                                     <button onClick={() => deleteReview(review.review_id)}>Delete</button>
                                 </div>
                             </div>
@@ -83,6 +122,25 @@ const MyReviewsPage = () => {
                     })
                 }
             </div>
+
+
+            {
+                editReviewPoup &&
+                <div className="login-modal-overlay">
+                        <div className="login-modal">
+                        <button className="close-modal-btn" onClick={() => setEditReviewPopup(false)}>
+                            X
+                        </button>
+
+                        <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} /></h2>
+
+                        <h2>Edit Your Review!</h2>
+                        <textarea onChange={(e) => setTextReview(e.target.value)}></textarea>
+
+                        <button onClick={() => editReview()}>Edit!</button>
+                    </div>
+                </div>
+            }
             <LeafletMap />
         </div>
     )
