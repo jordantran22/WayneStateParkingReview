@@ -73,6 +73,7 @@ const NavBar = ({ loggedInStatus }) => {
         console.log(data);
         if (data.loggedIn === false) {
             setStatus(false);
+            navigateToHomePage();
         }
     }
 

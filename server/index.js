@@ -249,18 +249,24 @@ app.post('/review/delete', (req, res) => {
     );
 });
 
-app.get('/myreviews', (req, res) => {
+app.get('/user/reviews', (req, res) => {
     var userId = req.query.userId;
-    db.query(
-        "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? AND reviews.is_deleted = false) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
-        [userId], (err, result) => {
-            if (err) {
-                console.log(err);
-            } else {
-                res.json(result);
+
+    console.log(req.session.user);
+    if(req.session.user[0].user_id != userId) {
+        res.send({result: "Access Denied"});
+    } else {
+        db.query(
+            "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? AND reviews.is_deleted = false) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
+            [userId], (err, result) => {
+                if (err) {
+                    console.log(err);
+                } else {
+                    res.json(result);
+                }
             }
-        }
-    );
+        );
+    }
 });
 
 app.post('/review/edit', (req, res) => {

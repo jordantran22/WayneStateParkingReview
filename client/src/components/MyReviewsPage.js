@@ -29,11 +29,17 @@ const MyReviewsPage = () => {
             const requestInfo = {
                 method: 'GET',
                 headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+                credentials: "include"
             }
 
-            const res2 = await fetch(`http://localhost:5000/myreviews?userId=${userData.userId}`, requestInfo);
+            const res2 = await fetch(`http://localhost:5000/user/reviews?userId=${userData.userId}`, requestInfo);
             const reviewsData = await res2.json();
-            setReviews(reviewsData);
+
+            if(reviewsData.result === "Access Denied") {
+                alert("Access Denied!");
+            } else {
+                setReviews(reviewsData);
+            }
         } else {
             alert("You must be logged in!");
         }
@@ -58,7 +64,9 @@ const MyReviewsPage = () => {
 
         if(data.result === "success") {
             setReviews(reviews.filter((review) => review.review_id !== review_id));
-        } 
+        } else {
+            alert("Error has occured!");
+        }
     }
 
     const editReview = async () => {
