@@ -1,51 +1,606 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Condensed:wght@400;700&display=swap');
+
+:root {
+  --clr-WSU-dark-gold: #FDC741;
+  --clr-WSU-light-gold: #FCE3A3;
+  --clr-WSU-dark-green: #10594E;
+  --clr-WSU-light-green: #4B8076;
+  --clr-light-gray: #B0B0B0;
+  --clr-dark-gray: #7E7E7E;
+
+  --ff-regular: 'Roboto', sans-serif;
+  --ff-condensed: 'Roboto Condensed', sans-serif;
+
+  --navbar-height: 67px;
+}
+
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
+  'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+  sans-serif; */
+  font-family: var(--ff-regular);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overscroll-behavior-x: none;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  margin: 0;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: inherit;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
 }
 
-.navbar {
-  display: flex;
-  list-style-type: none;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: #2E8B57;
-  width: 100vw;
+a {
+  color: var(--clr-WSU-dark-green);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 1rem;
+  transition: 300ms;
+}
+
+a:hover {
+  color: var(--clr-WSU-light-green)
+}
+
+a > img {
+  transition: inherit;
+}
+
+a > img:hover {
+  opacity: .8;
+}
+
+button {
+  cursor: pointer;
+  border: none;
   margin: 0;
+  text-decoration: none;
+  transition: 300ms;
+  font: inherit;
+  -webkit-appearance: none;
+  -moz-appearance: none;
 }
 
-.navbarTab {
-  margin: 1rem;
-  color: white;
-  font-size: large;
+button:focus, input:focus {
+  /* outline: 2px solid #000; */
+  z-index: 999;
+}
+
+h1 {
+  font-size: 2.25rem;
+  font-weight: bold;
+  margin: 0 0 .25rem;
+}
+
+h2 {
+  font-size: 1.5rem;
+  font-weight: bold;
+  margin: 0 0 .25rem;
+}
+
+/* --------------------- */
+/* Layout Containers     */
+/* --------------------- */
+/*#region*/
+.content-container {
+  background-color: white;
+  box-sizing: border-box;
+  box-shadow: 0 4px 10px 1px rgba(0, 0, 0, .6);
+  left: 0;
+  min-height: 100%;
+  padding: 30px;
+  position: absolute;
+  top: var(--navbar-height);
+  width: 60%;
+  z-index: 2;
+}
+
+/* map */
+.leaflet-container {
+  height: 100%;
+  width: 40%;
+  position: fixed;
+  right: 0;
+  top: var(--navbar-height);
+}
+
+@media screen and (max-width: 1100px) {
+  .content-container {
+    width: 70%;
+  }
+
+  .leaflet-container {
+    width: 30%;
+  }
+}
+
+@media screen and (max-width: 950px) {
+  .content-container {
+    width: 100%;
+  }
+
+  .leaflet-container {
+    display: none;
+  }
+}
+/*#endregion*/
+
+/* --------------------- */
+/* Utilities             */
+/* --------------------- */
+/*#region*/
+.ff-condensed {
+  font-family: var(--ff-condensed);
+}
+
+.fw-bold {
   font-weight: bold;
 }
 
-.wsuLogo {
-  width: 20%;
+.hoverable-card:hover {
+  cursor: pointer;
+  box-shadow: 0 0 6px 2px rgba(0, 0, 0, .4);
 }
 
-.leaflet-container {
-  height: 100vh;
-  width: 35vw;
-  position: fixed;
-  right: 0;
-  top: 4.8rem;
+/* REQUIRES: --font-size, --line-height, and --num-lines, and max-width to be defined */
+.nowrap-ellipsis {
+  display: block; /* Fallback for non-webkit */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: calc(var(--font-size) * var(--line-height) * var(--num-lines)); /* Fallback for non-webkit */
+  line-height: var(--line-height);
+  -webkit-line-clamp: var(--num-lines);
+}
+/*#endregion*/
+
+/* --------------------- */
+/* Componenets           */
+/* --------------------- */
+/*#region*/
+/* primary button */
+.primary-btn {
+  background-color: var(--clr-WSU-dark-green);
+  border-radius: 2px;
+  color: white;
+  font-size: .95rem;
+  height: 37px;
+  max-width: 184px;
+  width: 100%;
+  text-align: center;
 }
 
-.homepageContainer {
+.primary-btn:hover {
+  background-color: var(--clr-WSU-light-green);
+}
+
+/* navbar */
+/*#region*/
+.navbar__spacer {
+  display: block;
+  width: 100%;
+  height: var(--navbar-height);
+}
+
+.navbar {
+  align-items: center;
+  box-sizing: border-box;
+  background-color: var(--clr-WSU-dark-green);
   display: flex;
   justify-content: space-between;
+  list-style-type: none;
+  left: 0;
+  margin: 0;
+  padding: 0 40px;
+  height: var(--navbar-height);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 3;
 }
 
-.homepage {
-  min-height: 100vh;
+.navbar__item {
+  color: white;
+  font-size: 1.125rem;
 }
+
+.navbar__item > button {
+  background: none;
+  color: white;
+  font: inherit;
+}
+
+.navbar__item > button:hover {
+  color: var(--clr-WSU-light-gold);
+}
+
+.navbar > div {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.site-logo {
+  background: none;
+  color: var(--clr-WSU-dark-gold);
+  font-size: 2.25rem;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.site-logo:hover {
+  color: var(--clr-WSU-light-gold);
+}
+/*#endregion*/
+
+/* searchbar */
+/*#region*/
+::placeholder, ::-webkit-input-placeholder, ::-moz-placeholder, :-ms-input-placeholder {
+  color: var(--clr-light-gray);
+}
+
+.searchbar {
+  display: block;
+  max-width: 336px;
+  display: flex;
+  height: 37px;
+  width: 336px;
+}
+
+.searchbar__box {
+  width: 100%;
+  position: relative;
+}
+
+.searchbar__box > input {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 2px 0px 0px 2px;
+  box-sizing: border-box;
+  font-size: 1rem;
+  height: 100%;
+  padding: 2px 0 0 8px;
+  width: 100%;
+}
+
+.searchbar__btn {
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  background-color: var(--clr-WSU-dark-gold);
+  display: flex;
+  justify-content: center;
+}
+
+.searchbar__btn:hover {
+  background-color: var(--clr-WSU-light-gold);
+}
+/*#endregion*/
+
+/* Reivews on the My Reviews page */
+.my-review-card {
+  margin: 0 0 50px 0;
+}
+.my-review-card > div {
+  display: flex;
+  gap: 15px;
+  margin: 5px 2px 7px 0;
+}
+
+.my-review-card button {
+  background: none;
+  color: var(--clr-WSU-dark-green);
+  font-weight: bold;
+  padding: 0;
+}
+
+.my-review-card button:hover {
+  color: var(--clr-WSU-light-green);
+}
+
+/* Parking Structure Detail Card */
+/*#region*/
+.detail-card {
+  display: flex;
+  flex-direction: row;
+  gap: 29px;
+  margin: 0 0 17px 0;
+  width: 100%;
+}
+
+.detail-card__info {
+  display: flex;
+  flex-direction: column;
+}
+
+.detail-card__info > h1 {
+  margin: 0 0 11px;
+  width: 100%;
+}
+
+.detail-card__info > a > img {
+  border-radius: 5px;
+  display: block;
+  margin: 11px 0;
+  width: 350px;
+  height: 193px;
+  object-fit: fill;
+  overflow: hidden;
+  /* width: 100%; */
+  /* height: auto; */
+}
+
+.detail-card__hours {
+  height: 15rem;
+}
+
+.detail-card__hours > tbody > th {
+  font-weight: normal;
+}
+
+.detail-card__hours > tbody > tr > td:first-of-type {
+  padding: 0 10px;
+}
+
+.detail-card__hours .current-day {
+  font-weight: bold;
+}
+/*#endregion*/
+
+/* Parking Structure Quick View Card */
+/*#region*/
+.quick-view-card {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
+  display: flex;
+  font-size: 1.125rem;
+  gap: 20px;
+  max-width: fit-content;
+  margin-top: 1rem;
+  padding: 20px;
+  scroll-margin-top: calc(var(--navbar-height) + 20px);
+  width: 100%;
+}
+
+.quick-view-card > img {
+  aspect-ratio: 1 / 1;
+  object-fit: fill;
+  max-height: 220px;
+}
+
+.quick-view-card__subhead {
+  --line-height: 1.2;
+  --num-lines: 2;
+  --font-size: 1.125rem;
+  color: var(--clr-dark-gray);
+  margin: 0 0 3px;
+  max-width: 100%;
+}
+
+.quick-view-card__info {
+  text-align: left;
+}
+
+.quick-view-card__description {
+  --line-height: 1.2;
+  --num-lines: 3;
+  --font-size: 1.125rem;
+  color: var(--clr-dark-gray);
+  margin: 0.75rem 0;
+  max-width: 100%;
+}
+
+.quick-view-card__hours {
+  --line-height: 1.2;
+  --num-lines: 1;
+  --font-size: 1.125rem;
+  max-width: 100%;
+}
+
+.green-span {
+  color: #028D53;
+  font-weight: bold;
+}
+/*#endregion*/
+
+/* Pricing Table */
+.pricing-table {
+  margin: 40px 0;
+}
+.pricing-table > caption {
+  text-align: left;
+}
+
+.pricing-table > tbody th {
+  text-align: right;
+}
+
+.pricing-table td {
+  text-align: center;
+  padding: 1rem;
+}
+
+/* Review Card */
+.review-card {
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  font-size: 1rem;
+  gap: 12px;
+  margin-top: 1rem;
+  padding: 20px;
+  width: 100%;
+}
+
+.review-card h3 {
+  font-size: 1.25rem;
+  margin: 0;
+}
+
+.review-card__reviewer-info {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.review-card__review {
+  color: var(--clr-dark-gray)
+}
+
+.placeholder-profile-picture {
+  background-color: green;
+  display: block;
+  height: 82px;
+  position: relative;
+  width: 82px;
+  border-radius: 50%;
+}
+
+.placeholder-profile-picture::after {
+  color: white;
+  font-size: 30pt;
+  font-weight: bold;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  content: 'M';
+}
+
+/* Modal Text Input */
+/*#region*/
+.modal-text-input {
+  position: relative;
+  max-width: 184px;
+}
+
+.modal-text-input > input {
+  border: 1px solid var(--clr-light-gray);
+  border-radius: 2px;
+  box-sizing: border-box;
+  font-size: .95rem;
+  height: 45px;
+  padding: 1rem 8px 0;
+  width: 100%;
+}
+
+.modal-text-input > input:focus {
+  outline: none;
+  border: 1px solid var(--clr-WSU-dark-green);
+}
+
+.modal-text-input > input:focus + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > input:valid:not(:focus) + label {
+  color: var(--clr-WSU-dark-green);
+  opacity: .8;
+  left: 8px;
+  top: 12px;
+  font-size: .75rem;
+}
+
+.modal-text-input > label {
+  color: var(--clr-dark-gray);
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  transition: 300ms ease-out;
+}
+/*#endregion*/
+
+/* Close Modal Button */
+.close-modal-btn {
+  background: none;
+  padding: 5px 10px;
+  position: absolute;
+  right: 8px;
+  top: 8px;
+  font-weight: bolder;
+  font-size: 18pt;
+}
+
+.close-modal-btn:hover {
+  color: var(--clr-dark-gray);
+}
+
+/* Login Modal */
+/*region*/
+.login-modal-overlay {
+  align-items: center;
+  background-color: rgba(255, 255, 255, .86);
+  display: flex;
+  height: 100%;
+  justify-content: center;
+  left: 0;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 9999;
+}
+
+.login-modal {
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 21px 56px 28px;
+  position: relative;
+  width: 100%;
+  max-width: 300px;
+  max-height: min-content;
+  text-align: center;
+}
+
+.login-modal > div:last-child {
+  color: var(--clr-dark-gray);
+  font-size: .8rem;
+  margin-top: 10px;
+}
+
+.login-modal > div:last-child > a {
+  font-size: .8rem;
+}
+
+#sign-up-btn {
+  color: var(--clr-WSU-dark-green);
+  background: none;
+  font-weight: bold;
+}
+
+#sign-up-btn:hover {
+  color: var(--clr-WSU-light-green);
+}
+/*endregion*/
+
+/* Stars and secondary text */
+.rating {
+  align-items: center;
+  color: var(--clr-dark-gray);
+  display: flex;
+  font-size: .95rem;
+  gap: 5px;
+  z-index: 1;
+  line-height: 30px;
+}
+/*#endregion*/
