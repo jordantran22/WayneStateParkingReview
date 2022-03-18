@@ -44,12 +44,16 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
         const data = await res.json();
         console.log(data);
 
-        let credentials = {
-            email: details.email,
-            password: details.password
+        if(data.err === "Account with email already exists!") {
+            alert("Account with email already exists!");
+        } else {
+            let credentials = {
+                email: details.email,
+                password: details.password
+            }
+    
+            startSession(credentials);
         }
-
-        startSession(credentials);
     }
 
     return (

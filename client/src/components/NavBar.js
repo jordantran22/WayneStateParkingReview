@@ -39,6 +39,8 @@ const NavBar = ({ loggedInStatus }) => {
             setStatus(true);
             if (signInClicked) setSignInClicked(false);
             else if (signUpClicked) setSignUpClicked(false);
+        } else {
+            alert("Invalid email and password!");
         }
     }
 
