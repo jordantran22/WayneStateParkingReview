@@ -19,7 +19,7 @@ const HomePage = () => {
 
     const res = await fetch('http://localhost:5000/login', userInformation);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     if (data.loggedIn === true) {
       setLoggedInStatus(true);
     } else {

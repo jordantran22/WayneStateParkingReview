@@ -38,7 +38,7 @@ const StructureDetailsPage = () => {
     const res = await fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
     const data = await res.json();
     setReviews(data);
-    console.log(data);
+   // console.log(data);
   }
 
   const reviewButtonClicked = () => {
@@ -55,7 +55,7 @@ const StructureDetailsPage = () => {
 
     const res = await fetch('http://localhost:5000/login', userInformation);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
     if (data.loggedIn === true) {
       setUserEmail(data.user);
       // console.log(data.user);
@@ -86,7 +86,7 @@ const StructureDetailsPage = () => {
     }
     const res = await fetch('http://localhost:5000/review/submit', userInformation);
     const data = await res.json();
-    console.log(data);
+    //console.log(data);
 
     if (data.result === "success") {
       // console.log(data.review);
@@ -130,6 +130,11 @@ const StructureDetailsPage = () => {
       <Navbar loggedInStatus={loggedInStatus} />
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate} />
+
+        <p>
+            {parkingStructureInfo.description}
+        </p>
+
         <PricingTable parkingStructureInfo={parkingStructureInfo} />
 
         <PrimaryButton text='Write Review' func={reviewButtonClicked} />

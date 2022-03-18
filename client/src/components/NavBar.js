@@ -53,7 +53,7 @@ const NavBar = ({ loggedInStatus }) => {
 
         const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
-        console.log(data);
+        //console.log(data);
         if (data.loggedIn === true) {
             setStatus(true);
         } else {
@@ -70,7 +70,7 @@ const NavBar = ({ loggedInStatus }) => {
 
         const res = await fetch('http://localhost:5000/logout', userInformation);
         const data = await res.json();
-        console.log(data);
+        //console.log(data);
         if (data.loggedIn === false) {
             setStatus(false);
             navigateToHomePage();
