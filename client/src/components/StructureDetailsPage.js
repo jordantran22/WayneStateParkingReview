@@ -36,7 +36,7 @@ const StructureDetailsPage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
+    const res = await fetch(`https://wsu-parking-review.herokuapp.com/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
     const data = await res.json();
     setReviews(data);
    // console.log(data);
@@ -54,7 +54,7 @@ const StructureDetailsPage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('http://localhost:5000/login', userInformation);
+    const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
     const data = await res.json();
     //console.log(data);
     if (data.loggedIn === true) {
@@ -85,7 +85,7 @@ const StructureDetailsPage = () => {
         textReview: textReview
       }),
     }
-    const res = await fetch('http://localhost:5000/review/submit', userInformation);
+    const res = await fetch('https://wsu-parking-review.herokuapp.com/review/submit', userInformation);
     const data = await res.json();
     //console.log(data);
 

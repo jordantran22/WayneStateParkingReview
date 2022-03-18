@@ -40,7 +40,7 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
             })
         }
 
-        const res = await fetch('http://localhost:5000/register', userInformation);
+        const res = await fetch('https://wsu-parking-review.herokuapp.com/register', userInformation);
         const data = await res.json();
         //console.log(data);
 

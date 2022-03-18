@@ -17,7 +17,7 @@ const HomePage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('http://localhost:5000/login', userInformation);
+    const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
     const data = await res.json();
     //console.log(data);
     if (data.loggedIn === true) {
@@ -33,7 +33,7 @@ const HomePage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch('http://localhost:5000/ratings', requestInfo);
+    const res = await fetch('https://wsu-parking-review.herokuapp.com/ratings', requestInfo);
     const data = await res.json();
     localStorage.setItem("ratings", JSON.stringify(data));
   }
