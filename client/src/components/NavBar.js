@@ -93,9 +93,9 @@ const NavBar = ({ loggedInStatus }) => {
                     <button onClick={() => navigateToHomePage()} className="site-logo">WSU Parking</button>
                 </li>
 
-                <li className="navbar__item">
+                {/* <li className="navbar__item">
                     <SearchBar />
-                </li>
+                </li> */}
                 <div>
                     <li className="navbar__item ff-condensed fw-bold" style={status ? { display: 'initial' } : { display: 'none' }} >
                         <button onClick={() => navigateToMyReviewsPage()}>My Reviews</button>

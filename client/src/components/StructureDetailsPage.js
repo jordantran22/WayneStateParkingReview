@@ -8,6 +8,7 @@ import PricingTable from './PricingTable';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
+import LeafletMapOneStructure from './LeafletMapOneStructure';
 
 const StructureDetailsPage = () => {
   const location = useLocation();
@@ -164,7 +165,9 @@ const StructureDetailsPage = () => {
           })
         }
       </div>
-      <LeafletMap />
+      {/* <LeafletMap /> */}
+
+      <LeafletMapOneStructure structureInfo={parkingStructureInfo} />
     </div>
   )
 }
