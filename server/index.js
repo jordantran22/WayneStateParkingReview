@@ -18,7 +18,7 @@ const saltRounds = 10;
 
 // need to add origin for hosted front-end react 
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: ["http://localhost:3000", "https://wsuparkingreview.netlify.app"],
     methods: ["GET", "POST"],
     credentials: true
 }));
