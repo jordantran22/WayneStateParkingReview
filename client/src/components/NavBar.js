@@ -33,7 +33,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         if (data.loggedIn === true) {
             setStatus(true);
@@ -51,7 +51,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch('http://localhost:5000/login', userInformation);
         const data = await res.json();
         //console.log(data);
         if (data.loggedIn === true) {
@@ -68,7 +68,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/logout', userInformation);
+        const res = await fetch('http://localhost:5000/logout', userInformation);
         const data = await res.json();
         //console.log(data);
         if (data.loggedIn === false) {

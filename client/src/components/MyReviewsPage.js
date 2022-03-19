@@ -23,7 +23,7 @@ const MyReviewsPage = () => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch('http://localhost:5000/login', userInformation);
         const userData = await res.json();
         if (userData.loggedIn === true) {
             const requestInfo = {
@@ -32,7 +32,7 @@ const MyReviewsPage = () => {
                 credentials: "include"
             }
 
-            const res2 = await fetch(`https://wsu-parking-review.herokuapp.com/user/reviews?userId=${userData.userId}`, requestInfo);
+            const res2 = await fetch(`http://localhost:5000/user/reviews?userId=${userData.userId}`, requestInfo);
             const reviewsData = await res2.json();
 
             if(reviewsData.result === "Access Denied") {
@@ -58,7 +58,7 @@ const MyReviewsPage = () => {
             reviewId: review_id
           }),
         }
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/review/delete', reviewInformation);
+        const res = await fetch('http://localhost:5000/review/delete', reviewInformation);
         const data = await res.json();
         //console.log(data);
 
@@ -82,7 +82,7 @@ const MyReviewsPage = () => {
               reviewText: editReviewSelected.review_text
             }),
           }
-          const res = await fetch('https://wsu-parking-review.herokuapp.com/review/edit', reviewInformation);
+          const res = await fetch('http://localhost:5000/review/edit', reviewInformation);
           const data = await res.json();
 
           if(data.result === "success") {
