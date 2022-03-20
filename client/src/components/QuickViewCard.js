@@ -22,7 +22,6 @@ const QuickViewCard = ({ structure, loggedInStatus }) => {
     const getStructureRating = () => {
         const structureRatings = localStorage.getItem("ratings");
         const JSONArrayRatings = JSON.parse(structureRatings);
-        //console.log(JSON.parse(structureRatings));
 
         JSONArrayRatings.map((structureRating) => {
             if (structure.number == structureRating.parking_structure_id) {

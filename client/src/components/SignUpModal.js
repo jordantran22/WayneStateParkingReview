@@ -9,13 +9,6 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
 
     const onSignUpButtonClicked = e => {
         e.preventDefault();
-        console.log(details)
-        console.log(details.email);
-        console.log(details.firstName);
-        console.log(details.lastName);
-        console.log(details.password);
-        console.log(details.confirmPassword);
-
         signUpInputValidation(details);
     }
 
@@ -40,20 +33,17 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
             })
         }
 
-        const res = await fetch('http://localhost:5000/register', userInformation);
-        const data = await res.json();
-        //console.log(data);
-
-        if(data.err === "Account with email already exists!") {
-            alert("Account with email already exists!");
-        } else {
-            let credentials = {
-                email: details.email,
-                password: details.password
-            }
-    
-            startSession(credentials);
-        }
+        fetch('http://localhost:5000/register', userInformation)
+            .then(res => res.json())
+            .then(data => {
+                if (data.err === "Account with email already exists!")
+                    alert("Account with email already exists!");
+                else
+                    startSession({
+                        email: details.email,
+                        password: details.password
+                    });
+            })
     }
 
     return (
@@ -75,38 +65,3 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
 }
 
 export default SignUpModal;
-
-{/* <div className='modal-text-input'>
-                    <input type="text" id="email" name="email" value={email} onChange={((e) => setEmail(e.target.value))} required />
-                    <label for="username">Enter Email</label>
-                </div> */}
-
-{/* <div className='modal-text-input'>
-                    <input type="text" id="firstname" name="firstname" value={firstName} onChange={((e) => setFirstName(e.target.value))} required />
-                    <label for="firstname">Enter First Name</label>
-                </div>
-
-                <div className='modal-text-input'>
-                    <input type="text" id="lastname" name="lastname" value={lastName} onChange={((e) => setLastName(e.target.value))} required />
-                    <label for="lastname">Enter Last Name</label>
-                </div>
-
-                <div className='modal-text-input'>
-                    <input type="text" id="password" name="password" value={password} onChange={((e) => setPassword(e.target.value))} required />
-                    <label for="password">Enter Password</label>
-                </div>
-
-                <div className='modal-text-input'>
-                    <input type="text" id="confirmpassword" name="confirmpassword" value={confirmPassword} onChange={((e) => setConfirmPassword(e.target.value))} required />
-                    <label for="confirmpassword">Re-enter Password</label>
-                </div> */}
-
-
-
-{/* <ModalTextInput text="Enter Email" name="username" />
-                        <ModalTextInput text="Enter First Name" name="firstname" />
-                        <ModalTextInput text="Enter Last Name" name="lastname" />
-                        <ModalTextInput text="Enter Password" name="password" />
-                        <ModalTextInput text="Confirm Password" name="confirmpassword" /> */}
-
-{/* <div>Already have an account? </div> <a onClick={() => activateSignInModal()}>Sign In!</a> */ }

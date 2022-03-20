@@ -7,8 +7,6 @@ import { useEffect, useState } from 'react';
 
 const HomePage = () => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
-  const [structureRatings, setStructureRatings] = useState([]);
-  const [structure1, setStructure1] = useState();
 
   const getSessionLoginStatus = async () => {
     const userInformation = {
@@ -17,14 +15,9 @@ const HomePage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('http://localhost:5000/login', userInformation);
-    const data = await res.json();
-    //console.log(data);
-    if (data.loggedIn === true) {
-      setLoggedInStatus(true);
-    } else {
-      setLoggedInStatus(false);
-    }
+    fetch('http://localhost:5000/login', userInformation)
+      .then(res => res.json())
+      .then(data => (data.loggedIn === true) ? setLoggedInStatus(true) : setLoggedInStatus(false));
   }
 
   const getStructureRatings = async () => {
@@ -33,9 +26,9 @@ const HomePage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch('http://localhost:5000/ratings', requestInfo);
-    const data = await res.json();
-    localStorage.setItem("ratings", JSON.stringify(data));
+    fetch('http://localhost:5000/ratings', requestInfo)
+      .then(res => res.json())
+      .then(data => localStorage.setItem("ratings", JSON.stringify(data)));
   }
 
   useEffect(() => {

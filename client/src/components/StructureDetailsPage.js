@@ -12,18 +12,12 @@ import LeafletMapOneStructure from './LeafletMapOneStructure';
 
 const StructureDetailsPage = () => {
   const location = useLocation();
-  // console.log(location.state);
+
   const parkingStructureInfo = location.state.structure;
   const loggedInStatus = location.state.loggedInStatus;
-  //const totalReviews = location.state.totalReviews;
-  //const structureRate = location.state.structureRate;
   const [structureRate, setStructureRate] = useState(location.state.structureRate);
   const [totalReviews, setTotalReviews] = useState(location.state.totalReviews);
-  // console.log(location)
-  // console.log(parkingStructureInfo);
-
   const [loggedIn, setLoggedIn] = useState();
-
   const [reviews, setReviews] = useState([]);
   const [writeReviewPopup, setWriteReviewPopup] = useState(false);
   const [rating, setRating] = useState();
@@ -36,15 +30,12 @@ const StructureDetailsPage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
-    const data = await res.json();
-    setReviews(data);
-   // console.log(data);
+    fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo)
+      .then(res => res.json())
+      .then(data => setReviews(data));
   }
 
-  const reviewButtonClicked = () => {
-    getSessionLoginStatus();
-  }
+  const reviewButtonClicked = () => getSessionLoginStatus();
 
 
   const getSessionLoginStatus = async () => {
@@ -54,25 +45,21 @@ const StructureDetailsPage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('http://localhost:5000/login', userInformation);
-    const data = await res.json();
-    //console.log(data);
-    if (data.loggedIn === true) {
-      setUserEmail(data.user);
-      // console.log(data.user);
-      console.log(userEmail);
-      setLoggedIn(true);
-      setWriteReviewPopup(true);
-    } else {
-      setLoggedIn(false);
-      alert("You must be logged in!");
-    }
+    fetch('http://localhost:5000/login', userInformation)
+      .then(res => res.json())
+      .then(data => {
+        if (data.loggedIn === true) {
+          setUserEmail(data.user);
+          setLoggedIn(true);
+          setWriteReviewPopup(true);
+        } else {
+          setLoggedIn(false);
+          alert("You must be logged in!");
+        }
+      })
   }
 
-  const ratingChanged = (newRating) => {
-    setRating(newRating);
-    console.log(rating);
-  }
+  const ratingChanged = (newRating) => setRating(newRating);
 
   const submitReview = async () => {
     const userInformation = {
@@ -85,34 +72,26 @@ const StructureDetailsPage = () => {
         textReview: textReview
       }),
     }
-    const res = await fetch('http://localhost:5000/review/submit', userInformation);
-    const data = await res.json();
-    //console.log(data);
 
-    if (data.result === "success") {
-      // console.log(data.review);
-      var date = new Date(data.review.review_date);
-      var dateFormated = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
-      data.review.review_date = dateFormated;
+    fetch('http://localhost:5000/review/submit', userInformation)
+      .then(res => res.json())
+      .then(data => {
+        if (data.result === "success") {
+          let date = new Date(data.review.review_date);
+          data.review.review_date = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
 
-      setReviews(reviews => [...reviews, data.review])
-      setWriteReviewPopup(false);
-      var reviewCounter = totalReviews + 1;
-      setTotalReviews(reviewCounter);
+          setReviews(reviews => [...reviews, data.review]);
+          setWriteReviewPopup(false);
+          setTotalReviews(reviews.length + 1);
 
-      if (reviews.length > 0) {
-        console.log(reviews.length);
-        var averageRating = 0;
-        reviews.map((review) => {
-          averageRating += review.review_rating;
-        })
-
-        setStructureRate(averageRating / reviews.length);
-        console.log(averageRating / reviews.length);
-      } else {
-        setStructureRate(data.review.review_rating);
-      }
-    }
+          if (reviews.length > 0) {
+            let averageRating = 0;
+            reviews.map(review => averageRating += review.review_rating);
+            setStructureRate(averageRating / reviews.length);
+          }
+          else setStructureRate(data.review.review_rating);
+        }
+      });
   }
 
   useEffect(() => {
@@ -121,8 +100,6 @@ const StructureDetailsPage = () => {
     } catch (e) {
       console.log(e);
     }
-
-    //  getSessionLoginStatus();
   }, []);
 
 
@@ -133,7 +110,7 @@ const StructureDetailsPage = () => {
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate} />
 
         <p>
-            {parkingStructureInfo.description}
+          {parkingStructureInfo.description}
         </p>
 
         <PricingTable parkingStructureInfo={parkingStructureInfo} />
@@ -150,7 +127,7 @@ const StructureDetailsPage = () => {
               <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} /></h2>
 
               <h2>Write Your Review!</h2>
-              <textarea onChange={(e) => setTextReview(e.target.value)} maxlength="250"></textarea>
+              <textarea onChange={(e) => setTextReview(e.target.value)} maxLength="250"></textarea>
 
               <button onClick={() => submitReview()}>Submit!</button>
             </div>
@@ -160,7 +137,7 @@ const StructureDetailsPage = () => {
         {
           reviews.map((review) => {
             return (
-                <ReviewCard key={review.review_id} review={review} />
+              <ReviewCard key={review.review_id} review={review} />
             )
           })
         }

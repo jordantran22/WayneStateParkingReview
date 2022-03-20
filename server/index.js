@@ -1,19 +1,9 @@
 const express = require('express');
 const mysql = require('mysql');
-
-const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
-//const session = require("express-session");
 const session = require("express-session");
-
 const app = express();
 const cors = require('cors');
-
-//const DbService = require('./dbService');
-
 const bcrypt = require('bcrypt');
-const e = require('express');
-const { response } = require('express');
 const saltRounds = 10;
 
 // need to add origin for hosted front-end react 
@@ -26,6 +16,7 @@ app.use(cors({
 app.set("trust proxy", 1);
 
 app.use(express.json());
+
 app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
@@ -39,8 +30,6 @@ app.use(session({
     },
 }));
 
-const PORT = process.env.PORT || 5000;
-
 const db = mysql.createPool({
     host: "localhost",
     user: "jordan",
@@ -51,7 +40,6 @@ const db = mysql.createPool({
 //b721b1b7c25b63:08682f99@us-cdbr-east-05.cleardb.net/heroku_4912680b0bc4875?reconnect=true
 app.get('/', (req, res) => {
     console.log("hello");
-    // console.log(req.session)
 });
 
 app.post('/register', (req, res) => {
@@ -59,7 +47,7 @@ app.post('/register', (req, res) => {
     const firstName = req.body.firstName;
     const lastName = req.body.lastName;
     const password = req.body.password;
-    var emailFound = false;
+    let emailFound = false;
 
     db.query(
         "SELECT email FROM users WHERE email = ?;",
@@ -75,9 +63,7 @@ app.post('/register', (req, res) => {
                 return;
             } else {
                 bcrypt.hash(password, saltRounds, (err, hash) => {
-                    if (err) {
-                        console.log(err);
-                    }
+                    if (err) console.log(err);
 
                     db.query(
                         "INSERT INTO users (email, password, first_name, last_name) VALUES (?, ?, ?, ?);",
@@ -85,13 +71,13 @@ app.post('/register', (req, res) => {
                         (err, result) => {
                             if (err) {
                                 res.send({ err: err });
-                            } else {
+                            }
+                            else {
                                 res.send({ status: true });
                             }
                         }
                     )
                 })
-
             }
         }
     )
@@ -112,9 +98,7 @@ app.post('/login', (req, res) => {
             if (result.length > 0) {
                 bcrypt.compare(password, result[0].password, (error, response) => {
                     if (response) {
-                        // req.session.isAuth = true;
                         req.session.user = result;
-                        // console.log(req.session);
                         req.session.save();
                         res.send({ loggedIn: true, user: req.session.user[0].email, userId: req.session.user[0].user_id })
                     } else {
@@ -136,10 +120,7 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    // console.log(req.session.isAuth)
-    // console.log(req.session)
     if (req.session.user) {
-        // console.log(req.session.user[0]);
         res.send({ loggedIn: true, user: req.session.user[0].email, userId: req.session.user[0].user_id });
     } else {
         res.send({ loggedIn: false });
@@ -174,11 +155,8 @@ app.get('/reviews', (req, res) => {
 });
 
 app.post('/review/submit', (req, res) => {
-    console.log("endpoint reached");
     var parkingStructureId = req.body.parkingStructure;
     var email = req.body.email;
-    console.log(req.body);
-    console.log(email);
     var rating = req.body.rating;
     var textReview = req.body.textReview;
     db.query(
@@ -237,8 +215,8 @@ app.get('/user/reviews', (req, res) => {
     var userId = req.query.userId;
 
     console.log(req.session.user);
-    if(req.session.user[0].user_id != userId) {
-        res.send({result: "Access Denied"});
+    if (req.session.user[0].user_id != userId) {
+        res.send({ result: "Access Denied" });
     } else {
         db.query(
             "SELECT * FROM ( SELECT users.first_name, users.last_name, reviews.review_text, reviews.review_rating, reviews.review_id, reviews.parking_structure_id, DATE_FORMAT(review_date, '%m-%d-%Y') AS review_date FROM reviews JOIN users ON reviews.user_id = users.user_id WHERE users.user_id = ? AND reviews.is_deleted = false) AS data JOIN parking_structures ON data.parking_structure_id = parking_structures.parking_structure_id;",
@@ -259,7 +237,7 @@ app.post('/review/edit', (req, res) => {
     var reviewText = req.body.reviewText;
     db.query(
         "UPDATE reviews SET review_text = ?, review_rating = ? WHERE review_id = ?",
-        [reviewText, reviewRating,  reviewId], (err, result) => {
+        [reviewText, reviewRating, reviewId], (err, result) => {
             if (err) {
                 console.log(err);
             } else {
@@ -271,5 +249,7 @@ app.post('/review/edit', (req, res) => {
     );
 
 })
+
+const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

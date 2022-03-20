@@ -13,9 +13,11 @@ const NavBar = ({ loggedInStatus }) => {
     }
 
     const navigateToMyReviewsPage = () => {
-        navigate('/MyReviewsPage', {state: {
+        navigate('/MyReviewsPage', {
+            state: {
 
-        }});
+            }
+        });
     }
 
     const [signInClicked, setSignInClicked] = useState(false);
@@ -33,15 +35,16 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('http://localhost:5000/login', userInformation);
-        const data = await res.json();
-        if (data.loggedIn === true) {
-            setStatus(true);
-            if (signInClicked) setSignInClicked(false);
-            else if (signUpClicked) setSignUpClicked(false);
-        } else {
-            alert("Invalid email and password!");
-        }
+        fetch('http://localhost:5000/login', userInformation)
+            .then(res => res.json())
+            .then(data => {
+                if (data.loggedIn === true) {
+                    setStatus(true);
+                    if (signInClicked) setSignInClicked(false);
+                    else if (signUpClicked) setSignUpClicked(false);
+                }
+                else alert("Invalid email and password!");
+            });
     }
 
     const getSessionLoginStatus = async () => {
@@ -51,14 +54,9 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('http://localhost:5000/login', userInformation);
-        const data = await res.json();
-        //console.log(data);
-        if (data.loggedIn === true) {
-            setStatus(true);
-        } else {
-            setStatus(false);
-        }
+        fetch('http://localhost:5000/login', userInformation)
+            .then(res => res.json())
+            .then(data => data.loggedIn ? setStatus(true) : setStatus(false));
     }
 
     const logoutButtonClicked = async () => {
@@ -68,13 +66,14 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('http://localhost:5000/logout', userInformation);
-        const data = await res.json();
-        //console.log(data);
-        if (data.loggedIn === false) {
-            setStatus(false);
-            navigateToHomePage();
-        }
+        fetch('http://localhost:5000/logout', userInformation)
+            .then(res => res.json())
+            .then(data => {
+                if (!data.loggedIn) {
+                    setStatus(false);
+                    navigateToHomePage();
+                }
+            });
     }
 
     useEffect(() => {

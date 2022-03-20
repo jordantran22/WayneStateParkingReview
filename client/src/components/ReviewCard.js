@@ -2,19 +2,17 @@ import React from 'react';
 import ReactStars from 'react-stars';
 
 const QuickViewCard = ({review}) => {
- //   console.log(review);
     return (
         <div className="review-card">
-            {/* <img src={structure.image} /> */}
             <div className='review-card__reviewer-info'>
                 <div className='placeholder-profile-picture'></div>
-                <h3>{review.first_name} {review.last_name}</h3> {/* placeholder reviewer name */}
+                <h3>{review.first_name} {review.last_name}</h3>
                 <div className='rating'>
                     <ReactStars color2={"var(--clr-WSU-dark-gold)"} color1={"#E5E5E5"} count={5} size={30} edit={false} value={review.review_rating} />
                     <span className='rating__count'>{review.review_date}</span>
                 </div>
             </div>
-            <div className="review-card__review">{/*reviewInfo.text*/}
+            <div className="review-card__review">
                 {review.review_text}
             </div>
         </div>

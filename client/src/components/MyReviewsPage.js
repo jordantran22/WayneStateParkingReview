@@ -11,38 +11,25 @@ const MyReviewsPage = () => {
     const [reviews, setReviews] = useState([]);
     const [editReviewPoup, setEditReviewPopup] = useState(false);
     const [rating, setRating] = useState();
-    const [textReview, setTextReview] = useState("");
+    const [reviewText, setReviewText] = useState("");
     const [editReviewSelected, setEditReviewSelected] = useState({});
-    
+
     const loggedInStatus = location.state.loggedInStatus;
 
     const getMyReviews = async () => {
-        const userInformation = {
+        const req = {
             method: 'GET',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
             credentials: "include"
         }
 
-        const res = await fetch('http://localhost:5000/login', userInformation);
-        const userData = await res.json();
-        if (userData.loggedIn === true) {
-            const requestInfo = {
-                method: 'GET',
-                headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-                credentials: "include"
-            }
-
-            const res2 = await fetch(`http://localhost:5000/user/reviews?userId=${userData.userId}`, requestInfo);
-            const reviewsData = await res2.json();
-
-            if(reviewsData.result === "Access Denied") {
-                alert("Access Denied!");
-            } else {
-                setReviews(reviewsData);
-            }
-        } else {
-            alert("You must be logged in!");
-        }
+        fetch('http://localhost:5000/login', req)
+            .then(res => res.json())
+            .then(userData => fetch(`http://localhost:5000/user/reviews?userId=${userData.userId}`, req))
+            .then(res => res.json())
+            .then(reviewsData =>
+                reviewsData.result !== "Access Denied" ? setReviews(reviewsData) : alert("Access Denied!")
+            )
     }
 
     const selectReviewToEdit = (review) => {
@@ -52,54 +39,51 @@ const MyReviewsPage = () => {
 
     const deleteReview = async (review_id) => {
         const reviewInformation = {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-          body: JSON.stringify({
-            reviewId: review_id
-          }),
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
+            body: JSON.stringify({
+                reviewId: review_id
+            }),
         }
-        const res = await fetch('http://localhost:5000/review/delete', reviewInformation);
-        const data = await res.json();
-        //console.log(data);
 
-        if(data.result === "success") {
-            setReviews(reviews.filter((review) => review.review_id !== review_id));
-        } else {
-            alert("Error has occured!");
-        }
+        await fetch('http://localhost:5000/review/delete', reviewInformation)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result === "success")
+                    setReviews(reviews.filter((review) => review.review_id !== review_id))
+                else alert("Error has occured!");
+            })
     }
 
     const editReview = async () => {
         editReviewSelected.review_rating = rating;
-        editReviewSelected.review_text = textReview;
+        editReviewSelected.review_text = reviewText;
 
         const reviewInformation = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
             body: JSON.stringify({
-              reviewId: editReviewSelected.review_id,
-              reviewRating: editReviewSelected.review_rating,
-              reviewText: editReviewSelected.review_text
+                reviewId: editReviewSelected.review_id,
+                reviewRating: editReviewSelected.review_rating,
+                reviewText: editReviewSelected.review_text
             }),
-          }
-          const res = await fetch('http://localhost:5000/review/edit', reviewInformation);
-          const data = await res.json();
-
-          if(data.result === "success") {
-              setEditReviewPopup(false);
-              editReviewSelected.review_text = textReview;
-              editReviewSelected.review_rating = rating;
-              setEditReviewSelected({});
-              setRating();
-              setTextReview("");
-          } else {
-              alert("Something went wrong!")
-          }
+        }
+        fetch('http://localhost:5000/review/edit', reviewInformation)
+            .then(res => res.json())
+            .then(data => {
+                if (data.result === "success") {
+                    editReviewSelected.review_text = reviewText;
+                    editReviewSelected.review_rating = rating;
+                    setEditReviewPopup(false);
+                    setEditReviewSelected({});
+                    setRating();
+                    setReviewText("");
+                }
+                else alert("Something went wrong!")
+            });
     }
 
-    const ratingChanged = (newRating) => {
-        setRating(newRating);
-      }
+    const ratingChanged = (newRating) => setRating(newRating);
 
     useEffect(() => {
         try {
@@ -135,7 +119,7 @@ const MyReviewsPage = () => {
             {
                 editReviewPoup &&
                 <div className="login-modal-overlay">
-                        <div className="login-modal">
+                    <div className="login-modal">
                         <button className="close-modal-btn" onClick={() => setEditReviewPopup(false)}>
                             X
                         </button>
@@ -143,7 +127,7 @@ const MyReviewsPage = () => {
                         <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} /></h2>
 
                         <h2>Edit Your Review!</h2>
-                        <textarea onChange={(e) => setTextReview(e.target.value)} maxlength="250"></textarea>
+                        <textarea onChange={(e) => setReviewText(e.target.value)} maxLength="250"></textarea>
 
                         <button onClick={() => editReview()}>Edit!</button>
                     </div>
