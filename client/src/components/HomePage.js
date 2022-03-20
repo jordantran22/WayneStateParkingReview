@@ -4,31 +4,19 @@ import LeafletMap from './LeafletMap';
 import { parkingStructuresData } from '../data/parkingStructuresData';
 import QuickViewCard from './QuickViewCard';
 import { useEffect, useState } from 'react';
+import { axiosPrivate, axiosPublic } from '../api/axios';
 
 const HomePage = () => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
-
+  
   const getSessionLoginStatus = async () => {
-    const userInformation = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      credentials: "include"
-    }
-
-    fetch('http://localhost:5000/login', userInformation)
-      .then(res => res.json())
-      .then(data => (data.loggedIn === true) ? setLoggedInStatus(true) : setLoggedInStatus(false));
+    axiosPrivate.get('/login')
+      .then(res => res.data.loggedIn === true ? setLoggedInStatus(true) : setLoggedInStatus(false));
   }
 
   const getStructureRatings = async () => {
-    const requestInfo = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-    }
-
-    fetch('http://localhost:5000/ratings', requestInfo)
-      .then(res => res.json())
-      .then(data => localStorage.setItem("ratings", JSON.stringify(data)));
+    axiosPublic.get('/ratings')
+      .then(res => localStorage.setItem("ratings", JSON.stringify(res.data)));
   }
 
   useEffect(() => {

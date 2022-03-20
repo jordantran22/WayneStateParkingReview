@@ -8,6 +8,7 @@ import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 import LeafletMapOneStructure from './LeafletMapOneStructure';
+import { axiosPublic, axiosPrivate } from '../api/axios';
 
 const StructureDetailsPage = () => {
   const location = useLocation();
@@ -24,31 +25,18 @@ const StructureDetailsPage = () => {
   const [userEmail, setUserEmail] = useState("");
 
   const getReviews = async () => {
-    const requestInfo = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-    }
-
-    fetch(`http://localhost:5000/reviews?structure=${parkingStructureInfo.number}`, requestInfo)
-      .then(res => res.json())
-      .then(data => setReviews(data));
+    axiosPublic.get(`/reviews?structure=${parkingStructureInfo.number}`)
+      .then(res => setReviews(res.data));
   }
 
   const reviewButtonClicked = () => getSessionLoginStatus();
 
 
   const getSessionLoginStatus = async () => {
-    const userInformation = {
-      method: 'GET',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      credentials: "include"
-    }
-
-    fetch('http://localhost:5000/login', userInformation)
-      .then(res => res.json())
-      .then(data => {
-        if (data.loggedIn === true) {
-          setUserEmail(data.user);
+    axiosPrivate.get('/login')
+      .then(res => {
+        if (res.data.loggedIn === true) {
+          setUserEmail(res.data.user);
           setLoggedIn(true);
           setWriteReviewPopup(true);
         } else {
@@ -61,25 +49,18 @@ const StructureDetailsPage = () => {
   const ratingChanged = (newRating) => setRating(newRating);
 
   const submitReview = async () => {
-    const userInformation = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-      body: JSON.stringify({
-        parkingStructure: parkingStructureInfo.number,
-        email: userEmail,
-        rating: rating,
-        textReview: textReview
-      }),
-    }
+    axiosPrivate.post('/review/submit', {
+      parkingStructure: parkingStructureInfo.number,
+      email: userEmail,
+      rating: rating,
+      textReview: textReview
+    })
+      .then(res => {
+        if (res.data.result === "success") {
+          let date = new Date(res.data.review.review_date);
+          res.data.review.review_date = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
 
-    fetch('http://localhost:5000/review/submit', userInformation)
-      .then(res => res.json())
-      .then(data => {
-        if (data.result === "success") {
-          let date = new Date(data.review.review_date);
-          data.review.review_date = (date.getMonth() + 1) + "-" + date.getDate() + "-" + date.getFullYear();
-
-          setReviews(reviews => [...reviews, data.review]);
+          setReviews(reviews => [...reviews, res.data.review]);
           setWriteReviewPopup(false);
           setTotalReviews(reviews.length + 1);
 
@@ -88,7 +69,7 @@ const StructureDetailsPage = () => {
             reviews.map(review => averageRating += review.review_rating);
             setStructureRate(averageRating / reviews.length);
           }
-          else setStructureRate(data.review.review_rating);
+          else setStructureRate(res.data.review.review_rating);
         }
       });
   }

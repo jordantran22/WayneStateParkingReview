@@ -86,7 +86,6 @@ app.post('/register', (req, res) => {
 app.post('/login', (req, res) => {
     const email = req.body.email;
     const password = req.body.password;
-
     db.query(
         "SELECT * FROM users WHERE email = ?;",
         [email],
@@ -120,6 +119,7 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
+    console.log(req.session.user)
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user[0].email, userId: req.session.user[0].user_id });
     } else {

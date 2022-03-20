@@ -1,3 +1,4 @@
+import { axiosPrivate } from '../api/axios';
 import React from 'react';
 import { useState } from 'react';
 import ModalTextInput from './ModalTextInput';
@@ -22,27 +23,21 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
     }
 
     const signUpApiRequest = async () => {
-        const userInformation = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            body: JSON.stringify({
-                email: details.email,
-                firstName: details.firstName,
-                lastName: details.lastName,
-                password: details.password
-            })
-        }
-
-        fetch('http://localhost:5000/register', userInformation)
-            .then(res => res.json())
-            .then(data => {
-                if (data.err === "Account with email already exists!")
-                    alert("Account with email already exists!");
-                else
+        axiosPrivate.post('/register', {
+            email: details.email,
+            firstName: details.firstName,
+            lastName: details.lastName,
+            password: details.password
+        })
+            .then(res => {
+                if (res.data.err === "Account with email already exists!")
+                    alert(res.data.err);
+                else {
                     startSession({
                         email: details.email,
                         password: details.password
                     });
+                }
             })
     }
 

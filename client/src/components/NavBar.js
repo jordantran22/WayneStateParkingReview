@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router'
 import { useState, useEffect } from 'react';
 import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
+import { axiosPrivate } from '../api/axios';
 
 const NavBar = ({ loggedInStatus }) => {
     let navigate = useNavigate();
@@ -12,54 +13,29 @@ const NavBar = ({ loggedInStatus }) => {
 
     const navigateToHomePage = () => navigate('/');
 
-    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', {state: {}})
+    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', { state: {} })
 
-    const signIn = async credentials => {
-        const userInformation = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            body: JSON.stringify({
-                email: credentials.email,
-                password: credentials.password
-            }),
-            credentials: "include"
-        }
-
-        fetch('http://localhost:5000/login', userInformation)
-            .then(res => res.json())
-            .then(data => {
-                if (data.loggedIn === true) {
+    const signIn = credentials => {
+        axiosPrivate.post('/login', { email: credentials.email, password: credentials.password })
+            .then(res => {
+                if (res.data.loggedIn) {
                     setStatus(true);
                     if (signInClicked) setSignInClicked(false);
                     else if (signUpClicked) setSignUpClicked(false);
                 }
                 else alert("Invalid email and password!");
-            });
+            })
     }
 
     const getSessionLoginStatus = async () => {
-        const userInformation = {
-            method: 'GET',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            credentials: "include"
-        }
-
-        fetch('http://localhost:5000/login', userInformation)
-            .then(res => res.json())
-            .then(data => data.loggedIn ? setStatus(true) : setStatus(false));
+        axiosPrivate.get('/login')
+            .then(res => res.data.loggedIn ? setStatus(true) : setStatus(false))
     }
 
     const logoutButtonClicked = async () => {
-        const userInformation = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
-            credentials: "include"
-        }
-
-        fetch('http://localhost:5000/logout', userInformation)
-            .then(res => res.json())
-            .then(data => {
-                if (!data.loggedIn) {
+        axiosPrivate.post('/logout')
+            .then(res => {
+                if (!res.data.loggedIn) {
                     setStatus(false);
                     navigateToHomePage();
                 }
