@@ -13,7 +13,7 @@ const NavBar = ({ loggedInStatus }) => {
 
     const navigateToHomePage = () => navigate('/');
 
-    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', { state: {} })
+    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', { state: { loggedInStatus: status } });
 
     const signIn = credentials => {
         axiosPrivate.post('/login', { email: credentials.email, password: credentials.password })

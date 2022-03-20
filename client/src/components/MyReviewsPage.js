@@ -6,22 +6,32 @@ import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 import { axiosPrivate } from '../api/axios';
+import { useNavigate } from 'react-router';
 
-const MyReviewsPage = () => {
+const MyReviewsPage = ({ loggedInStatus }) => {
     const location = useLocation();
     const [reviews, setReviews] = useState([]);
     const [editReviewPoup, setEditReviewPopup] = useState(false);
     const [rating, setRating] = useState();
     const [textReview, setTextReview] = useState("");
     const [editReviewSelected, setEditReviewSelected] = useState({});
-
-    const loggedInStatus = location.state.loggedInStatus;
+    const navigate = useNavigate();
 
     const getMyReviews = async () => {
         axiosPrivate.get('/login')
-            .then(res => axiosPrivate.get(`/user/reviews?userId=${res.data.userId}`))
-            .then(res => res.data.result !== "Access Denied" ? setReviews(res.data) : alert("Access Denied!"));
+            .then(res => {
+                if (res.data.loggedIn) {
+                    axiosPrivate.get('/login')
+                        .then(res => axiosPrivate.get(`/user/reviews?userId=${res.data.userId}`))
+                        .then(res => setReviews(res.data));
+                }
+                else {
+                    alert("Access Denied!");
+                    navigate('/');
+                }
+            })
     }
+
 
     const selectReviewToEdit = (review) => {
         setEditReviewSelected(review);
