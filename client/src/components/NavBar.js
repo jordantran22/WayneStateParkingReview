@@ -1,5 +1,4 @@
 import React from 'react';
-import SearchBar from './SearchBar';
 import { useNavigate } from 'react-router'
 import { useState, useEffect } from 'react';
 import SignInModal from './SignInModal';
@@ -7,22 +6,13 @@ import SignUpModal from './SignUpModal';
 
 const NavBar = ({ loggedInStatus }) => {
     let navigate = useNavigate();
-
-    const navigateToHomePage = () => {
-        navigate('/');
-    }
-
-    const navigateToMyReviewsPage = () => {
-        navigate('/MyReviewsPage', {
-            state: {
-
-            }
-        });
-    }
-
     const [signInClicked, setSignInClicked] = useState(false);
     const [signUpClicked, setSignUpClicked] = useState(false);
     const [status, setStatus] = useState(loggedInStatus);
+
+    const navigateToHomePage = () => navigate('/');
+
+    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', {state: {}})
 
     const signIn = async credentials => {
         const userInformation = {
@@ -89,19 +79,16 @@ const NavBar = ({ loggedInStatus }) => {
             <ul className="navbar">
 
                 <li>
-                    <button onClick={() => navigateToHomePage()} className="site-logo">WSU Parking</button>
+                    <button onClick={navigateToHomePage} className="site-logo">WSU Parking</button>
                 </li>
 
-                {/* <li className="navbar__item">
-                    <SearchBar />
-                </li> */}
                 <div>
                     <li className="navbar__item ff-condensed fw-bold" style={status ? { display: 'initial' } : { display: 'none' }} >
-                        <button onClick={() => navigateToMyReviewsPage()}>My Reviews</button>
+                        <button onClick={navigateToMyReviewsPage}>My Reviews</button>
                     </li>
 
                     <li className="navbar__item ff-condensed fw-bold">
-                        {(status) ? <button onClick={() => logoutButtonClicked()}>Sign Out</button> : <button onClick={() => setSignInClicked(true)}>Sign In</button>}
+                        {(status) ? <button onClick={logoutButtonClicked}>Sign Out</button> : <button onClick={() => setSignInClicked(true)}>Sign In</button>}
                     </li>
                 </div>
             </ul>

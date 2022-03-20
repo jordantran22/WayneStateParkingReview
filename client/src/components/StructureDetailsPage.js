@@ -3,7 +3,6 @@ import DetailCard from './DetailCard';
 import Navbar from './NavBar';
 import { useLocation } from 'react-router-dom'
 import PrimaryButton from './PrimaryButton';
-import LeafletMap from './LeafletMap';
 import PricingTable from './PricingTable';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
@@ -129,7 +128,7 @@ const StructureDetailsPage = () => {
               <h2>Write Your Review!</h2>
               <textarea onChange={(e) => setTextReview(e.target.value)} maxLength="250"></textarea>
 
-              <button onClick={() => submitReview()}>Submit!</button>
+              <button onClick={submitReview}>Submit!</button>
             </div>
           </div>
         }

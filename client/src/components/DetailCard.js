@@ -2,11 +2,8 @@ import React from 'react';
 import ReactStars from 'react-stars';
 import { useEffect } from 'react';
 
-
 const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
-    useEffect(() => {
-
-    }, [structureRate]);
+    useEffect(() => {}, [structureRate]);
 
     return (
         <div key={parkingStructureInfo.name}>
