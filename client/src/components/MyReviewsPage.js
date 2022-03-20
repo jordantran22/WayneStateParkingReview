@@ -1,6 +1,5 @@
 import React from 'react'
 import Navbar from './NavBar';
-import { useLocation } from 'react-router-dom'
 import LeafletMap from './LeafletMap';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
@@ -9,7 +8,6 @@ import { axiosPrivate } from '../api/axios';
 import { useNavigate } from 'react-router';
 
 const MyReviewsPage = ({ loggedInStatus }) => {
-    const location = useLocation();
     const [reviews, setReviews] = useState([]);
     const [editReviewPoup, setEditReviewPopup] = useState(false);
     const [rating, setRating] = useState();
