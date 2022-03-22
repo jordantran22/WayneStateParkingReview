@@ -8,11 +8,13 @@ import {
   Routes,
   Route,
 } from "react-router-dom";
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     render(
       <BrowserRouter>
+        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />}></Route>
           <Route path="/StructureDetailsPage" element={<StructureDetailsPage />}></Route>
@@ -21,9 +23,6 @@ function App() {
       </BrowserRouter>,
       document.getElementById("root")
     )
-      // <div className="App">
-      //   <HomePage />
-      // </div>
   );
 }
 

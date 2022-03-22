@@ -5,15 +5,11 @@ import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
 import { axiosPrivate } from '../api/axios';
 
-const NavBar = ({ loggedInStatus }) => {
-    let navigate = useNavigate();
+const NavBar = () => {
+    const navigate = useNavigate();
     const [signInClicked, setSignInClicked] = useState(false);
     const [signUpClicked, setSignUpClicked] = useState(false);
-    const [status, setStatus] = useState(loggedInStatus);
-
-    const navigateToHomePage = () => navigate('/');
-
-    const navigateToMyReviewsPage = () => navigate('/MyReviewsPage', { state: { loggedInStatus: status } });
+    const [status, setStatus] = useState();
 
     const signIn = credentials => {
         axiosPrivate.post('/login', { email: credentials.email, password: credentials.password })
@@ -37,7 +33,7 @@ const NavBar = ({ loggedInStatus }) => {
             .then(res => {
                 if (!res.data.loggedIn) {
                     setStatus(false);
-                    navigateToHomePage();
+                    navigate('/');
                 }
             });
     }
@@ -48,19 +44,19 @@ const NavBar = ({ loggedInStatus }) => {
         } catch (e) {
             console.log(e);
         }
-    }, [])
+    }, [status])
 
     return (
         <div className='navbar__spacer'>
             <ul className="navbar">
 
                 <li>
-                    <button onClick={navigateToHomePage} className="site-logo">WSU Parking</button>
+                    <button onClick={() => navigate('/')} className="site-logo">WSU Parking</button>
                 </li>
 
                 <div>
                     <li className="navbar__item ff-condensed fw-bold" style={status ? { display: 'initial' } : { display: 'none' }} >
-                        <button onClick={navigateToMyReviewsPage}>My Reviews</button>
+                        <button onClick={() => navigate('/MyReviewsPage')}>My Reviews</button>
                     </li>
 
                     <li className="navbar__item ff-condensed fw-bold">

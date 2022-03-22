@@ -1,6 +1,5 @@
 import React from 'react'
 import DetailCard from './DetailCard';
-import Navbar from './NavBar';
 import { useLocation } from 'react-router-dom'
 import PrimaryButton from './PrimaryButton';
 import PricingTable from './PricingTable';
@@ -14,10 +13,8 @@ const StructureDetailsPage = () => {
   const location = useLocation();
 
   const parkingStructureInfo = location.state.structure;
-  const loggedInStatus = location.state.loggedInStatus;
   const [structureRate, setStructureRate] = useState(location.state.structureRate);
   const [totalReviews, setTotalReviews] = useState(location.state.totalReviews);
-  const [loggedIn, setLoggedIn] = useState();
   const [reviews, setReviews] = useState([]);
   const [writeReviewPopup, setWriteReviewPopup] = useState(false);
   const [rating, setRating] = useState();
@@ -31,16 +28,13 @@ const StructureDetailsPage = () => {
 
   const reviewButtonClicked = () => getSessionLoginStatus();
 
-
   const getSessionLoginStatus = async () => {
     axiosPrivate.get('/login')
       .then(res => {
         if (res.data.loggedIn === true) {
           setUserEmail(res.data.user);
-          setLoggedIn(true);
           setWriteReviewPopup(true);
         } else {
-          setLoggedIn(false);
           alert("You must be logged in!");
         }
       })
@@ -85,7 +79,6 @@ const StructureDetailsPage = () => {
 
   return (
     <div>
-      <Navbar loggedInStatus={loggedInStatus} />
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate} />
 

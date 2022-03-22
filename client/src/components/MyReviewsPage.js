@@ -1,5 +1,4 @@
 import React from 'react'
-import Navbar from './NavBar';
 import LeafletMap from './LeafletMap';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
@@ -7,7 +6,7 @@ import ReactStars from 'react-stars';
 import { axiosPrivate } from '../api/axios';
 import { useNavigate } from 'react-router';
 
-const MyReviewsPage = ({ loggedInStatus }) => {
+const MyReviewsPage = () => {
     const [reviews, setReviews] = useState([]);
     const [editReviewPoup, setEditReviewPopup] = useState(false);
     const [rating, setRating] = useState();
@@ -79,7 +78,6 @@ const MyReviewsPage = ({ loggedInStatus }) => {
 
     return (
         <div>
-            <Navbar loggedInStatus={loggedInStatus} />
             <div className='content-container'>
                 {
                     reviews.map((review) => {
