@@ -2,6 +2,7 @@ import React from 'react';
 import { useState } from 'react';
 import ModalTextInput from './ModalTextInput';
 import PrimaryButton from './PrimaryButton';
+import { URL } from '../data/APIurl';
 
 const SignUpModal = ({ changeSignUpClicked, startSession }) => {
     const [details, setDetails] = useState({ email: "", firstName: "", lastName: "", password: "", confirmPassword: "" })
@@ -9,12 +10,12 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
 
     const onSignUpButtonClicked = e => {
         e.preventDefault();
-        console.log(details)
-        console.log(details.email);
-        console.log(details.firstName);
-        console.log(details.lastName);
-        console.log(details.password);
-        console.log(details.confirmPassword);
+        // console.log(details)
+        // console.log(details.email);
+        // console.log(details.firstName);
+        // console.log(details.lastName);
+        // console.log(details.password);
+        // console.log(details.confirmPassword);
 
         signUpInputValidation(details);
     }
@@ -40,7 +41,7 @@ const SignUpModal = ({ changeSignUpClicked, startSession }) => {
             })
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/register', userInformation);
+        const res = await fetch(`${URL}/register`, userInformation);
         const data = await res.json();
         //console.log(data);
 

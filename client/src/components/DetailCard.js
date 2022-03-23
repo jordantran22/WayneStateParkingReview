@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 
 const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
     useEffect(() => {
-
+       // console.log(structureRate);
     }, [structureRate]);
 
     return (

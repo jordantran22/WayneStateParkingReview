@@ -18,12 +18,12 @@ const saltRounds = 10;
 
 // need to add origin for hosted front-end react 
 app.use(cors({
-    origin: "https://waynestateparkingreview.netlify.app",
+    origin: "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true
 }));
 
-app.set("trust proxy", 1);
+//app.set("trust proxy", 1);
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -38,8 +38,8 @@ app.use(session({
     secure: false,
     cookie: {
         expires: 1000 * 60 * 60 * 24,
-        sameSite: "none",
-        secure: "true"
+        // sameSite: "none",
+        // secure: "true"
     },
 }));
 
@@ -61,11 +61,18 @@ app.use(session({
 
 const PORT = process.env.PORT || 5000;
 
+// const db = mysql.createPool({
+//     host: "us-cdbr-east-05.cleardb.net",
+//     user: "b721b1b7c25b63",
+//     password: "08682f99",
+//     database: "heroku_4912680b0bc4875"
+// });
+
 const db = mysql.createPool({
-    host: "us-cdbr-east-05.cleardb.net",
-    user: "b721b1b7c25b63",
-    password: "08682f99",
-    database: "heroku_4912680b0bc4875"
+    host: "localhost",
+    user: "jordan",
+    database: "wsuparkingreview",
+    port: "3306"
 });
 
 //b721b1b7c25b63:08682f99@us-cdbr-east-05.cleardb.net/heroku_4912680b0bc4875?reconnect=true

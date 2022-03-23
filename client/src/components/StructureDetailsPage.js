@@ -9,16 +9,21 @@ import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 import LeafletMapOneStructure from './LeafletMapOneStructure';
+import { URL } from '../data/APIurl';
 
-const StructureDetailsPage = () => {
-  const location = useLocation();
+const StructureDetailsPage = ({structureInfo}) => {
+  //const location = useLocation();
   // console.log(location.state);
-  const parkingStructureInfo = location.state.structure;
-  const loggedInStatus = location.state.loggedInStatus;
+  const parkingStructureInfo = structureInfo;
+  //console.log(structureInfo)
+  //const loggedInStatus = location.state.loggedInStatus;
   //const totalReviews = location.state.totalReviews;
   //const structureRate = location.state.structureRate;
-  const [structureRate, setStructureRate] = useState(location.state.structureRate);
-  const [totalReviews, setTotalReviews] = useState(location.state.totalReviews);
+  // const [structureRate, setStructureRate] = useState(location.state.structureRate);
+  // const [totalReviews, setTotalReviews] = useState(location.state.totalReviews);
+
+  const [structureRate, setStructureRate] = useState(0);
+  const [totalReviews, setTotalReviews] = useState(0);
   // console.log(location)
   // console.log(parkingStructureInfo);
 
@@ -36,7 +41,7 @@ const StructureDetailsPage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch(`https://wsu-parking-review.herokuapp.com/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
+    const res = await fetch(`${URL}/reviews?structure=${parkingStructureInfo.number}`, requestInfo);
     const data = await res.json();
     setReviews(data);
    // console.log(data);
@@ -54,13 +59,13 @@ const StructureDetailsPage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+    const res = await fetch(`${URL}/login`, userInformation);
     const data = await res.json();
     //console.log(data);
     if (data.loggedIn === true) {
       setUserEmail(data.user);
       // console.log(data.user);
-      console.log(userEmail);
+     // console.log(userEmail);
       setLoggedIn(true);
       setWriteReviewPopup(true);
     } else {
@@ -71,7 +76,7 @@ const StructureDetailsPage = () => {
 
   const ratingChanged = (newRating) => {
     setRating(newRating);
-    console.log(rating);
+    //console.log(rating);
   }
 
   const submitReview = async () => {
@@ -85,7 +90,7 @@ const StructureDetailsPage = () => {
         textReview: textReview
       }),
     }
-    const res = await fetch('https://wsu-parking-review.herokuapp.com/review/submit', userInformation);
+    const res = await fetch(`${URL}/review/submit`, userInformation);
     const data = await res.json();
     //console.log(data);
 
@@ -101,23 +106,36 @@ const StructureDetailsPage = () => {
       setTotalReviews(reviewCounter);
 
       if (reviews.length > 0) {
-        console.log(reviews.length);
+       // console.log(reviews.length);
         var averageRating = 0;
         reviews.map((review) => {
           averageRating += review.review_rating;
         })
 
         setStructureRate(averageRating / reviews.length);
-        console.log(averageRating / reviews.length);
+       // console.log(averageRating / reviews.length);
       } else {
         setStructureRate(data.review.review_rating);
       }
     }
   }
 
+  const getStructureRatingAndTotalReviews = () => {
+   // console.log(parkingStructureInfo);
+    JSON.parse(localStorage.getItem("ratings")).map((structure) => {
+      if(structure.parking_structure_id == parkingStructureInfo.number) {
+        // console.log(structure.total_reviews);
+        // console.log(structure.rating)
+        setTotalReviews(structure.total_reviews);
+        setStructureRate(structure.rating);
+      }
+    })
+  }
+
   useEffect(() => {
     try {
       getReviews();
+      getStructureRatingAndTotalReviews();
     } catch (e) {
       console.log(e);
     }
@@ -128,7 +146,8 @@ const StructureDetailsPage = () => {
 
   return (
     <div>
-      <Navbar loggedInStatus={loggedInStatus} />
+      {/* <Navbar loggedInStatus={loggedInStatus} /> */}
+      {/* <Navbar /> */}
       <div className='content-container'>
         <DetailCard parkingStructureInfo={parkingStructureInfo} totalReviews={totalReviews} structureRate={structureRate} />
 

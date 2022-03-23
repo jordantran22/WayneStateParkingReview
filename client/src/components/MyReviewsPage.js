@@ -5,6 +5,7 @@ import LeafletMap from './LeafletMap';
 import ReviewCard from './ReviewCard';
 import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
+import { URL } from '../data/APIurl';
 
 const MyReviewsPage = () => {
     const location = useLocation();
@@ -23,7 +24,7 @@ const MyReviewsPage = () => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch(`${URL}/login`, userInformation);
         const userData = await res.json();
         if (userData.loggedIn === true) {
             const requestInfo = {
@@ -32,7 +33,7 @@ const MyReviewsPage = () => {
                 credentials: "include"
             }
 
-            const res2 = await fetch(`https://wsu-parking-review.herokuapp.com/user/reviews?userId=${userData.userId}`, requestInfo);
+            const res2 = await fetch(`${URL}/user/reviews?userId=${userData.userId}`, requestInfo);
             const reviewsData = await res2.json();
 
             if(reviewsData.result === "Access Denied") {
@@ -58,7 +59,7 @@ const MyReviewsPage = () => {
             reviewId: review_id
           }),
         }
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/review/delete', reviewInformation);
+        const res = await fetch(`${URL}/review/delete`, reviewInformation);
         const data = await res.json();
         //console.log(data);
 
@@ -82,7 +83,7 @@ const MyReviewsPage = () => {
               reviewText: editReviewSelected.review_text
             }),
           }
-          const res = await fetch('https://wsu-parking-review.herokuapp.com/review/edit', reviewInformation);
+          const res = await fetch(`${URL}/review/edit`, reviewInformation);
           const data = await res.json();
 
           if(data.result === "success") {
@@ -111,7 +112,7 @@ const MyReviewsPage = () => {
 
     return (
         <div>
-            <Navbar loggedInStatus={loggedInStatus} />
+            {/* <Navbar loggedInStatus={loggedInStatus} /> */}
             <div className='content-container'>
                 {
                     reviews.map((review) => {

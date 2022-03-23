@@ -9,13 +9,13 @@ const QuickViewCard = ({ structure, loggedInStatus }) => {
     const [totalReviews, setTotalReviews] = useState(0);
 
     const navigateToStructureDetailsPage = () => {
-        navigate('/StructureDetailsPage', {
-            state: {
-                structure: structure,
-                loggedInStatus: loggedInStatus,
-                structureRate: structureRate,
-                totalReviews: totalReviews
-            }
+        navigate(`/StructureDetailsPage/${structure.number}`, {
+            // state: {
+            //     structure: structure,
+            //     loggedInStatus: loggedInStatus,
+            //     structureRate: structureRate,
+            //     totalReviews: totalReviews
+            // }
         });
     }
 

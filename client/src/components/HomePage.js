@@ -4,6 +4,7 @@ import LeafletMap from './LeafletMap';
 import { parkingStructuresData } from '../data/parkingStructuresData';
 import QuickViewCard from './QuickViewCard';
 import { useEffect, useState } from 'react';
+import { URL } from '../data/APIurl';
 
 const HomePage = () => {
   const [loggedInStatus, setLoggedInStatus] = useState(false);
@@ -17,9 +18,8 @@ const HomePage = () => {
       credentials: "include"
     }
 
-    const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+    const res = await fetch(`${URL}/login`, userInformation);
     const data = await res.json();
-    //console.log(data);
     if (data.loggedIn === true) {
       setLoggedInStatus(true);
     } else {
@@ -33,7 +33,7 @@ const HomePage = () => {
       headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', },
     }
 
-    const res = await fetch('https://wsu-parking-review.herokuapp.com/ratings', requestInfo);
+    const res = await fetch(`${URL}/ratings`, requestInfo);
     const data = await res.json();
     localStorage.setItem("ratings", JSON.stringify(data));
   }
@@ -49,8 +49,6 @@ const HomePage = () => {
 
   return (
     <div>
-      <NavBar loggedInStatus={loggedInStatus} />
-
       <div className="content-container">
         <h1>Parking Structures!</h1>
         {
