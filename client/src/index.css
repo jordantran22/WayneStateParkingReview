@@ -467,8 +467,8 @@ textarea {
   color: var(--clr-dark-gray)
 }
 
-.placeholder-profile-picture {
-  background-color: green;
+.profile-picture {
+  /* background-color: green; */
   display: block;
   height: 82px;
   position: relative;
