@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react';
 import ReactStars from 'react-stars';
 import { axiosPrivate } from '../api/axios';
 import { useNavigate } from 'react-router';
+import PrimaryButton from './PrimaryButton';
 
 const MyReviewsPage = () => {
     const [reviews, setReviews] = useState([]);
@@ -101,17 +102,18 @@ const MyReviewsPage = () => {
             {
                 editReviewPoup &&
                 <div className="login-modal-overlay">
-                    <div className="login-modal">
+                    <div className="review-modal">
                         <button className="close-modal-btn" onClick={() => setEditReviewPopup(false)}>
                             X
                         </button>
 
-                        <h2>Rating:  <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} /></h2>
 
                         <h2>Edit Your Review!</h2>
                         <textarea onChange={(e) => setTextReview(e.target.value)} maxLength="250"></textarea>
-
-                        <button onClick={editReview}>Edit!</button>
+                        <div className='rating'>
+                            <ReactStars color2={"#FDC741"} color1={"#E5E5E5"} count={5} size={30} edit={true} onChange={ratingChanged} value={rating} />
+                        </div>
+                        <PrimaryButton text="Submit" func={editReview} />
                     </div>
                 </div>
             }

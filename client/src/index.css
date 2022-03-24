@@ -84,6 +84,10 @@ h2 {
   margin: 0 0 .25rem;
 }
 
+textarea {
+  font: inherit;
+}
+
 /* --------------------- */
 /* Layout Containers     */
 /* --------------------- */
@@ -542,7 +546,8 @@ h2 {
 }
 
 /* Login Modal */
-/*region*/
+/*#region*/
+
 .login-modal-overlay {
   align-items: center;
   background-color: rgba(255, 255, 255, .86);
@@ -591,7 +596,35 @@ h2 {
 #sign-up-btn:hover {
   color: var(--clr-WSU-light-green);
 }
-/*endregion*/
+/*#endregion*/
+
+/* Review Modal */
+/*#region*/
+.review-modal {
+  align-items: center;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 60%;
+  max-height: 350px;
+  max-width: 500px;
+  padding: 21px 56px 28px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.review-modal > textarea {
+  height: 60%;
+  width: 100%;
+  margin: 0;
+}
+
+/*#endregion*/
 
 /* Stars and secondary text */
 .rating {
