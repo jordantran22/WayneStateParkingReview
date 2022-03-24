@@ -12,7 +12,6 @@ const PricingTable = ({ parkingStructureInfo = parkingStructuresData }) => {
                     <th>OneCard<br />Debit</th>
                     <th>Biweekly<br />Payroll<br />Deduction</th>
                     <th>Credit<br />Card</th>
-                    <th>Cash</th>
                 </tr>
             </thead>
             <tbody>
@@ -22,14 +21,12 @@ const PricingTable = ({ parkingStructureInfo = parkingStructuresData }) => {
                     <td>{parkingStructureInfo.studentParkingRates.oneCardDebit}</td>
                     <td>-</td>
                     <td>-</td>
-                    <td>-</td>
                 </tr>
                 <tr>
                     <th>Faculty</th>
                     <td>{parkingStructureInfo.facultyAndStaffRates.semesterPermit}</td>
                     <td>{parkingStructureInfo.facultyAndStaffRates.oneCardDebit}</td>
                     <td>{parkingStructureInfo.facultyAndStaffRates.biweeklyPayrollDeduction}</td>
-                    <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -38,7 +35,6 @@ const PricingTable = ({ parkingStructureInfo = parkingStructuresData }) => {
                     <td>-</td>
                     <td>-</td>
                     <td>{parkingStructureInfo.creditCardRate}</td>
-                    <td>{parkingStructureInfo.cash}</td>
                 </tr>
             </tbody>
         </table>
