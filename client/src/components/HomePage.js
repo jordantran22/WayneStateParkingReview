@@ -3,7 +3,7 @@ import LeafletMap from './LeafletMap';
 import { parkingStructuresData } from '../data/parkingStructuresData';
 import QuickViewCard from './QuickViewCard';
 import { useEffect, useState } from 'react';
-import { axiosPrivate, axiosPublic } from '../api/axios';
+import { axiosPublic } from '../api/axios';
 
 const HomePage = () => {
   const getStructureRatings = async () => {
