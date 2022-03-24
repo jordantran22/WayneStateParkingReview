@@ -119,7 +119,6 @@ app.post('/logout', (req, res) => {
 })
 
 app.get('/login', (req, res) => {
-    console.log(req.session.user)
     if (req.session.user) {
         res.send({ loggedIn: true, user: req.session.user[0].email, userId: req.session.user[0].user_id });
     } else {
@@ -169,7 +168,6 @@ app.post('/review/submit', (req, res) => {
                     var userId = result[0].user_id;
                     var firstName = result[0].first_name;
                     var lastName = result[0].last_name;
-                    console.log(userId);
                     db.query(
                         "INSERT INTO reviews (user_id, parking_structure_id, review_text, review_rating, review_date, is_deleted) VALUES (?,?,?,?, NOW(), false);",
                         [userId, parkingStructureId, textReview, rating], (err, response) => {
@@ -194,7 +192,6 @@ app.post('/review/submit', (req, res) => {
 });
 
 app.post('/review/delete', (req, res) => {
-    console.log("endpoint reached");
     var reviewId = req.body.reviewId;
     db.query(
         "UPDATE reviews SET is_deleted = true WHERE review_id = ?",
@@ -202,7 +199,6 @@ app.post('/review/delete', (req, res) => {
             if (err) {
                 console.log(err);
             } else {
-                console.log(result);
                 res.send({
                     result: "success"
                 });
