@@ -239,6 +239,12 @@ textarea {
   text-decoration: none;
 }
 
+@media screen and (max-width: 520px) {
+  .site-logo {
+    font-size: 1.25rem;
+  }
+}
+
 .site-logo:hover {
   color: var(--clr-WSU-light-gold);
 }
