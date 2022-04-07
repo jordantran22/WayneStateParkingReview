@@ -31,7 +31,16 @@ function App() {
       creditCardRate: "$8.50",
       cash: "N/A",
       image: "https://parking.wayne.edu/images/structure_1_in_text.jdw.111813.jpg",
-      coordinates: [42.3591, -83.0665]
+      coordinates: [42.3591, -83.0665],
+      hours: {
+          monday: "24/7",
+          tuesday: "24/7",
+          wednesday: "24/7",
+          thursday: "24/7",
+          friday: "24/7",
+          saturday: "24/7",
+          sunday: "24/7"
+      }
   }, 
   {
       id: "stucture-2",
@@ -52,7 +61,16 @@ function App() {
       creditCardRate: "$8.50",
       cash: "N/A",
       image: "https://parking.wayne.edu/images/structure_2_in_text.jdw.111813.jpg",
-      coordinates: [42.356515,-83.073742]
+      coordinates: [42.356515,-83.073742],
+      hours: {
+          monday: "24/7",
+          tuesday: "24/7",
+          wednesday: "24/7",
+          thursday: "24/7",
+          friday: "24/7",
+          saturday: "24/7",
+          sunday: "24/7"
+      }
   },
   {
       id: "stucture-3",
@@ -73,7 +91,16 @@ function App() {
       creditCardRate: "$8.50",
       cash: "N/A",
       image: "https://parking.wayne.edu/info/structure3.jpg",
-      coordinates: [42.357561,-83.063282]
+      coordinates: [42.357561,-83.063282],
+      hours: {
+          monday: "6:00 a.m. - 12:00 a.m.",
+          tuesday: "6:00 a.m. - 12:00 a.m.",
+          wednesday: "6:00 a.m. - 12:00 a.m.",
+          thursday: "6:00 a.m. - 12:00 a.m.",
+          friday: "6:00 a.m. - 12:00 a.m.",
+          saturday: "Closed",
+          sunday: "Closed"
+      }
   },
   {
       id: "stucture-4",
@@ -94,7 +121,16 @@ function App() {
       creditCardRate: "N/A",
       cash: "N/A",
       image: "https://parking.wayne.edu/info/structure4.jpg",
-      coordinates: [42.355912,-83.055128]
+      coordinates: [42.355912,-83.055128],
+      hours: {
+          monday: "5:45 a.m. - 12:30 a.m.",
+          tuesday: "5:45 a.m. - 12:30 a.m.",
+          wednesday: "5:45 a.m. - 12:30 a.m",
+          thursday: "5:45 a.m. - 12:30 a.m",
+          friday: "5:45 a.m. - 12:30 a.m",
+          saturday: "Closed",
+          sunday: "Closed"
+      }
   },
   {
       id: "stucture-5",
@@ -115,7 +151,16 @@ function App() {
       creditCardRate: "$2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 maximum",
       cash: "N/A",
       image: "https://parking.wayne.edu/images/structure_5_in_text.jdw.111813.jpg",
-      coordinates: [42.358132,-83.074188]
+      coordinates: [42.358132,-83.074188],
+      hours: {
+          monday: "6:00 a.m. - 12:00 a.m.",
+          tuesday: "6:00 a.m. - 12:00 a.m.",
+          wednesday: "6:00 a.m. - 12:00 a.m.",
+          thursday: "6:00 a.m. - 12:00 a.m.",
+          friday: "6:00 a.m. - 12:00 a.m.",
+          saturday: "Closed",
+          sunday: "Closed"
+      }
   },
   {
       id: "stucture-6",
@@ -136,7 +181,16 @@ function App() {
       creditCardRate: "Staff/student section- $9.50 Credit Card as space allows. Visitor's section- $2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 max. V",
       cash: "N/A",
       image: "https://parking.wayne.edu/info/structure6.jpg",
-      coordinates: [42.356903,-83.066474]
+      coordinates: [42.356903,-83.066474],
+      hours: {
+          monday: "6:00 a.m. - 12:00 a.m.",
+          tuesday: "6:00 a.m. - 12:00 a.m.",
+          wednesday: "6:00 a.m. - 12:00 a.m.",
+          thursday: "6:00 a.m. - 12:00 a.m.",
+          friday: "6:00 a.m. - 12:00 a.m.",
+          saturday: "6:00 a.m. - 12:00 a.m.",
+          sunday: "Closed"
+      }
   }, 
   {
       id: "stucture-7",
@@ -157,7 +211,16 @@ function App() {
       creditCardRate: "$2.00 every 20 minutes, $12 maximum. Special Event Rates may apply",
       cash: "N/A",
       image: "https://parking.wayne.edu/info/structure7.jpg",
-      coordinates: [42.349030,-83.057054]
+      coordinates: [42.349030,-83.057054],
+      hours: {
+          monday: "24/7",
+          tuesday: "24/7",
+          wednesday: "24/7",
+          thursday: "24/7",
+          friday: "24/7",
+          saturday: "24/7",
+          sunday: "24/7"
+      }
   },
   {
       id: "stucture-8",
@@ -178,7 +241,16 @@ function App() {
       creditCardRate: "$2.00 First 20 minutes or fraction of, $1.00 each additional 20 minutes or fraction of, $12.00 maximum.",
       cash: "N/A",
       image: "http://maps.wayne.edu/images/location/96/parking-structure-8.jpg",
-      coordinates: [42.353747,-83.063791]
+      coordinates: [42.353747,-83.063791],
+      hours: {
+          monday: "24/7",
+          tuesday: "24/7",
+          wednesday: "24/7",
+          thursday: "24/7",
+          friday: "24/7",
+          saturday: "24/7",
+          sunday: "24/7"
+      }
   }
   ];
 
