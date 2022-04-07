@@ -329,7 +329,7 @@ h2 {
   margin: 11px 0;
   width: 350px;
   height: 193px;
-  object-fit: fill;
+  object-fit: cover;
   overflow: hidden;
   /* width: 100%; */
   /* height: auto; */
@@ -371,7 +371,7 @@ h2 {
 
 .quick-view-card > img {
   aspect-ratio: 1 / 1;
-  object-fit: fill;
+  object-fit: cover;
   max-height: 220px;
 }
 
