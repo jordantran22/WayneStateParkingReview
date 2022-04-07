@@ -136,7 +136,7 @@ const MyReviewsPage = () => {
             {
                 editReviewPoup &&
                 <div className="login-modal-overlay">
-                        <div className="login-modal">
+                        <div className="review-modal">
                         <button className="close-modal-btn" onClick={() => setEditReviewPopup(false)}>
                             X
                         </button>
