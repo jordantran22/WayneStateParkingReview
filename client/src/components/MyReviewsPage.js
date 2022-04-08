@@ -115,7 +115,7 @@ const MyReviewsPage = () => {
             {/* <Navbar loggedInStatus={loggedInStatus} /> */}
             <div className='content-container'>
                 {
-                    reviews.map((review) => {
+                    reviews.length > 0 ? reviews.map((review) => {
                         return (
                             <div className='my-review-card'>
                                 <h2>
@@ -129,6 +129,8 @@ const MyReviewsPage = () => {
                             </div>
                         )
                     })
+                    :
+                    <h1>No Reviews!</h1>
                 }
             </div>
 
