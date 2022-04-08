@@ -31,7 +31,7 @@ function App() {
       creditCardRate: "$8.50",
       cash: "N/A",
       image: "https://parking.wayne.edu/images/structure_1_in_text.jdw.111813.jpg",
-      coordinates: [42.3591, -83.0665],
+      coordinates: [42.361639,-83.070806],
       hours: {
           monday: "24/7",
           tuesday: "24/7",
