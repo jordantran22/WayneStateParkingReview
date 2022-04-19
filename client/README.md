@@ -1,3 +1,22 @@
+# How to run this app locally (client-side)
+1. clone the repository
+2. cd client folder
+3. run 'npm install' to install packages (node must be installed to your device)
+4. run 'npm start'
+
+# How to run the server 
+1. cd server folder
+2. run 'node index.js'
+3. you must install the packages used (mysql, express, bcrypt, etc.)
+4. You must create the database tables and populate them with data locally, find the SQL scripts in dbChanges folder
+
+# Link to deployed website!
+https://waynestateparkingreview.netlify.app/
+
+# Link to final presentation video!
+https://www.youtube.com/watch?v=LaIHSa8ysHI
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
