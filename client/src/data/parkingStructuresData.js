@@ -18,7 +18,7 @@ export const parkingStructuresData = [
         creditCardRate: "$8.50",
         cash: "N/A",
         image: "https://parking.wayne.edu/images/structure_1_in_text.jdw.111813.jpg",
-        coordinates: [42.3591, -83.0665]
+        coordinates: [42.361639,-83.070806]
     }, 
     {
         id: "stucture-2",

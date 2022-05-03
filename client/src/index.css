@@ -329,7 +329,7 @@ h2 {
   margin: 11px 0;
   width: 350px;
   height: 193px;
-  object-fit: fill;
+  object-fit: cover;
   overflow: hidden;
   /* width: 100%; */
   /* height: auto; */
@@ -371,7 +371,7 @@ h2 {
 
 .quick-view-card > img {
   aspect-ratio: 1 / 1;
-  object-fit: fill;
+  object-fit: cover;
   max-height: 220px;
 }
 
@@ -455,6 +455,15 @@ h2 {
 
 .review-card__review {
   color: var(--clr-dark-gray)
+}
+
+.profile-picture {
+  /* background-color: green; */
+  display: block;
+  height: 82px;
+  position: relative;
+  width: 82px;
+  border-radius: 50%;
 }
 
 .placeholder-profile-picture {
@@ -604,3 +613,33 @@ h2 {
   line-height: 30px;
 }
 /*#endregion*/
+
+/* Review Modal */
+/*#region*/
+.review-modal {
+  align-items: center;
+  background-color: #fefefe;
+  border-radius: 10px;
+  box-shadow: 0 0 7px 3px rgba(0, 0, 0, .25);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  height: 60%;
+  max-height: 350px;
+  max-width: 500px;
+  padding: 21px 56px 28px;
+  position: relative;
+  text-align: center;
+  width: 100%;
+}
+
+.review-modal > textarea {
+  height: 60%;
+  width: 100%;
+  margin: 0;
+}
+
+textarea {
+  font: inherit;
+}

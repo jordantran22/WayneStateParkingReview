@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router'
 import { useState, useEffect } from 'react';
 import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
+import { URL } from '../data/APIurl';
 
 const NavBar = ({ loggedInStatus }) => {
     let navigate = useNavigate();
@@ -33,7 +34,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch(`${URL}/login`, userInformation);
         const data = await res.json();
         if (data.loggedIn === true) {
             setStatus(true);
@@ -51,7 +52,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/login', userInformation);
+        const res = await fetch(`${URL}/login`, userInformation);
         const data = await res.json();
         //console.log(data);
         if (data.loggedIn === true) {
@@ -68,7 +69,7 @@ const NavBar = ({ loggedInStatus }) => {
             credentials: "include"
         }
 
-        const res = await fetch('https://wsu-parking-review.herokuapp.com/logout', userInformation);
+        const res = await fetch(`${URL}/logout`, userInformation);
         const data = await res.json();
         //console.log(data);
         if (data.loggedIn === false) {

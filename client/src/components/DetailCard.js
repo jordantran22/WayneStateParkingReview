@@ -5,9 +5,13 @@ import { useEffect } from 'react';
 
 const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
     useEffect(() => {
-
+       // console.log(structureRate);
     }, [structureRate]);
 
+    //console.log(parkingStructureInfo);
+    const date = new Date();
+    const day = date.getDay();
+   // const day = 0;
     return (
         <div key={parkingStructureInfo.name}>
             <h1>{parkingStructureInfo.name}</h1>
@@ -29,38 +33,65 @@ const DetailCard = ({ parkingStructureInfo, totalReviews, structureRate }) => {
                     <tbody>
                         <tr>
                             <th className='current-day'>Mon</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
-                            <td className='green-span'>Open</td>
+                            <td>{parkingStructureInfo.hours.monday}</td>
+                            {
+                                day == 1 && parkingStructureInfo.hours.monday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Tue</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.tuesday}</td>
                             <td></td>
+                            {
+                                day == 2 && parkingStructureInfo.hours.tuesday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Wed</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.wednesday}</td>
                             <td></td>
+                            {
+                                day == 3 && parkingStructureInfo.hours.wednesday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Thu</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.thursday}</td>
                             <td></td>
+                            {
+                                day == 4 && parkingStructureInfo.hours.thursday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Fri</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.friday}</td>
                             <td></td>
+                            {
+                                day == 5 && parkingStructureInfo.hours.friday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Sat</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.saturday}</td>
                             <td></td>
+                            {
+                                day == 6 && parkingStructureInfo.hours.saturday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                         <tr>
                             <th>Sun</th>
-                            <td>12:00 a.m. - 12:00 a.m.</td>
+                            <td>{parkingStructureInfo.hours.sunday}</td>
                             <td></td>
+                            {
+                                day == 0 && parkingStructureInfo.hours.sunday !== "Closed" &&
+                                <td className='green-span'>Open</td>
+                            }
                         </tr>
                     </tbody>
                 </table>
